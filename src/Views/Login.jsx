@@ -5,13 +5,19 @@ import {Router, Route, Schema, Animations, TabBar, Actions} from 'react-native-r
 import {AppStyle} from '../Styles/CommonStyles';
 import Button from 'react-native-button';
 import HomeView from './Home';
+var FBLogin = require('react-native-facebook-login');
 
 export default class LoginView extends Component {
     render() {
         return (
             <View style={styles.loginWrapper}>
                 <Text>Login View</Text>
-                <Button onPress={()=>Actions.home({data:"LoginData", title:'Login' })}>Login</Button>
+                <FBLogin
+                    onLogin={function(e) {console.log(e)}}
+                    onLogout={function(e){console.log(e)}}
+                    onCancel={function(e){console.log(e)}}
+                    onPermissionsMissing={function(e){console.log(e)}}
+                    />
             </View>
         )
     }
@@ -22,7 +28,7 @@ var styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'transparent'
+        backgroundColor: 'red'
     }
 });
 

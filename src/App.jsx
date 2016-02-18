@@ -10,18 +10,21 @@ import {Actions} from 'react-native-router-flux'
 import TestComponent from './Components/TestComponent';
 import HomeView from './Views/Home'
 import LoginView from './Views/Login'
+import Header from './Components/Header';
+import Footer from './Components/Footer';
 
 import { API_ENDPOINT } from './Configs/Url';
 
 /**
- * Main Component
+ * Main Application Component
  */
 export default class JapJete extends Component {
     render() {
         return (
+            /* Enable Header or Footer by using header={Header} | footer={Footer} */
             <Router hideNavBar={true} hideTabBar={true}>
                 <Schema name="modal" sceneConfig={Navigator.SceneConfigs.FloatFromBottom}/>
-                <Schema name="default" sceneConfig={Navigator.SceneConfigs.FloatFromRight}/>
+                <Schema name="default" sceneConfig={Navigator.SceneConfigs.FloatFromBottomAndroid}/>
                 <Route name="login" hideTabBar={true} hideNavBar={true} component={LoginView} initial={true} wrapRouter={true} title="Login"/>
                 <Route name="home" component={HomeView} title="Home"/>
             </Router>
@@ -37,6 +40,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'transparent'
+        backgroundColor: '#000'
     }
 });
