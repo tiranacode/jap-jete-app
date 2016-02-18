@@ -1,3 +1,17 @@
+# JapJete Mobile Application
+
+## Run
+If you have a react-native environment ready use the following commands to run the applicaion, otherwise follow the steps described in [Installation](#installation) section.
+
+```
+- npm install
+- react-native start
+- react-native run-android
+```
+
+## Installation
+
+```
 sudo apt-get update
 
 mkdir ~/.local
@@ -48,4 +62,4 @@ sudo apt-get install libncurses5:i386 libstdc++6:i386 zlib1g:i386
 cd AwesomeProject
 react-native start
 react-native run-android
-
+```
