@@ -5,13 +5,14 @@ import {Router, Route, Schema, Animations, TabBar, Actions} from 'react-native-r
 import {AppStyle} from '../Styles/CommonStyles';
 import Button from 'react-native-button';
 import HomeView from './Home';
-var FBLogin = require('react-native-facebook-login');
+import FBLogin from 'react-native-facebook-login';
+import Labels from '../Configs/Labels';
 
 export default class LoginView extends Component {
     render() {
         return (
             <View style={styles.loginWrapper}>
-                <Text>Login View</Text>
+                <Text>{Labels.LOGIN}</Text>
                 <FBLogin
                     onLogin={function(e) {console.log(e)}}
                     onLogout={function(e){console.log(e)}}
