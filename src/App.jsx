@@ -1,15 +1,22 @@
 /**
- * Application Entry Point
+ * Main Application Component, As the entry point of the app some actions happen here:
+ * - Defines Routes
+ * - Handles Network Connection
+ * - Loads Some Data from Local Storage
+ * - Configures misc UI Components
  */
 
 'use strict';
-import React, {Component, StyleSheet, Text, View, Navigator, TouchableHighlight} from 'react-native';
+import React, {Component, StyleSheet, Text, View, Navigator, TouchableHighlight, NetInfo} from 'react-native';
 import {Router, Route, Schema, Animations, TabBar} from 'react-native-router-flux';
 import {Actions} from 'react-native-router-flux'
+import StatusBarAndroid from 'react-native-android-statusbar';
+import {AppStyle} from './Styles/CommonStyles';
 
 import TestComponent from './Components/TestComponent';
 import HomeView from './Views/Home'
 import LoginView from './Views/Login'
+import ProfileView from './Views/Profile'
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 
@@ -23,14 +30,21 @@ export default class JapJete extends Component {
         return (
             /* Enable Header or Footer by using header={Header} | footer={Footer} */
             <Router hideNavBar={true} hideTabBar={true}>
-                <Schema name="modal" sceneConfig={Navigator.SceneConfigs.FloatFromBottom}/>
-                <Schema name="default" sceneConfig={Navigator.SceneConfigs.FloatFromBottomAndroid}/>
-                <Route name="login" hideTabBar={true} hideNavBar={true} component={LoginView} initial={true} wrapRouter={true} title="Login"/>
+                <Schema name="modal" sceneConfig={Navigator.SceneConfigs.HorizontalSwipeJumpFromRight}/>
+                <Schema name="default" sceneConfig={Navigator.SceneConfigs.HorizontalSwipeJumpFromRight}/>
+                <Route name="login" hideTabBar={true} hideNavBar={true} component={LoginView} initial={true} title="Login"/>
                 <Route name="home" component={HomeView} title="Home"/>
+                <Route name="profile" hideTabBar={false} hideNavBar={false} component={ProfileView} />
             </Router>
         );
     }
 }
+
+(function initialiseApp() {
+    //StatusBarAndroid.hideStatusBar();
+    StatusBarAndroid.setHexColor(AppStyle.Colors.FG);
+    //TODO - Add Other Initializations Here
+})();
 
 /**
  * Main Application Style

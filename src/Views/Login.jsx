@@ -1,26 +1,39 @@
-'use strict';
+/**
+ * Application Start Screen.
+ * If the user is not logged in it shows Facebook log in screen
+ * otherwise it switches to the next route in the application flow
+ */
 
-import React, { Component, StyleSheet, View, Text, TouchableHighlight } from 'react-native';
+'use strict';
+import React, { Component, StyleSheet, View, Text, TouchableHighlight, ToastAndroid } from 'react-native';
 import {Router, Route, Schema, Animations, TabBar, Actions} from 'react-native-router-flux';
 import {AppStyle} from '../Styles/CommonStyles';
 import Button from 'react-native-button';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import HomeView from './Home';
 import FBLogin from 'react-native-facebook-login';
 import Labels from '../Configs/Labels';
+import NetworkStatus from '../Components/NetworkStatus';
 
 export default class LoginView extends Component {
     render() {
         return (
             <View style={styles.loginWrapper}>
-                <Text>{Labels.LOGIN}</Text>
+                <Icon
+                    name="heartbeat"
+                    size={120}
+                    color={AppStyle.Colors.FG}
+                    style={{marginBottom: 20}}/>
                 <FBLogin
                     onLogin={function(e) {console.log(e)}}
                     onLogout={function(e){console.log(e)}}
                     onCancel={function(e){console.log(e)}}
-                    onPermissionsMissing={function(e){console.log(e)}}
-                    />
+                    onPermissionsMissing={function(e){console.log(e)}}/>
+                <Button onPress={()=>Actions.home()}>Go to Home</Button>
+                <NetworkStatus />
             </View>
-        )
+        );
     }
 }
 
@@ -29,7 +42,7 @@ var styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'red'
+        backgroundColor: AppStyle.Colors.BG
     }
 });
 

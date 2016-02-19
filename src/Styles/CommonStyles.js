@@ -1,13 +1,13 @@
-'use strict';
-
 /**
- * Reusable style properties
+ * Reusable style properties are defined here
  */
+
+'use strict';
 export let AppStyle = {
     Colors: {
-        FG: "red",
-        BG: "white",
-        THIRD: "yellow"
+        FG: "#ff0000",
+        BG: "#efefef",
+        THIRD: "#555"
     },
     Dimensions: {
         NAVIGATION_TEXT: "12px",

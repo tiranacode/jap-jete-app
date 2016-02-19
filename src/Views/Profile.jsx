@@ -1,5 +1,5 @@
 /**
- * Main View of the application which provides navigation
+ * User Profile
  */
 
 'use strict';
@@ -11,13 +11,14 @@ import React, {
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import Button from 'react-native-button';
+import Labels from '../Configs/Labels';
 
-export default class HomeView extends Component {
+export default class ProfileView extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Home View</Text>
-                <Button onPress={()=>Actions.profile()}>Go to Profile</Button>
+                <Text>Profile View</Text>
+                <Button onPress={() => Actions.home()}> Go to Home </Button>
             </View>
         )
     }
@@ -28,6 +29,6 @@ var styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'blue'
+        backgroundColor: 'green'
     }
 });

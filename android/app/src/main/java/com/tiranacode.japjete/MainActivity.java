@@ -5,6 +5,8 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.magus.fblogin.FacebookLoginPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
+import me.neo.react.StatusBarPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +40,9 @@ public class MainActivity extends ReactActivity {
         return Arrays.<ReactPackage>asList(
                 new MainReactPackage(),
                 new FacebookLoginPackage(),
-                new ReactNativeLocalizationPackage()
+                new ReactNativeLocalizationPackage(),
+                new StatusBarPackage(this),
+                new VectorIconsPackage()
         );
     }
 }

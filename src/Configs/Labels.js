@@ -1,18 +1,21 @@
-'use strict';
+/**
+ * This configuration provides labels for the application
+ * By Default sq language is used
+ */
 
+'use strict';
 import LocalizedStrings from 'react-native-localization';
 
 let labels = new LocalizedStrings({
     en: {
-        LOGIN: "Login"
+        LOGIN: "Login",
+        NO_NETWORK: "No Internet Connection"
     },
     sq: {
-        LOGIN: "Identifikohu"
+        LOGIN: "Identifikohu",
+        NO_NETWORK: "Nuk u mundesua lidhja me internetin"
     }
 });
 
-/**
- * Albanian as Default Language
- */
 labels.setLanguage('sq');
 export default labels;
