@@ -15,6 +15,7 @@ import {AppStyle} from './Styles/CommonStyles';
 
 import TestComponent from './Components/TestComponent';
 import HomeView from './Views/Home'
+import TabView from './Views/TabView'
 import LoginView from './Views/Login'
 import ProfileView from './Views/Profile'
 import Header from './Components/Header';
@@ -33,7 +34,7 @@ export default class JapJete extends Component {
                 <Schema name="modal" sceneConfig={Navigator.SceneConfigs.HorizontalSwipeJumpFromRight}/>
                 <Schema name="default" sceneConfig={Navigator.SceneConfigs.HorizontalSwipeJumpFromRight}/>
                 <Route name="login" hideTabBar={true} hideNavBar={true} component={LoginView} initial={true} title="Login"/>
-                <Route name="home" component={HomeView} title="Home"/>
+                <Route name="home" component={TabView} title="Home"/>
                 <Route name="profile" hideTabBar={false} hideNavBar={false} component={ProfileView} />
             </Router>
         );

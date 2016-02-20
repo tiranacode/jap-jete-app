@@ -17,8 +17,7 @@ export default class ProfileView extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Profile View</Text>
-                <Button onPress={() => Actions.home()}> Go to Home </Button>
+                <Text>Profile</Text>
             </View>
         )
     }
@@ -29,6 +28,5 @@ var styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'green'
     }
 });

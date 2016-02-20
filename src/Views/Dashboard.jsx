@@ -1,5 +1,5 @@
 /**
- * Main View of the application which provides navigation
+ * User Profile
  */
 
 'use strict';
@@ -11,12 +11,13 @@ import React, {
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import Button from 'react-native-button';
+import Labels from '../Configs/Labels';
 
-export default class HomeView extends Component {
+export default class DashboardView extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Home</Text>
+                <Text>Dashboard</Text>
             </View>
         )
     }

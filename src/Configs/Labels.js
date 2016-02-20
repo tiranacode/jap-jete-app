@@ -13,7 +13,12 @@ let labels = new LocalizedStrings({
     },
     sq: {
         LOGIN: "Identifikohu",
-        NO_NETWORK: "Nuk u mundesua lidhja me internetin"
+        NO_NETWORK: "Nuk u mundesua lidhja me internetin",
+        Tabs: {
+            HOME: "Hyrje",
+            DASHBOARD: "Kalendari",
+            PROFILE: "Profili"
+        }
     }
 });
 
