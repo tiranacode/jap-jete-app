@@ -31,8 +31,7 @@ export default class JapJete extends Component {
         return (
             /* Enable Header or Footer by using header={Header} | footer={Footer} */
             <Router hideNavBar={true} hideTabBar={true}>
-                <Schema name="modal" sceneConfig={Navigator.SceneConfigs.HorizontalSwipeJumpFromRight}/>
-                <Schema name="default" sceneConfig={Navigator.SceneConfigs.HorizontalSwipeJumpFromRight}/>
+                <Schema name="default" sceneConfig={Navigator.SceneConfigs.FadeAndroid}/>
                 <Route name="login" hideTabBar={true} hideNavBar={true} component={LoginView} initial={true} title="Login"/>
                 <Route name="home" component={TabView} title="Home"/>
                 <Route name="profile" hideTabBar={false} hideNavBar={false} component={ProfileView} />
