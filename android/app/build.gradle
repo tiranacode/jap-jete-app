@@ -125,4 +125,5 @@ dependencies {
     compile project(':ReactNativeLocalization')
     compile project(':react-native-android-statusbar')
     compile project(':react-native-vector-icons')
+    compile project(':RNMaterialKit')
 }

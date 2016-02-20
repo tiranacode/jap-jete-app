@@ -13,5 +13,8 @@ export let AppStyle = {
         NAVIGATION_TEXT: "12px",
         VIEW_TITLE: "20px",
         VIEW_SUBTITLE: "16px"
+    },
+    Components: {
+
     }
 };

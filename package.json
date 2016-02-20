@@ -14,6 +14,8 @@
     "react-native-date": "^1.0.3",
     "react-native-facebook-login": "^1.0.3",
     "react-native-localization": "^0.1.11",
+    "react-native-material-design": "^0.3.2",
+    "react-native-material-kit": "^0.3.0",
     "react-native-router-flux": "^2.2.6",
     "react-native-scrollable-tab-view": "^0.3.7",
     "react-native-vector-icons": "^1.2.0"

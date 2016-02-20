@@ -1,3 +1,8 @@
+/**
+ * TabView, handles tab navigation
+ */
+
+'use strict';
 import React, {
     Component,
     StyleSheet,

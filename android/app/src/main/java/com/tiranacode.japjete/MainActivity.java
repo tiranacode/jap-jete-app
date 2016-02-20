@@ -7,6 +7,7 @@ import com.magus.fblogin.FacebookLoginPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
 import me.neo.react.StatusBarPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,7 +43,8 @@ public class MainActivity extends ReactActivity {
                 new FacebookLoginPackage(),
                 new ReactNativeLocalizationPackage(),
                 new StatusBarPackage(this),
-                new VectorIconsPackage()
+                new VectorIconsPackage(),
+                new ReactMaterialKitPackage())
         );
     }
 }
