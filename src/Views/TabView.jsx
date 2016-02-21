@@ -6,8 +6,6 @@
 import React, {
     Component,
     StyleSheet,
-    View,
-    Text,
     ScrollView
 } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';

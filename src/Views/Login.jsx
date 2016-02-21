@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import HomeView from './Home';
 import FBLogin from 'react-native-facebook-login';
 import Labels from '../Configs/Labels';
-import NetworkStatus from '../Components/NetworkStatus';
+import NetworkStatus from '../Components/Util/NetworkStatus';
 
 export default class LoginView extends Component {
     render() {
@@ -30,7 +30,7 @@ export default class LoginView extends Component {
                     onLogout={function(e){console.log(e)}}
                     onCancel={function(e){console.log(e)}}
                     onPermissionsMissing={function(e){console.log(e)}}/>
-                <Button onPress={()=>Actions.home()}>Go to Home</Button>
+                <Button onPress={()=>Actions.tabView()}>Go to Home</Button>
                 <NetworkStatus />
             </View>
         );

@@ -12,15 +12,16 @@ import React, {
 
 import {Actions} from 'react-native-router-flux';
 import { Button, Card } from 'react-native-material-design';
-import InstantActionBtn from '../Components/InstantActionBtn'
+import InstantActionBtn from '../Components/UI/InstantActionBtn';
+import DialogAndroid from 'react-native-dialogs';
 
 export default class HomeView extends Component {
     render() {
         return (
-            <View style={styles.container}>
+            <View style={styles.container} onLayout={this.showDialog}>
                 <Text>Home</Text>
-                <InstantActionBtn/>
-                </View>
+                <InstantActionBtn />
+            </View>
         )
     }
 }

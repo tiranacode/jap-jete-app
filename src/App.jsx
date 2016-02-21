@@ -13,13 +13,13 @@ import {Actions} from 'react-native-router-flux'
 import StatusBarAndroid from 'react-native-android-statusbar';
 import {AppStyle} from './Styles/CommonStyles';
 
-import TestComponent from './Components/TestComponent';
+import TestComponent from './Components/Util/TestComponent';
 import HomeView from './Views/Home'
 import TabView from './Views/TabView'
 import LoginView from './Views/Login'
 import ProfileView from './Views/Profile'
-import Header from './Components/Header';
-import Footer from './Components/Footer';
+import Header from './Components/UI/Header';
+import Footer from './Components/UI/Footer';
 
 import { API_ENDPOINT } from './Configs/Url';
 
@@ -33,7 +33,7 @@ export default class JapJete extends Component {
             <Router hideNavBar={true} hideTabBar={true}>
                 <Schema name="default" sceneConfig={Navigator.SceneConfigs.FadeAndroid}/>
                 <Route name="login" hideTabBar={true} hideNavBar={true} component={LoginView} initial={true} title="Login"/>
-                <Route name="home" component={TabView} title="Home"/>
+                <Route name="tabView" component={TabView} title="TabView"/>
                 <Route name="profile" hideTabBar={false} hideNavBar={false} component={ProfileView} />
             </Router>
         );

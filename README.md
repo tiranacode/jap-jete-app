@@ -1,5 +1,15 @@
 # JapJete Mobile Application
 
+## Structure
+- **assets** - Public assets (Fonts, Images)
+- **src** - App Files
+    - **Components**
+        - **UI** - UI Components (Btns, Layouts etc)
+        - **Util** - Utilizing Components (Network, Data)
+    - **Configs** - Configurations (Labels, Urls, etc)
+    - **Styles** - Reusable styles
+    - **App.jsx** - Entry application point
+
 ## Run
 If you have a react-native environment ready use the following commands to run the applicaion, otherwise follow the steps described in [Installation](#installation) section.
 
