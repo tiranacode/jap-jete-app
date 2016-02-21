@@ -7,7 +7,7 @@
 'use strict';
 import React, {AsyncStorage, Component, StyleSheet, View, Text, TouchableHighlight, ToastAndroid } from 'react-native';
 import {Router, Route, Schema, Animations, TabBar, Actions} from 'react-native-router-flux';
-import {AppStyle} from '../styles/CommonStyles';
+import {AppStyle} from '../Styles/CommonStyles';
 import Button from 'react-native-button';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
