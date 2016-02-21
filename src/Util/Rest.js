@@ -1,19 +1,19 @@
 'use strict';
-import {HttpHeaders} from '../Configs/Url.js'
+import {HttpHeaders} from '../Configs/Url';
+import CommonUtils from './Commons';
 
 export default class Rest {
 
     /**
      * READ (GET Request)
      * @param url
-     * @param queryParam
+     * @param params
      * @param success
      * @param error
      * @constructor
      */
-    static READ(url, queryParam, success, error) {
-        //TODO - Create Query Params
-        return fetch(url, {
+    static read(url, params, success, error) {
+        return fetch(url + CommonUtils.getQueryStringFromObject(params), {
             method: 'GET',
             headers: HttpHeaders
         }).then((res) => success(res)).catch((res) => error(res))
@@ -27,7 +27,7 @@ export default class Rest {
      * @param error
      * @constructor
      */
-    static CREATE(url, body, success, error) {
+    static create(url, body, success, error) {
         fetch(url, {
             method: 'PUT',
             headers: HttpHeaders,
@@ -43,7 +43,7 @@ export default class Rest {
      * @param error
      * @constructor
      */
-    static UPDATE(url, body, success, error) {
+    static update(url, body, success, error) {
         fetch(url, {
             method: 'POST',
             headers: HttpHeaders,
@@ -54,18 +54,19 @@ export default class Rest {
     /**
      * Delete (DELETE Request)
      * @param url
-     * @param queryParam
+     * @param param
      * @param success
      * @param error
      * @constructor
      */
-    static DELETE(url, queryParam, success, error) {
+    static delete(url, param, success, error) {
         //TODO - Create Query Params
-        fetch(url, {
+        fetch(url + CommonUtils.getQueryStringFromObject(param), {
             method: 'DELETE',
             headers: HttpHeaders,
             body: JSON.stringify(body)
         }).then((res) => success(res)).catch((res) => error(res))
     }
+
 
 }

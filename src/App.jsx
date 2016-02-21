@@ -21,21 +21,12 @@ import ProfileView from './Views/Profile'
 import Header from './Components/UI/Header';
 import Footer from './Components/UI/Footer';
 
-import { API_ENDPOINT } from './Configs/Url';
-/* Test Rest */
-import Rest from './Util/Rest.js'
-
 /**
  * Main Application Component
  */
+
 export default class JapJete extends Component {
     render() {
-        Rest.READ(API_ENDPOINT.Test, "",
-            function (res) {
-                ToastAndroid.show(res._bodyText, ToastAndroid.SHORT);
-            }, function (res) {
-                ToastAndroid.show(res.data, ToastAndroid.SHORT);
-            });
         return (
             /* Enable Header or Footer by using header={Header} | footer={Footer} */
             <Router hideNavBar={true} hideTabBar={true}>
