@@ -11,7 +11,7 @@ import React, {
 } from 'react-native';
 
 import {Actions} from 'react-native-router-flux';
-import { Button, Card } from 'react-native-material-design';
+
 import InstantActionBtn from '../Components/UI/InstantActionBtn';
 import DialogAndroid from 'react-native-dialogs';
 

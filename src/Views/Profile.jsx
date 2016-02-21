@@ -32,7 +32,6 @@ export default class ProfileView extends Component {
         return (
             <View style={styles.container}>
                 <ProfileBox />
-                <Text onLayout={this.loadTestData}>Profile</Text>
             </View>
         )
     }
