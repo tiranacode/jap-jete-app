@@ -16,21 +16,22 @@ import Labels from '../Configs/Labels';
 import Rest from '../Util/Rest.js'
 
 import { API_ENDPOINT } from '../Configs/Url';
+import ProfileBox from '../Components/UI/ProfileBox.js';
+
 
 export default class ProfileView extends Component {
 
     loadTestData() {
         Rest.read(API_ENDPOINT.Test, {},
-            function (res) {
-                ToastAndroid.show(res._bodyText, ToastAndroid.SHORT);
-            }, function (res) {
-                ToastAndroid.show(res.data, ToastAndroid.SHORT);
-            });
+            (res) => ToastAndroid.show(res._bodyText, ToastAndroid.SHORT),
+            (res) => console.error(res)
+        );
     }
 
     render() {
         return (
             <View style={styles.container}>
+                <ProfileBox />
                 <Text onLayout={this.loadTestData}>Profile</Text>
             </View>
         )
@@ -40,7 +41,6 @@ export default class ProfileView extends Component {
 var styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
     }
 });

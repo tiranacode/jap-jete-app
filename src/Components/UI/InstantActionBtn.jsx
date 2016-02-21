@@ -6,7 +6,8 @@ import React, {
 
 import MK, {
     MKButton,
-    MKColor} from 'react-native-material-kit';
+    MKColor
+} from 'react-native-material-kit';
 import Icon from '../../../node_modules/react-native-vector-icons/FontAwesome';
 import {AppStyle} from '../../Styles/CommonStyles.js'
 

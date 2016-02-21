@@ -20,9 +20,9 @@ export default class TabView extends Component {
     render() {
         return (
             <ScrollableTabView tabBarUnderlineColor={AppStyle.Colors.FG} tabBarActiveTextColor={AppStyle.Colors.FG} style={styles.tabView}>
+                <ProfileView tabLabel={Labels.Tabs.PROFILE}/>
                 <HomeView tabLabel={Labels.Tabs.HOME}/>
                 <DashboardView tabLabel={Labels.Tabs.DASHBOARD}/>
-                <ProfileView tabLabel={Labels.Tabs.PROFILE}/>
             </ScrollableTabView>
         )
     }
