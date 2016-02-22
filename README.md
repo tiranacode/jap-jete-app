@@ -7,7 +7,11 @@
         - **UI** - UI Components (Btns, Layouts etc)
         - **Util** - Utilizing Components (Network, Data)
     - **Configs** - Configurations (Labels, Urls, etc)
+    - **Data** - Local JSONS
+    - **Domain** - Entities / Entity UI Schemas
     - **Styles** - Reusable styles
+    - **Views** - Application Views (Activities)
+    - **Util** - Utilizing / Helper Functions
     - **App.jsx** - Entry application point
 
 ## Run
