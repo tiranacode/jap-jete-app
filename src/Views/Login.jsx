@@ -15,38 +15,10 @@ import HomeView from './Home';
 import FBLogin from 'react-native-facebook-login';
 import Labels from '../Configs/Labels';
 import NetworkStatus from '../Components/NetworkStatus';
+import {do_fb_login, do_server_login} from '../utils/backend.js';
 
-function do_server_login() {
-    // TODO: Register gcmID
 
-    let gcmID = "";
-    let user_id = AsyncStorage.getItem("user_id");
-    let fb_token = AsyncStorage.getItem("fb.token");
 
-    fetch(LOGIN_ENDPOINT, {
-        method: 'post',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            user_id: user_id,
-            gcmID: gcmID,
-            fb_token: fb.token
-        })
-    });
-
-    // TODO: Check for server response. If success, save session_token in AsyncStorage
-}
-
-function do_fb_login(e) {
-    // TODO: Check for valid response
-
-    let user_id = e.profile.id;
-    let fb_token = e.token;
-    AsyncStorage.setItem("user_id", user_id);
-    AsyncStorage.setItem("fb_token", fb_token);
-}
 
 
 export default class LoginView extends Component {
