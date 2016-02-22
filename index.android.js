@@ -1,14 +1,11 @@
 /**
  * JapJete React Native App
+ * Registers App Component in AppRegistry
  */
 
 'use strict';
 import React, {
-    AppRegistry,
-    Component,
-    StyleSheet,
-    Text,
-    View
+    AppRegistry
 } from 'react-native';
 import App from './src/App';
 

@@ -6,7 +6,7 @@ import React, {
     View,
     NetInfo,
 } from 'react-native';
-import Labels from '../Configs/Labels';
+import Labels from '../../Configs/Labels';
 
 export default React.createClass({
     getInitialState() {

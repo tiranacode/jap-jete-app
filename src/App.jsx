@@ -7,34 +7,34 @@
  */
 
 'use strict';
-import React, {Component, StyleSheet, Text, View, Navigator, TouchableHighlight, NetInfo} from 'react-native';
+import React, {Component, StyleSheet, Text, View, Navigator, TouchableHighlight, NetInfo, ToastAndroid} from 'react-native';
 import {Router, Route, Schema, Animations, TabBar} from 'react-native-router-flux';
 import {Actions} from 'react-native-router-flux'
 import StatusBarAndroid from 'react-native-android-statusbar';
 import {AppStyle} from './Styles/CommonStyles';
 
-import TestComponent from './Components/TestComponent';
+import TestComponent from './Components/Util/TestComponent';
 import HomeView from './Views/Home'
 import TabView from './Views/TabView'
 import LoginView from './Views/Login'
 import ProfileView from './Views/Profile'
-import Header from './Components/Header';
-import Footer from './Components/Footer';
-
-import { API_ENDPOINT } from './Configs/Url';
+import Header from './Components/UI/Header';
+import Footer from './Components/UI/Footer';
 
 /**
  * Main Application Component
  */
+
 export default class JapJete extends Component {
     render() {
         return (
             /* Enable Header or Footer by using header={Header} | footer={Footer} */
             <Router hideNavBar={true} hideTabBar={true}>
                 <Schema name="default" sceneConfig={Navigator.SceneConfigs.FadeAndroid}/>
-                <Route name="login" hideTabBar={true} hideNavBar={true} component={LoginView} initial={true} title="Login"/>
-                <Route name="home" component={TabView} title="Home"/>
-                <Route name="profile" hideTabBar={false} hideNavBar={false} component={ProfileView} />
+                <Route name="login" hideTabBar={true} hideNavBar={true} component={LoginView} initial={true}
+                       title="Login"/>
+                <Route name="tabView" component={TabView} title="TabView"/>
+                <Route name="profile" hideTabBar={false} hideNavBar={false} component={ProfileView}/>
             </Router>
         );
     }
