@@ -10,7 +10,7 @@ import React, {
     Text,
     ToastAndroid
 } from 'react-native';
-import {Actions} from 'react-native-router-flux';
+import {Actions, Router, Route} from 'react-native-router-flux';
 import Button from 'react-native-button';
 import Labels from '../Configs/Labels';
 import Rest from '../Util/Rest.js'

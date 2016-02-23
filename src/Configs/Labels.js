@@ -18,6 +18,19 @@ let labels = new LocalizedStrings({
             HOME: "Hyrje",
             DASHBOARD: "Kalendari",
             PROFILE: "Profili"
+        },
+        Domain: {
+            User: {
+                USERNAME: 'Emri',
+                PHONE_NUMBER: 'Nr Telefoni',
+                LOCATION: 'Vendodhja',
+                EMAIL: 'Email',
+                GROUP: 'Grupi i Gjakut'
+            }
+        },
+        Ui: {
+            MODIFY: 'Modifiko',
+            YOUR_ACCOUNT: 'Profili Juaj'
         }
     }
 });
