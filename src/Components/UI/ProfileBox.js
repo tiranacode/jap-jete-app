@@ -9,12 +9,14 @@ import React, {
 } from 'react-native';
 
 import _ from 'lodash';
+import {Router, Route, Schema, Animations, TabBar, Actions} from 'react-native-router-flux';
 import { Button, Card } from 'react-native-material-design';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Image from 'react-native-image-progress';
 import Progress from 'react-native-progress';
 import {AppStyle, ComponentsStyle} from '../../Styles/CommonStyles.js';
 import {Profile, ProfileUISchema} from '../../Domain/Profile.js';
+import ProfileEdit from '../../Views/ProfileEdit'
 
 var testProfile = new Profile("Kostandin", "A+", "kostandinangjellari@gmail.com", "020309131", "023, Tirana");
 
@@ -32,7 +34,7 @@ export default class ProfileBox extends Component {
                         style={styles.photo}/>
                     {/* Toolbar */}
                     <View style={styles.toolbar}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>Actions.profileEdit({user: testProfile})}>
                             <Icon
                                 name="pencil"
                                 size={30}

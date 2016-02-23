@@ -18,8 +18,11 @@ import HomeView from './Views/Home'
 import TabView from './Views/TabView'
 import LoginView from './Views/Login'
 import ProfileView from './Views/Profile'
+import ProfileEdit from './Views/ProfileEdit'
 import Header from './Components/UI/Header';
 import Footer from './Components/UI/Footer';
+import SplashScreen from './Views/SplashScreen';
+
 
 /**
  * Main Application Component
@@ -30,11 +33,12 @@ export default class JapJete extends Component {
         return (
             /* Enable Header or Footer by using header={Header} | footer={Footer} */
             <Router hideNavBar={true} hideTabBar={true}>
-                <Schema name="default" sceneConfig={Navigator.SceneConfigs.FadeAndroid}/>
-                <Route name="login" hideTabBar={true} hideNavBar={true} component={LoginView} initial={true}
-                       title="Login"/>
+                <Schema name="default" sceneConfig={Navigator.SceneConfigs.HorizontalSwipeJumpFromRight}/>
+                <Route name="splashScreen" hideTabBar={true} hideNavBar={true} component={SplashScreen} title="SplashScreen"/>
+                <Route name="login" hideTabBar={true} hideNavBar={true} component={LoginView} initial={true} title="Login"/>
                 <Route name="tabView" component={TabView} title="TabView"/>
-                <Route name="profile" hideTabBar={false} hideNavBar={false} component={ProfileView}/>
+                <Route name="profile" hideTabBar={true} hideNavBar={true} component={ProfileView}></Route>
+                <Route name="profileEdit" hideTabBar={true} hideNavBar={true} component={ProfileEdit} type="push"/>
             </Router>
         );
     }
