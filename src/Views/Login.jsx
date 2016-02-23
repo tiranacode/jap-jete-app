@@ -15,8 +15,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import HomeView from './Home';
 import FBLogin from 'react-native-facebook-login';
 import Labels from '../Configs/Labels';
-import NetworkStatus from '../Components/NetworkStatus';
-import {do_fb_login, do_server_login} from '../utils/backend.js';
+import NetworkStatus from '../Components/Util/NetworkStatus.jsx';
+import {do_fb_login, do_server_login} from '../Util/backend.js';
 
 export default class LoginView extends Component {
     render() {
