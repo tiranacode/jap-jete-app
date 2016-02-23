@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "apphub": "^0.5.0",
-    "lodash": "^4.5.0",
+    "lodash": "^4.5.1",
     "mrn": "^0.1.7",
     "react-native": "^0.19.0",
     "react-native-android-geolocation": "^1.0.3",
