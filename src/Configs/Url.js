@@ -2,15 +2,14 @@
  * This configuration provides URLS and Endpoints
  */
 
-var HOST = "http://localhost:8080";
+var API_URL = "http://52.59.251.182/api/v1/";
 
-export const API_ENDPOINT = {
-    Profile: HOST + "/profile",
-    Test: "http://jsonip.com/"
+export const Endpoints = {
+    LOGIN: API_URL + "login/",
+    PROFILE: API_URL + "/profile"
 };
 
 export const HttpHeaders = {
     'Accept': 'application/json',
-    'Content-Type': 'application/json',
-    'Authorization': 'test'
+    'Content-Type': 'application/json'
 };

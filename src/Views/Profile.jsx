@@ -15,14 +15,14 @@ import Button from 'react-native-button';
 import Labels from '../Configs/Labels';
 import Rest from '../Util/Rest.js'
 
-import { API_ENDPOINT } from '../Configs/Url';
+import { Endpoints } from '../Configs/Url';
 import ProfileBox from '../Components/UI/ProfileBox.js';
 
 
 export default class ProfileView extends Component {
 
     loadTestData() {
-        Rest.read(API_ENDPOINT.Test, {},
+        Rest.read(Endpoints.Test, {},
             (res) => ToastAndroid.show(res._bodyText, ToastAndroid.SHORT),
             (res) => console.error(res)
         );
