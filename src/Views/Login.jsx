@@ -26,7 +26,7 @@ function loginSuccess() {
 
 export default class LoginView extends Component {
     componentWillMount() {
-        onLoginSuccess(loginSuccess)
+        onLoginSuccess(() => loginSuccess())
     }
     render() {
         return (
