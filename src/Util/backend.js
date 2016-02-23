@@ -1,9 +1,10 @@
 import React, {AsyncStorage, ToastAndroid } from 'react-native';
-var _ = require('lodash');
+import Constants from '../Configs/Constants.js';
+import {Endpoints} from '../Configs/Url.js';
+import _ from 'lodash';
 
-let LOGIN_ENDPOINT = "http://52.59.251.182/api/v1/login/";
 
-export function do_server_login() {
+export function do_server_login(on_login_success) {
     // TODO: Register gcmID
 
     let gcmID = "";
@@ -13,15 +14,15 @@ export function do_server_login() {
     //             then((fb_token))
     // let fb_token = AsyncStorage.getItem("fb_token");
 
-    AsyncStorage.multiGet(["user_id", "fb_token"])
+    AsyncStorage.multiGet([Constants.StorageKeys.USER_ID, Constants.StorageKeys.FB_TOKEN])
         .then((data) => {
             let obj = _.fromPairs(data);
             return obj;
         })
         .then((obj) => {
-            let user_id = obj['user_id'];
-            let fb_token = obj['fb_token'];
-            fetch(LOGIN_ENDPOINT, {
+            let user_id = obj[Constants.StorageKeys.USER_ID];
+            let fb_token = obj[Constants.StorageKeys.FB_TOKEN];
+            fetch(Endpoints.LOGIN, {
                 method: 'post',
                 synchronous: true,
                 headers: {
@@ -33,17 +34,18 @@ export function do_server_login() {
                     gcmID: gcmID,
                     fb_token: fb_token
                 })
-            }).then(function(res) {
+            }).then(function (res) {
                 console.log(res);
                 return res.json();
-            }).then(function(res) {
+            }).then(function (res) {
                 let status = res.status;
                 if (status == "OK") {
                     let session_token = res.session_token;
-                    AsyncStorage.setItem("session_token", session_token);
-                    AsyncStorage.getItem("session_token")
+                    AsyncStorage.setItem(Constants.StorageKeys.SESSION_TOKEN, session_token);
+                    AsyncStorage.getItem(Constants.StorageKeys.SESSION_TOKEN)
                         .then((session_token) => {
                             console.log("Logged in with session_token " + session_token);
+                            on_login_success(session_token);
                         });
                 }
                 else {
@@ -55,15 +57,15 @@ export function do_server_login() {
 
 }
 
-export function do_fb_login(e) {
+export function do_fb_login(e, on_login_success) {
     // TODO: Check for valid response
     // console.log(e);
 
     let user_id = e.profile.id;
     let fb_token = e.token;
-    AsyncStorage.setItem("user_id", user_id);
-    AsyncStorage.setItem("fb_token", fb_token);
-    do_server_login();
+    AsyncStorage.setItem(Constants.StorageKeys.USER_ID, user_id);
+    AsyncStorage.setItem(Constants.StorageKeys.FB_TOKEN, fb_token);
+    do_server_login(on_login_success);
 
 }
 

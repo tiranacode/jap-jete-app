@@ -15,10 +15,19 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import HomeView from './Home';
 import FBLogin from 'react-native-facebook-login';
 import Labels from '../Configs/Labels';
-import NetworkStatus from '../Components/NetworkStatus';
-import {do_fb_login, do_server_login} from '../utils/backend.js';
+import NetworkStatus from '../Components/Util/NetworkStatus';
+import {do_fb_login, do_server_login} from '../Util/backend';
+import {onLoginSuccess} from '../Util/Events';
+
+function loginSuccess() {
+    //TODO - Change to another action instead of profile
+    Actions.tabView();
+}
 
 export default class LoginView extends Component {
+    componentWillMount() {
+        onLoginSuccess(() => loginSuccess())
+    }
     render() {
         return (
             <View style={styles.loginWrapper}>
@@ -28,10 +37,21 @@ export default class LoginView extends Component {
                     color={AppStyle.Colors.FG}
                     style={{marginBottom: 20}}/>
                 <FBLogin
-                    onLogin={function(e) {do_fb_login(e)}}
-                    onLogout={function(e){console.log(e)}}
-                    onCancel={function(e){console.log(e)}}
-                    onPermissionsMissing={function(e){console.log(e)}}/>
+                    onLogin={(e) => {
+                        do_fb_login(e,(token) => {
+                            loginSuccess();
+                        })
+                    }}
+                    onLogout={(e) => {
+                        console.log(e);
+                    }}
+                    onCancel={(e) => {
+                        console.log(e)
+                    }}
+                    onPermissionsMissing={(e) => {
+                        console.log(e)}
+                    }/>
+                {/* TODO - For Testing Purposes Only */}
                 <Button onPress={()=>Actions.tabView()}>Go to Home</Button>
                 <NetworkStatus />
             </View>

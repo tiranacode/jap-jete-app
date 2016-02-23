@@ -10,17 +10,39 @@ import React, {
     Text,
 } from 'react-native';
 
+import MK, {
+    MKButton,
+    MKColor,
+    MKTextField
+} from 'react-native-material-kit';
+
 import {Actions} from 'react-native-router-flux';
 
 import InstantActionBtn from '../Components/UI/InstantActionBtn';
 import DialogAndroid from 'react-native-dialogs';
+import {onLogoutSuccess} from '../Util/Events';
+import Labels from '../Configs/Labels';
+import {AppStyle} from '../Styles/CommonStyles';
+
+let LogoutBtn = MKButton.coloredButton()
+    .withText(Labels.Ui.LOGOUT)
+    .withBackgroundColor(AppStyle.Colors.FG)
+    .build();
 
 export default class HomeView extends Component {
+    constructor(props) {
+        super(props);
+        this.props = {
+            isLoggedIn: true
+        }
+    }
+
     render() {
         return (
             <View style={styles.container} onLayout={this.showDialog}>
                 <Text>Home</Text>
                 <InstantActionBtn />
+                <LogoutBtn onPress={() => { onLogoutSuccess(() => Actions.login())}}/>
             </View>
         )
     }

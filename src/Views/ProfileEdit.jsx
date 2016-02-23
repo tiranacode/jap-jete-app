@@ -27,7 +27,7 @@ import Rest from '../Util/Rest';
 import Form from 'react-native-form'
 import {AppStyle} from '../Styles/CommonStyles.js';
 
-import { API_ENDPOINT } from '../Configs/Url';
+import { Endpoints } from '../Configs/Url';
 
 
 var styles = StyleSheet.create({
