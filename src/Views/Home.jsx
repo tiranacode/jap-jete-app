@@ -29,6 +29,8 @@ let LogoutBtn = MKButton.coloredButton()
     .withBackgroundColor(AppStyle.Colors.FG)
     .build();
 
+
+
 export default class HomeView extends Component {
     constructor(props) {
         super(props);
@@ -37,12 +39,18 @@ export default class HomeView extends Component {
         }
     }
 
+    goToLogin(navigator) {
+        navigator.push({
+            id: 'Login'
+        });
+    }
+
     render() {
         return (
             <View style={styles.container} onLayout={this.showDialog}>
                 <Text>Home</Text>
                 <InstantActionBtn />
-                <LogoutBtn onPress={() => { onLogoutSuccess(() => Actions.login())}}/>
+                <LogoutBtn onPress={() => { onLogoutSuccess(() => { this.goToLogin(this.props.navigator) })}}/>
             </View>
         )
     }

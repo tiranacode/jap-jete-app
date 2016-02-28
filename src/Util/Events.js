@@ -26,7 +26,9 @@ export function onLogoutSuccess(onLogout) {
     return removeSessionToken().then((item) => {
         console.log("Session Token Removed");
         FBLoginManager.logout(function(error, data){
-            if (onLogout) onLogout();
+            AsyncStorage.removeItem(Constants.StorageKeys.USER).then(() => {
+                if (onLogout) onLogout();
+            });
         });
     })
 }

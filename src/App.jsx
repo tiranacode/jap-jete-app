@@ -7,7 +7,7 @@
  */
 
 'use strict';
-import React, {Component, StyleSheet, NetInfo,} from 'react-native';
+import React, {Component, StyleSheet, NetInfo, BackAndroid, Navigator} from 'react-native';
 import {Router, Route, Schema, Animations, TabBar, Actions} from 'react-native-router-flux';
 import StatusBarAndroid from 'react-native-android-statusbar';
 
@@ -21,21 +21,43 @@ import Header from './Components/UI/Header';
 import Footer from './Components/UI/Footer';
 import SplashScreen from './Views/SplashScreen';
 
+
+var _navigator;
+
+BackAndroid.addEventListener('hardwareBackPress', () => {
+    if (_navigator.getCurrentRoutes().length === 1) {
+        return false;
+    }
+    _navigator.pop();
+    return true;
+});
+
 /**
  * Main Application Component
  */
 export default class JapJete extends Component {
+    navigatorRenderScene(route, navigator) {
+        _navigator = navigator;
+        switch (route.id) {
+            case 'Login':
+                return (<LoginView navigator={navigator}/>);
+            case 'TabView':
+                return (<TabView navigator={navigator}/>);
+            case 'Profile':
+                return (<ProfileView navigator={navigator}/>);
+            case 'ProfileEdit':
+                return (<ProfileEdit navigator={navigator} user={route.user}/>);
+            case 'Home':
+                return (<HomeView navigator={navigator}/>);
+        }
+    }
+
     render() {
         return (
-            /* Enable Header or Footer by using header={Header} | footer={Footer} */
-            <Router hideNavBar={true} hideTabBar={true}>
-                <Route name="splashScreen" hideTabBar={true} hideNavBar={true} component={SplashScreen} title="SplashScreen"/>
-                <Route name="login" hideTabBar={true} hideNavBar={true} component={LoginView} initial={true} title="Login"/>
-                <Route name="tabView" component={TabView} title="TabView"/>
-                <Route name="profile" hideTabBar={true} hideNavBar={true} component={ProfileView}></Route>
-                <Route name="profileEdit" hideTabBar={true} hideNavBar={true} component={ProfileEdit} type="push"/>
-            </Router>
-        );
+            <Navigator
+                initialRoute={{id: 'Login'}}
+                renderScene={this.navigatorRenderScene}/>
+        )
     }
 }
 

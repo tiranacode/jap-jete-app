@@ -63,16 +63,15 @@ function initializeInputs() {
     SubmitBtn = MKButton.coloredButton()
         .withText(Labels.Ui.MODIFY)
         .withBackgroundColor(AppStyle.Colors.FG)
-        .withOnPress(() => {
-            persistUserObject();
-        })
         .build();
 }
 
-function persistUserObject(user) {
-    //TODO - Make request and persist in local db
-    console.log(user);
-    Actions.profile();
+function saveUser(navigator, user) {
+    console.log("User Saved");
+    navigator.push({
+        id: 'Home',
+        user: user
+    });
 }
 
 export default class ProfileEdit extends Component {
@@ -81,9 +80,9 @@ export default class ProfileEdit extends Component {
         super(props);
         initializeInputs();
         this.state = {
-            user: {}
+            user: props.user
         }
-    }
+    };
 
     render() {
         return (
@@ -95,12 +94,12 @@ export default class ProfileEdit extends Component {
                 </View>
                 <Form ref="form" style={styles.profileForm}>
                     <View>
-                        <TextMaterialInput placeholder={Labels.Domain.User.USERNAME} value={this.props.user.username}/>
-                        <TextMaterialInput placeholder={Labels.Domain.User.PHONE_NUMBER} value={this.props.user.phoneNumber}/>
-                        <TextMaterialInput placeholder={Labels.Domain.User.EMAIL} value={this.props.user.email}/>
-                        <TextMaterialInput placeholder={Labels.Domain.User.LOCATION} value={this.props.user.location}/>
-                        <TextMaterialInput placeholder={Labels.Domain.User.GROUP} value={this.props.user.group}/>
-                        <SubmitBtn onPress={() => {persistUserObject(this.props.user)}}/>
+                        <TextMaterialInput placeholder={Labels.Domain.User.USERNAME} value={this.state.user.username}/>
+                        <TextMaterialInput placeholder={Labels.Domain.User.PHONE_NUMBER} value={this.state.user.phoneNumber}/>
+                        <TextMaterialInput placeholder={Labels.Domain.User.EMAIL} value={this.state.user.email}/>
+                        <TextMaterialInput placeholder={Labels.Domain.User.LOCATION} value={this.state.user.location}/>
+                        <TextMaterialInput placeholder={Labels.Domain.User.GROUP} value={this.state.user.group}/>
+                        <SubmitBtn onPress={() => {saveUser(this.props.navigator, this.state.user)}}/>
                     </View>
                 </Form>
             </ScrollView>

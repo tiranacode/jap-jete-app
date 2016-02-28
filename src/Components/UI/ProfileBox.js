@@ -41,6 +41,13 @@ export default class ProfileBox extends Component {
         });
     }
 
+    navigateToProfileEdit(navigator) {
+        navigator.push({
+            id: 'ProfileEdit',
+            user: this.state.user
+        });
+    }
+
     render() {
         if (!this.state.loading) {
             return (
@@ -55,7 +62,8 @@ export default class ProfileBox extends Component {
                             style={styles.photo}/>
                         {/* Toolbar */}
                         <View style={styles.toolbar}>
-                            <TouchableOpacity onPress={()=>Actions.profileEdit({user: this.state.user})}>
+                            <TouchableOpacity
+                                onPress={() => { this.navigateToProfileEdit(this.props.navigator, this.state.user) }}>
                                 <Icon
                                     name="pencil"
                                     size={30}
@@ -69,7 +77,6 @@ export default class ProfileBox extends Component {
                             style={styles.toolbarImage}>
                         </Image>
                     </View>
-
                     {/* Content */}
                     <DetailsBox schema={ProfileUISchema} entity={this.state.user}/>
                 </ScrollView>

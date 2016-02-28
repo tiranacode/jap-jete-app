@@ -19,15 +19,21 @@ import NetworkStatus from '../Components/Util/NetworkStatus';
 import {do_fb_login, do_server_login} from '../Util/backend';
 import {onLoginSuccess} from '../Util/Events';
 
-function loginSuccess() {
-    //TODO - Change to another action instead of profile
-    Actions.tabView();
+function loginSuccess(navigator) {
+    navigator.push({
+        id: 'TabView'
+    });
 }
 
 export default class LoginView extends Component {
-    componentWillMount() {
-        onLoginSuccess(() => loginSuccess())
+    constructor(props) {
+        super(props);
     }
+
+    componentWillMount() {
+        onLoginSuccess(() => loginSuccess(this.props.navigator))
+    }
+
     render() {
         return (
             <View style={styles.loginWrapper}>
@@ -39,7 +45,7 @@ export default class LoginView extends Component {
                 <FBLogin
                     onLogin={(e) => {
                         do_fb_login(e,(token) => {
-                            loginSuccess();
+                            loginSuccess(this.props.navigator);
                         })
                     }}
                     onLogout={(e) => {
@@ -52,7 +58,7 @@ export default class LoginView extends Component {
                         console.log(e)}
                     }/>
                 {/* TODO - For Testing Purposes Only */}
-                <Button onPress={()=>Actions.tabView()}>Go to Home</Button>
+                <Button onPress={()=> { loginSuccess(this.props.navigator) }}>Go to Home</Button>
                 <NetworkStatus />
             </View>
         );
