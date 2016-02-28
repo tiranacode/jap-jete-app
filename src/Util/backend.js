@@ -1,8 +1,17 @@
 import React, {AsyncStorage, ToastAndroid } from 'react-native';
-import Constants from '../Configs/Constants.js';
-import {Endpoints} from '../Configs/Url.js';
+import Constants from '../Configs/Constants';
+import {Endpoints} from '../Configs/Url';
+import {Profile} from '../Domain/Profile';
 import _ from 'lodash';
 
+function saveUserDetails(facebookData) {
+    var userProfile = new Profile(
+        facebookData.name,
+        facebookData.email,
+        facebookData.id
+    );
+    AsyncStorage.setItem(Constants.StorageKeys.USER, JSON.stringify(userProfile));
+}
 
 export function do_server_login(on_login_success) {
     // TODO: Register gcmID
@@ -65,6 +74,7 @@ export function do_fb_login(e, on_login_success) {
     let fb_token = e.token;
     AsyncStorage.setItem(Constants.StorageKeys.USER_ID, user_id);
     AsyncStorage.setItem(Constants.StorageKeys.FB_TOKEN, fb_token);
+    saveUserDetails(e.profile);
     do_server_login(on_login_success);
 
 }

@@ -6,6 +6,7 @@ import React, {
     Dimensions,
     TouchableOpacity,
     ScrollView,
+    AsyncStorage
 } from 'react-native';
 
 import _ from 'lodash';
@@ -16,42 +17,68 @@ import Image from 'react-native-image-progress';
 import Progress from 'react-native-progress';
 import {AppStyle, ComponentsStyle} from '../../Styles/CommonStyles.js';
 import {Profile, ProfileUISchema} from '../../Domain/Profile.js';
-import ProfileEdit from '../../Views/ProfileEdit'
-
-var testProfile = new Profile("Kostandin", "A+", "kostandinangjellari@gmail.com", "020309131", "023, Tirana");
+import ProfileEdit from '../../Views/ProfileEdit';
+import Constants from '../../Configs/Constants.js';
 
 export default class ProfileBox extends Component {
-    render() {
-        return (
-            <ScrollView style={styles.container}>
-                {/* Image Header */}
-                <View style={styles.header}>
-                    <Image
-                        source={{ uri: 'http://kclr96fm.com/media/2015/03/Captain-Jack-captain-jack-sparrow-14117613-1242-900.jpg' }}
-                        indicator={Progress.Pie}
-                        resizeMode="cover"
-                        indicatorProps={ComponentsStyle.ProgressIndicator}
-                        style={styles.photo}/>
-                    {/* Toolbar */}
-                    <View style={styles.toolbar}>
-                        <TouchableOpacity onPress={()=>Actions.profileEdit({user: testProfile})}>
-                            <Icon
-                                name="pencil"
-                                size={30}
-                                color="#fff"
-                                style={styles.toolbarBtn}/>
-                        </TouchableOpacity>
-                    </View>
-                    {/* Icon - TODO - Change Icon */}
-                    <Image
-                        source={{uri: "http://www.myiconfinder.com/uploads/iconsets/067f33d33e085fde8c366c8ae7162d95-heart.png"}}
-                        style={styles.toolbarImage}>
-                    </Image>
-                </View>
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: {},
+            loading: true
+        }
+    }
 
-                {/* Content */}
-                <DetailsBox schema={ProfileUISchema} entity={testProfile}/>
-            </ScrollView>
+    componentWillMount() {
+        //Get Data From Local Storage
+        AsyncStorage.getItem(Constants.StorageKeys.USER).then((data) => {
+            if (data) {
+                this.setState({
+                    user: JSON.parse(data),
+                    loading: false
+                });
+            }
+        });
+    }
+
+    render() {
+        if (!this.state.loading) {
+            return (
+                <ScrollView style={styles.container}>
+                    {/* Image Header */}
+                    <View style={styles.header}>
+                        <Image
+                            source={{ uri: this.state.user.photo }}
+                            indicator={Progress.Pie}
+                            resizeMode="cover"
+                            indicatorProps={ComponentsStyle.ProgressIndicator}
+                            style={styles.photo}/>
+                        {/* Toolbar */}
+                        <View style={styles.toolbar}>
+                            <TouchableOpacity onPress={()=>Actions.profileEdit({user: this.state.user})}>
+                                <Icon
+                                    name="pencil"
+                                    size={30}
+                                    color="#fff"
+                                    style={styles.toolbarBtn}/>
+                            </TouchableOpacity>
+                        </View>
+                        {/* Icon - TODO - Change Icon */}
+                        <Image
+                            source={{uri: "http://www.myiconfinder.com/uploads/iconsets/067f33d33e085fde8c366c8ae7162d95-heart.png"}}
+                            style={styles.toolbarImage}>
+                        </Image>
+                    </View>
+
+                    {/* Content */}
+                    <DetailsBox schema={ProfileUISchema} entity={this.state.user}/>
+                </ScrollView>
+            );
+        }
+        return (
+            <View>
+                <Text>Loading ...</Text>
+            </View>
         )
     }
 }
@@ -60,18 +87,19 @@ class DetailsBox extends Component {
     render() {
         var details = [];
         for (field in this.props.entity) {
-            console.log(this.props.entity[field]);
-            details.push(
-                <View style={styles.detail} key={field}>
-                    <Icon
-                        name={this.props.schema[field].icon}
-                        size={20}
-                        color="red"
-                        style={styles.detailIcon}
-                        />
-                    <Text style={styles.detailValue}>{this.props.entity[field]}</Text>
-                </View>
-            )
+            if (this.props.schema[field]) {
+                details.push(
+                    <View style={styles.detail} key={field}>
+                        <Icon
+                            name={this.props.schema[field].icon}
+                            size={20}
+                            color="red"
+                            style={styles.detailIcon}
+                            />
+                        <Text style={styles.detailValue}>{this.props.entity[field]}</Text>
+                    </View>
+                )
+            }
         }
         return (
             <View style={styles.profileDetails}>
