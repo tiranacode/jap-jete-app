@@ -19,6 +19,8 @@ import {AppStyle, ComponentsStyle} from '../../Styles/CommonStyles.js';
 import {Profile, ProfileUISchema} from '../../Domain/Profile.js';
 import ProfileEdit from '../../Views/ProfileEdit';
 import Constants from '../../Configs/Constants.js';
+import IO from '../../Util/IO.js';
+import {Endpoints} from '../../Configs/Url.js';
 
 export default class ProfileBox extends Component {
     constructor(props) {
@@ -38,6 +40,19 @@ export default class ProfileBox extends Component {
                     loading: false
                 });
             }
+        });
+        //Make Request to get user Data
+        IO.getSessionToken().then((token) => {
+            Rest.read(Endpoints.USER, {
+                    session_token: token,
+                    user_id: this.state.user.facebookId
+                },
+                (res) => {
+                    console.dir(res);
+                    //TODO - Handle Success
+                }, (res) => {
+                    //TODO - Handle Error
+                });
         });
     }
 

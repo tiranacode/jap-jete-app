@@ -69,7 +69,7 @@ function initializeInputs() {
 function saveUser(navigator, user) {
     console.log("User Saved");
     navigator.push({
-        id: 'Home',
+        id: 'TabView',
         user: user
     });
 }

@@ -8,7 +8,7 @@ import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
 import me.neo.react.StatusBarPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.github.xinthink.rnmk.ReactMaterialKitPackage;
-import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
+/*import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;*/
 
 import java.util.Arrays;
 import java.util.List;
@@ -45,7 +45,7 @@ public class MainActivity extends ReactActivity {
                 new ReactNativeLocalizationPackage(),
                 new StatusBarPackage(this),
                 new VectorIconsPackage(),
-                new ReactNativeDialogsPackage(this),
+                /*new ReactNativeDialogsPackage(this),*/
                 new ReactMaterialKitPackage()
         );
     }

@@ -24,7 +24,6 @@ export default class ProfileView extends Component {
         super(props);
     }
 
-
     render() {
         return (
             <View style={styles.container}>
