@@ -9,6 +9,8 @@ import me.neo.react.StatusBarPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 /*import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;*/
+import com.oney.gcm.GcmPackage;
+import io.neson.react.notification.NotificationPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -46,7 +48,9 @@ public class MainActivity extends ReactActivity {
                 new StatusBarPackage(this),
                 new VectorIconsPackage(),
                 /*new ReactNativeDialogsPackage(this),*/
-                new ReactMaterialKitPackage()
+                new ReactMaterialKitPackage(),
+                new GcmPackage(),
+                new NotificationPackage(this)
         );
     }
 }

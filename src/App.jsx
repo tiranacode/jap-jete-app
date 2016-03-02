@@ -4,10 +4,12 @@
  * - Handles Network Connection
  * - Loads Some Data from Local Storage
  * - Configures misc UI Components
+ * - Initializes Global Event Handlers (Back Btn)
+ * - Sets up GCM
  */
 
 'use strict';
-import React, {Component, StyleSheet, NetInfo, BackAndroid, Navigator} from 'react-native';
+import React, {Component, StyleSheet, NetInfo, BackAndroid, Navigator, DeviceEventEmitter} from 'react-native';
 import {Router, Route, Schema, Animations, TabBar, Actions} from 'react-native-router-flux';
 import StatusBarAndroid from 'react-native-android-statusbar';
 
@@ -21,21 +23,69 @@ import Header from './Components/UI/Header';
 import Footer from './Components/UI/Footer';
 import SplashScreen from './Views/SplashScreen';
 
+/* GCM */
+var GcmAndroid = require('react-native-gcm-android');
+import Notification from 'react-native-system-notification';
 
 var _navigator;
 
-BackAndroid.addEventListener('hardwareBackPress', () => {
-    if (_navigator.getCurrentRoutes().length === 1) {
-        return false;
-    }
-    _navigator.pop();
-    return true;
-});
+/**
+ * Setup GCM
+ */
+function initGCM() {
+
+    GcmAndroid.addEventListener('register', function (token) {
+        console.log('send gcm token to server', token);
+    });
+
+    GcmAndroid.addEventListener('registerError', function (error) {
+        console.log('registerError', error.message);
+    });
+
+    GcmAndroid.addEventListener('notification', function (notification) {
+        console.log('receive gcm notification', notification);
+        var info = JSON.parse(notification.data.info);
+        if (!GcmAndroid.isInForeground) {
+            Notification.create({
+                subject: info.subject,
+                message: info.message
+            });
+        }
+    });
+
+    DeviceEventEmitter.addListener('sysNotificationClick', function (e) {
+        //TODO - Handle Notification Click
+        console.log('sysNotificationClick', e);
+    });
+
+    GcmAndroid.requestPermissions();
+}
+
+/**
+ * Init Other Events
+ */
+function initEventHandlers() {
+
+    BackAndroid.addEventListener('hardwareBackPress', () => {
+        if (_navigator.getCurrentRoutes().length === 1) {
+            return false;
+        }
+        _navigator.pop();
+        return true;
+    });
+}
 
 /**
  * Main Application Component
  */
 export default class JapJete extends Component {
+
+    componentDidMount() {
+        initEventHandlers();
+        initGCM();
+        Notification.create({ subject: 'Hey', message: 'Yo! Hello world.' });
+    }
+
     navigatorRenderScene(route, navigator) {
         _navigator = navigator;
         switch (route.id) {
