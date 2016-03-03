@@ -9,7 +9,8 @@ let Constants = {
         FB_TOKEN: 'fb_token',
         USER_ID: 'user_id',
         SESSION_TOKEN: 'session_token',
-        USER: 'user'
+        USER: 'user',
+        GCM_TOKEN: 'gcmToken'
     }
 
 };

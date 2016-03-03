@@ -31,7 +31,9 @@ let labels = new LocalizedStrings({
         Ui: {
             MODIFY: 'Modifiko',
             YOUR_ACCOUNT: 'Profili Juaj',
-            LOGOUT: 'Logout'
+            LOGOUT: 'Logout',
+            ERROR: 'Gabim',
+            CANCEL: 'Hiq'
         }
     }
 });

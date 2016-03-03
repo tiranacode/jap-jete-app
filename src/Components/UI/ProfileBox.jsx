@@ -6,7 +6,8 @@ import React, {
     Dimensions,
     TouchableOpacity,
     ScrollView,
-    AsyncStorage
+    AsyncStorage,
+    InteractionManager
 } from 'react-native';
 
 import _ from 'lodash';
@@ -18,9 +19,11 @@ import Progress from 'react-native-progress';
 import {AppStyle, ComponentsStyle} from '../../Styles/CommonStyles.js';
 import {Profile, ProfileUISchema} from '../../Domain/Profile.js';
 import ProfileEdit from '../../Views/ProfileEdit';
-import Constants from '../../Configs/Constants.js';
-import IO from '../../Util/IO.js';
-import {Endpoints} from '../../Configs/Url.js';
+import Constants from '../../Configs/Constants';
+import IO from '../../Util/IO';
+import {Endpoints} from '../../Configs/Url';
+import Rest from '../../Util/Rest';
+import Spinner from './Spinner';
 
 export default class ProfileBox extends Component {
     constructor(props) {
@@ -31,29 +34,34 @@ export default class ProfileBox extends Component {
         }
     }
 
-    componentWillMount() {
-        //Get Data From Local Storage
-        AsyncStorage.getItem(Constants.StorageKeys.USER).then((data) => {
-            if (data) {
-                this.setState({
-                    user: JSON.parse(data),
-                    loading: false
-                });
-            }
+    componentDidMount() {
+        InteractionManager.runAfterInteractions(() => {
+            //Get Data From Local Storage
+            AsyncStorage.getItem(Constants.StorageKeys.USER).then((data) => {
+                if (data) {
+                    this.setState({
+                        user: JSON.parse(data),
+                        loading: false
+                    });
+                }
+            });
         });
+
         //Make Request to get user Data
-        IO.getSessionToken().then((token) => {
-            Rest.read(Endpoints.USER, {
-                    session_token: token,
-                    user_id: this.state.user.facebookId
-                },
-                (res) => {
-                    console.dir(res);
-                    //TODO - Handle Success
-                }, (res) => {
-                    //TODO - Handle Error
-                });
-        });
+        /*IO.getSessionToken().then((token) => {
+         if (token) {
+         Rest.read(Endpoints.USER, {
+         session_token: token,
+         user_id: this.state.user.facebookId
+         },
+         (res) => {
+         console.dir(res);
+         //TODO - Handle Su  ccess
+         }, (res) => {
+         //TODO - Handle Error
+         });
+         }
+         });*/
     }
 
     navigateToProfileEdit(navigator) {
@@ -98,9 +106,7 @@ export default class ProfileBox extends Component {
             );
         }
         return (
-            <View>
-                <Text>Loading ...</Text>
-            </View>
+            <Spinner/>
         )
     }
 }

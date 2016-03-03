@@ -3,6 +3,7 @@ import Constants from '../Configs/Constants';
 import {Endpoints} from '../Configs/Url';
 import {Profile} from '../Domain/Profile';
 import _ from 'lodash';
+import GcmAndroid from 'react-native-gcm-android';
 
 function saveUserDetails(facebookData) {
     var userProfile = new Profile(
@@ -17,11 +18,25 @@ export function do_server_login(on_login_success) {
     // TODO: Register gcmID
 
     let gcmID = "";
-    // let user_id = AsyncStorage.getItem("user_id")
-    //     .then((user_id) => {
-    //         AsyncStorage.getItem("fb_token).
-    //             then((fb_token))
-    // let fb_token = AsyncStorage.getItem("fb_token");
+
+    /**
+     * Set Furst Time GCM Token
+     */
+    AsyncStorage.getItem(Constants.StorageKeys.GCM_TOKEN).then((token) => {
+        if (!token) {
+            console.log('no gcm tokan stored locally', token);
+            GcmAndroid.addEventListener('register', function (token) {
+                gcmID = token;
+                AsyncStorage.setItem(Constants.StorageKeys.GCM_TOKEN, token);
+                console.log('send gcm token to server', token);
+            });
+
+            GcmAndroid.addEventListener('registerError', function (error) {
+                AsyncStorage.setItem(Constants.StorageKeys.GCM_TOKEN, '');
+                console.log('registerError', error.message);
+            });
+        }
+    });
 
     AsyncStorage.multiGet([Constants.StorageKeys.USER_ID, Constants.StorageKeys.FB_TOKEN])
         .then((data) => {
@@ -74,6 +89,7 @@ export function do_fb_login(e, on_login_success) {
     let fb_token = e.token;
     AsyncStorage.setItem(Constants.StorageKeys.USER_ID, user_id);
     AsyncStorage.setItem(Constants.StorageKeys.FB_TOKEN, fb_token);
+
     saveUserDetails(e.profile);
     do_server_login(on_login_success);
 

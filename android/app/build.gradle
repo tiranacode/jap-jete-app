@@ -133,7 +133,7 @@ dependencies {
     compile project(':react-native-android-statusbar')
     compile project(':react-native-vector-icons')
     compile project(':RNMaterialKit')
-    /*compile project(':react-native-dialogs')*/
+    compile project(':react-native-dialogs')
     compile 'com.google.android.gms:play-services-gcm:8.3.0'
     compile project(':RNGcmAndroid')
     compile project(':react-native-system-notification')

@@ -8,6 +8,10 @@ export default class IO {
         return AsyncStorage.getItem(Constants.StorageKeys.SESSION_TOKEN);
     }
 
+    static getSessionToken () {
+        return AsyncStorage.getItem(Constants.StorageKeys.SESSION_TOKEN);
+    }
+
     static removeSessionToken () {
         return AsyncStorage.removeItem(Constants.StorageKeys.SESSION_TOKEN);
     }

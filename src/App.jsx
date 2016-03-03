@@ -10,11 +10,9 @@
 
 'use strict';
 import React, {Component, StyleSheet, NetInfo, BackAndroid, Navigator, DeviceEventEmitter} from 'react-native';
-import {Router, Route, Schema, Animations, TabBar, Actions} from 'react-native-router-flux';
 import StatusBarAndroid from 'react-native-android-statusbar';
 
 import {AppStyle} from './Styles/CommonStyles';
-import HomeView from './Views/Home'
 import TabView from './Views/TabView'
 import LoginView from './Views/Login'
 import ProfileView from './Views/Profile'
@@ -24,7 +22,7 @@ import Footer from './Components/UI/Footer';
 import SplashScreen from './Views/SplashScreen';
 
 /* GCM */
-var GcmAndroid = require('react-native-gcm-android');
+import GcmAndroid from 'react-native-gcm-android';
 import Notification from 'react-native-system-notification';
 
 var _navigator;
@@ -34,23 +32,19 @@ var _navigator;
  */
 function initGCM() {
 
-    GcmAndroid.addEventListener('register', function (token) {
-        console.log('send gcm token to server', token);
-    });
-
-    GcmAndroid.addEventListener('registerError', function (error) {
-        console.log('registerError', error.message);
-    });
-
     GcmAndroid.addEventListener('notification', function (notification) {
         console.log('receive gcm notification', notification);
         var info = JSON.parse(notification.data.info);
-        if (!GcmAndroid.isInForeground) {
-            Notification.create({
-                subject: info.subject,
-                message: info.message
-            });
-        }
+        /*if (!GcmAndroid.isInForeground) {
+         Notification.create({
+         subject: info.subject,
+         message: info.message
+         });
+         }*/
+        Notification.create({
+            subject: info.subject,
+            message: info.message
+        });
     });
 
     DeviceEventEmitter.addListener('sysNotificationClick', function (e) {
@@ -80,10 +74,13 @@ function initEventHandlers() {
  */
 export default class JapJete extends Component {
 
+    constructor(props) {
+        super(props);
+    }
+
     componentDidMount() {
         initEventHandlers();
         initGCM();
-        Notification.create({ subject: 'Hey', message: 'Yo! Hello world.' });
     }
 
     navigatorRenderScene(route, navigator) {
@@ -106,7 +103,8 @@ export default class JapJete extends Component {
         return (
             <Navigator
                 initialRoute={{id: 'Login'}}
-                renderScene={this.navigatorRenderScene}/>
+                renderScene={this.navigatorRenderScene}
+                configureScene={(route) => {return Navigator.SceneConfigs.FadeAndroid}}/>
         )
     }
 }

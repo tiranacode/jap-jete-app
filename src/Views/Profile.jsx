@@ -16,12 +16,13 @@ import Labels from '../Configs/Labels';
 import Rest from '../Util/Rest.js'
 
 import { Endpoints } from '../Configs/Url';
-import ProfileBox from '../Components/UI/ProfileBox.js';
-
+import ProfileBox from '../Components/UI/ProfileBox.jsx';
 
 export default class ProfileView extends Component {
+
     constructor(props) {
         super(props);
+        this.state = {}
     }
 
     render() {
