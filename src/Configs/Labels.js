@@ -4,16 +4,14 @@
  */
 
 'use strict';
-import LocalizedStrings from 'react-native-localization';
-
-let labels = new LocalizedStrings({
-    en: {
-        LOGIN: "Login",
-        NO_NETWORK: "No Internet Connection"
-    },
+let labels = {
     sq: {
+        APP_NAME: "Jap Jete",
         LOGIN: "Identifikohu",
-        NO_NETWORK: "Nuk u mundesua lidhja me internetin",
+        Messages: {
+            NO_NETWORK: "Nuk u mundesua lidhja me internetin",
+            FACEBOOK_LOGIN_ERROR: "Pati nje problem me identifikimin, Ju lutem provoni me vone",
+        },
         Tabs: {
             HOME: "Hyrje",
             DASHBOARD: "Kalendari",
@@ -31,10 +29,11 @@ let labels = new LocalizedStrings({
         Ui: {
             MODIFY: 'Modifiko',
             YOUR_ACCOUNT: 'Profili Juaj',
-            LOGOUT: 'Logout'
+            LOGOUT: 'Logout',
+            ERROR: 'Gabim',
+            CANCEL: 'Hiq'
         }
     }
-});
+};
 
-labels.setLanguage('sq');
-export default labels;
+export default labels.sq;

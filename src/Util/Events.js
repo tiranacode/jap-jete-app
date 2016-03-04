@@ -1,32 +1,30 @@
+'use strict';
 import React, {AsyncStorage} from 'react-native';
-import Constants from '../Configs/Constants.js';
-import _ from 'lodash';
+import Constants from '../Configs/Constants';
+import IO from './IO';
+import Labels from '../Configs/Labels';
+import MessageDialog from '../Components/UI/MessageDialog';
 var FBLoginManager = require('NativeModules').FBLoginManager;
 
-function getSessionToken() {
-    return AsyncStorage.getItem(Constants.StorageKeys.SESSION_TOKEN);
+export function tryLogin(onLogin) {
+    return IO.getSessionToken().then((item) => {
+        if (item && onLogin) {
+            onLogin(item)
+        } else {
+            FBLoginManager.logout(function () {
+            });
+        }
+    });
 }
 
-function removeSessionToken() {
-    return AsyncStorage.removeItem(Constants.StorageKeys.SESSION_TOKEN);
-}
-
-function getLoginToken() {
-    return AsyncStorage.getItem(Constants.StorageKeys.SESSION_TOKEN);
-}
-
-export function onLoginSuccess(onLogin) {
-    return getLoginToken().then((item) => {
-        console.log("Session Token: " + item);
-        if (item && onLogin) onLogin(item);
-    })
-}
-
-export function onLogoutSuccess(onLogout) {
-    return removeSessionToken().then((item) => {
+export function tryLogout(onLogout) {
+    FBLoginManager.logout(function () {});
+    return IO.removeSessionToken().then((item) => {
         console.log("Session Token Removed");
-        FBLoginManager.logout(function(error, data){
-            if (onLogout) onLogout();
+        FBLoginManager.logout(function (error, data) {
+            IO.removeUser().then(() => {
+                if (onLogout) onLogout();
+            });
         });
     })
 }

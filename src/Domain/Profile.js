@@ -1,12 +1,14 @@
 'use strict';
 export var Profile = class {
-    constructor(username, group, email, phoneNumber, location) {
+    constructor(username, email, facebookId) {
         this.username = username;
-        this.group = group;
         this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.location = location;
-    }
+        this.facebookId = facebookId;
+        this.phoneNumber = "";
+        this.location = "";
+        this.group = "";
+        this.photo =  'https://graph.facebook.com/' + this.facebookId +'/picture?width=9999';
+    };
 };
 
 export let ProfileUISchema = {

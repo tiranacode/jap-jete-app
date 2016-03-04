@@ -25,3 +25,10 @@ project(':RNMaterialKit').projectDir = file('../node_modules/react-native-materi
 /* Dialogs */
 include ':app', ':react-native-dialogs'
 project(':react-native-dialogs').projectDir = file('../node_modules/react-native-dialogs/android')
+
+/* GCM */
+include ':RNGcmAndroid', ':app'
+project(':RNGcmAndroid').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-gcm-android/android')
+
+include ':react-native-system-notification'
+project(':react-native-system-notification').projectDir = new File(settingsDir, '../node_modules/react-native-system-notification/android')

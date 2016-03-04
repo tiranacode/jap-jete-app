@@ -4,15 +4,15 @@
  * - Handles Network Connection
  * - Loads Some Data from Local Storage
  * - Configures misc UI Components
+ * - Initializes Global Event Handlers (Back Btn)
+ * - Sets up GCM
  */
 
 'use strict';
-import React, {Component, StyleSheet, NetInfo,} from 'react-native';
-import {Router, Route, Schema, Animations, TabBar, Actions} from 'react-native-router-flux';
+import React, {Component, StyleSheet, NetInfo, BackAndroid, Navigator, DeviceEventEmitter} from 'react-native';
 import StatusBarAndroid from 'react-native-android-statusbar';
 
 import {AppStyle} from './Styles/CommonStyles';
-import HomeView from './Views/Home'
 import TabView from './Views/TabView'
 import LoginView from './Views/Login'
 import ProfileView from './Views/Profile'
@@ -20,30 +20,81 @@ import ProfileEdit from './Views/ProfileEdit'
 import Header from './Components/UI/Header';
 import Footer from './Components/UI/Footer';
 import SplashScreen from './Views/SplashScreen';
+import Constants from './Configs/Constants';
+import Labels from './Configs/Labels';
+import Push from './Util/Push';
+
+var _navigator;
+
+Push.launchNotification();
+
+/**
+ * Setup GCM
+ */
+function initGCM() {
+    Push.subscribe();
+    Push.launchLiveNotification((e) => {
+        console.log("Todo - PUSH");
+    });
+}
+
+/**
+ * Init Application
+ */
+function initApp() {
+    //Handle Back Button
+    BackAndroid.addEventListener('hardwareBackPress', () => {
+        if (_navigator.getCurrentRoutes().length === 1) {
+            return false;
+        }
+        _navigator.pop();
+        return true;
+    });
+
+    //StatusBarAndroid.hideStatusBar();
+    StatusBarAndroid.setHexColor(AppStyle.Colors.FG);
+    //TODO - Add Other Initializations Here
+}
 
 /**
  * Main Application Component
  */
 export default class JapJete extends Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        initApp();
+        initGCM();
+    }
+
+    navigatorRenderScene(route, navigator) {
+        _navigator = navigator;
+        switch (route.id) {
+            case 'Login':
+                return (<LoginView navigator={navigator}/>);
+            case 'TabView':
+                return (<TabView navigator={navigator}/>);
+            case 'Profile':
+                return (<ProfileView navigator={navigator}/>);
+            case 'ProfileEdit':
+                return (<ProfileEdit navigator={navigator} user={route.user}/>);
+            case 'Home':
+                return (<HomeView navigator={navigator}/>);
+        }
+    }
+
     render() {
         return (
-            /* Enable Header or Footer by using header={Header} | footer={Footer} */
-            <Router hideNavBar={true} hideTabBar={true}>
-                <Route name="splashScreen" hideTabBar={true} hideNavBar={true} component={SplashScreen} title="SplashScreen"/>
-                <Route name="login" hideTabBar={true} hideNavBar={true} component={LoginView} initial={true} title="Login"/>
-                <Route name="tabView" component={TabView} title="TabView"/>
-                <Route name="profile" hideTabBar={true} hideNavBar={true} component={ProfileView}></Route>
-                <Route name="profileEdit" hideTabBar={true} hideNavBar={true} component={ProfileEdit} type="push"/>
-            </Router>
-        );
+            <Navigator
+                initialRoute={{id: 'Login'}}
+                renderScene={this.navigatorRenderScene}
+                configureScene={(route) => {return Navigator.SceneConfigs.FadeAndroid}}/>
+        )
     }
 }
-
-(function initApp() {
-    //StatusBarAndroid.hideStatusBar();
-    StatusBarAndroid.setHexColor(AppStyle.Colors.FG);
-    //TODO - Add Other Initializations Here
-})();
 
 /**
  * Main Application Style

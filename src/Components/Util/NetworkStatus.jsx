@@ -7,6 +7,7 @@ import React, {
     NetInfo,
 } from 'react-native';
 import Labels from '../../Configs/Labels';
+import MessageDialog from '../UI/MessageDialog';
 
 export default React.createClass({
     getInitialState() {
@@ -23,7 +24,8 @@ export default React.createClass({
     },
     handleNetworkChange: function (connectionAlive) {
         if (!connectionAlive) {
-            ToastAndroid.show(Labels.NO_NETWORK, ToastAndroid.SHORT)
+            //ToastAndroid.show(Labels.NO_NETWORK, ToastAndroid.SHORT)
+            MessageDialog.show(Labels.Ui.ERROR, Labels.Messages.NO_NETWORK);
         }
         this.setState({
             connectionAlive

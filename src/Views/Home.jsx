@@ -20,7 +20,7 @@ import {Actions} from 'react-native-router-flux';
 
 import InstantActionBtn from '../Components/UI/InstantActionBtn';
 import DialogAndroid from 'react-native-dialogs';
-import {onLogoutSuccess} from '../Util/Events';
+import {tryLogout} from '../Util/Events';
 import Labels from '../Configs/Labels';
 import {AppStyle} from '../Styles/CommonStyles';
 
@@ -28,6 +28,8 @@ let LogoutBtn = MKButton.coloredButton()
     .withText(Labels.Ui.LOGOUT)
     .withBackgroundColor(AppStyle.Colors.FG)
     .build();
+
+
 
 export default class HomeView extends Component {
     constructor(props) {
@@ -37,12 +39,18 @@ export default class HomeView extends Component {
         }
     }
 
+    goToLogin(navigator) {
+        navigator.push({
+            id: 'Login'
+        });
+    }
+
     render() {
         return (
             <View style={styles.container} onLayout={this.showDialog}>
                 <Text>Home</Text>
                 <InstantActionBtn />
-                <LogoutBtn onPress={() => { onLogoutSuccess(() => Actions.login())}}/>
+                <LogoutBtn onPress={() => { tryLogout(() => { this.goToLogin(this.props.navigator) })}}/>
             </View>
         )
     }
