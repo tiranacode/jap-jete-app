@@ -26,6 +26,7 @@
     "react-native-material-kit": "^0.3.0",
     "react-native-progress": "^2.2.0",
     "react-native-progress-hud": "^1.0.3",
+    "react-native-pull-to-refresh": "^1.1.0",
     "react-native-router-flux": "^2.2.6",
     "react-native-scrollable-tab-view": "^0.3.7",
     "react-native-system-notification": "^0.1.8",

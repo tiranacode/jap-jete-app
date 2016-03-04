@@ -62,8 +62,8 @@
         <service android:name="com.oney.gcm.BackgroundService"></service>
 
         <service
-                android:name="com.oney.gcm.RNGcmListenerService"
-                android:exported="false" >
+                android:name="io.neson.react.notification.GCMNotificationListenerService"
+                android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>

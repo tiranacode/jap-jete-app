@@ -20,46 +20,29 @@ import ProfileEdit from './Views/ProfileEdit'
 import Header from './Components/UI/Header';
 import Footer from './Components/UI/Footer';
 import SplashScreen from './Views/SplashScreen';
-
-/* GCM */
-import GcmAndroid from 'react-native-gcm-android';
-import Notification from 'react-native-system-notification';
+import Constants from './Configs/Constants';
+import Labels from './Configs/Labels';
+import Push from './Util/Push';
 
 var _navigator;
+
+Push.launchNotification();
 
 /**
  * Setup GCM
  */
 function initGCM() {
-
-    GcmAndroid.addEventListener('notification', function (notification) {
-        console.log('receive gcm notification', notification);
-        var info = JSON.parse(notification.data.info);
-        /*if (!GcmAndroid.isInForeground) {
-         Notification.create({
-         subject: info.subject,
-         message: info.message
-         });
-         }*/
-        Notification.create({
-            subject: info.subject,
-            message: info.message
-        });
+    Push.subscribe();
+    Push.launchLiveNotification((e) => {
+        console.log("Todo - PUSH");
     });
-
-    DeviceEventEmitter.addListener('sysNotificationClick', function (e) {
-        //TODO - Handle Notification Click
-        console.log('sysNotificationClick', e);
-    });
-
-    GcmAndroid.requestPermissions();
 }
 
 /**
- * Init Other Events
+ * Init Application
  */
-function initEventHandlers() {
-
+function initApp() {
+    //Handle Back Button
     BackAndroid.addEventListener('hardwareBackPress', () => {
         if (_navigator.getCurrentRoutes().length === 1) {
             return false;
@@ -67,6 +50,10 @@ function initEventHandlers() {
         _navigator.pop();
         return true;
     });
+
+    //StatusBarAndroid.hideStatusBar();
+    StatusBarAndroid.setHexColor(AppStyle.Colors.FG);
+    //TODO - Add Other Initializations Here
 }
 
 /**
@@ -79,7 +66,7 @@ export default class JapJete extends Component {
     }
 
     componentDidMount() {
-        initEventHandlers();
+        initApp();
         initGCM();
     }
 
@@ -108,12 +95,6 @@ export default class JapJete extends Component {
         )
     }
 }
-
-(function initApp() {
-    //StatusBarAndroid.hideStatusBar();
-    StatusBarAndroid.setHexColor(AppStyle.Colors.FG);
-    //TODO - Add Other Initializations Here
-})();
 
 /**
  * Main Application Style

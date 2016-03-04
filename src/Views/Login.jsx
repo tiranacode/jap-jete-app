@@ -18,6 +18,7 @@ import Labels from '../Configs/Labels';
 import NetworkStatus from '../Components/Util/NetworkStatus';
 import {do_fb_login, do_server_login} from '../Util/Backend';
 import {tryLogin, tryLogout} from '../Util/Events';
+import MessageDialog from '../Components/UI/MessageDialog.jsx';
 
 let logo = require('../../assets/imgs/logo.png');
 
@@ -49,9 +50,11 @@ export default class LoginView extends Component {
                 <FBLogin
                     style={styles.fbLogin}
                     onLogin={(e) => {
-                        do_fb_login(e,(token) => {
+                       do_fb_login(e,(token) => {
                             loginSuccess(this.props.navigator);
-                        })
+                        }, () => {
+                            MessageDialog.show(Labels.Ui.ERROR, Labels.Messages.FACEBOOK_LOGIN_ERROR);
+                        });
                     }}
                     onLogout={(e) => {
                         tryLogout();

@@ -24,6 +24,7 @@ import IO from '../../Util/IO';
 import {Endpoints} from '../../Configs/Url';
 import Rest from '../../Util/Rest';
 import Spinner from './Spinner';
+import PTRView from 'react-native-pull-to-refresh';
 
 let logo = require('../../../assets/imgs/logo.png');
 
@@ -73,39 +74,49 @@ export default class ProfileBox extends Component {
         });
     }
 
+    _refresh() {
+        return new Promise((resolve) => {
+            setTimeout(()=> {
+                resolve()
+            }, 2000)
+        })
+    }
+
     render() {
         if (!this.state.loading) {
             return (
-                <ScrollView style={styles.container}>
-                    {/* Image Header */}
-                    <View style={styles.header}>
-                        <Image
-                            source={{ uri: this.state.user.photo }}
-                            indicator={Spinner}
-                            resizeMode="cover"
-                            indicatorProps={ComponentsStyle.ProgressIndicator}
-                            style={styles.photo}>
-                        </Image>
-                        {/* Toolbar */}
-                        <View style={styles.toolbar}>
-                            <TouchableOpacity
-                                onPress={() => { this.navigateToProfileEdit(this.props.navigator, this.state.user) }}>
-                                <Icon
-                                    name="pencil"
-                                    size={30}
-                                    color="#fff"
-                                    style={styles.toolbarBtn}/>
-                            </TouchableOpacity>
+                <PTRView onRefresh={this._refresh} progressBackgroundColor={AppStyle.Colors.FG}>
+                    <ScrollView style={styles.container}>
+                        {/* Image Header */}
+                        <View style={styles.header}>
+                            <Image
+                                source={{ uri: this.state.user.photo }}
+                                indicator={Spinner}
+                                resizeMode="cover"
+                                indicatorProps={ComponentsStyle.ProgressIndicator}
+                                style={styles.photo}>
+                            </Image>
+                            {/* Toolbar */}
+                            <View style={styles.toolbar}>
+                                <TouchableOpacity
+                                    onPress={() => { this.navigateToProfileEdit(this.props.navigator, this.state.user) }}>
+                                    <Icon
+                                        name="pencil"
+                                        size={30}
+                                        color="#fff"
+                                        style={styles.toolbarBtn}/>
+                                </TouchableOpacity>
+                            </View>
+                            {/* Icon - TODO - Change Icon */}
+                            <Image
+                                source={logo}
+                                style={styles.toolbarImage}>
+                            </Image>
                         </View>
-                        {/* Icon - TODO - Change Icon */}
-                        <Image
-                            source={logo}
-                            style={styles.toolbarImage}>
-                        </Image>
-                    </View>
-                    {/* Content */}
-                    <DetailsBox schema={ProfileUISchema} entity={this.state.user}/>
-                </ScrollView>
+                        {/* Content */}
+                        <DetailsBox schema={ProfileUISchema} entity={this.state.user}/>
+                    </ScrollView>
+                </PTRView>
             );
         }
         return (
