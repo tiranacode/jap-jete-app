@@ -20,7 +20,7 @@ import {Actions} from 'react-native-router-flux';
 
 import InstantActionBtn from '../Components/UI/InstantActionBtn';
 import DialogAndroid from 'react-native-dialogs';
-import {onLogoutSuccess} from '../Util/Events';
+import {tryLogout} from '../Util/Events';
 import Labels from '../Configs/Labels';
 import {AppStyle} from '../Styles/CommonStyles';
 
@@ -50,7 +50,7 @@ export default class HomeView extends Component {
             <View style={styles.container} onLayout={this.showDialog}>
                 <Text>Home</Text>
                 <InstantActionBtn />
-                <LogoutBtn onPress={() => { onLogoutSuccess(() => { this.goToLogin(this.props.navigator) })}}/>
+                <LogoutBtn onPress={() => { tryLogout(() => { this.goToLogin(this.props.navigator) })}}/>
             </View>
         )
     }

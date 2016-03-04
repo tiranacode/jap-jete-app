@@ -12,8 +12,12 @@ let labels = new LocalizedStrings({
         NO_NETWORK: "No Internet Connection"
     },
     sq: {
+        APP_NAME: "Jap Jete",
         LOGIN: "Identifikohu",
-        NO_NETWORK: "Nuk u mundesua lidhja me internetin",
+        Messages: {
+            NO_NETWORK: "Nuk u mundesua lidhja me internetin",
+            FACEBOOK_LOGIN_ERROR: "Pati nje problem me identifikimin"
+        },
         Tabs: {
             HOME: "Hyrje",
             DASHBOARD: "Kalendari",

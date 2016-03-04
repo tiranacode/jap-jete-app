@@ -15,27 +15,20 @@ function saveUserDetails(facebookData) {
 }
 
 export function do_server_login(on_login_success) {
-    // TODO: Register gcmID
-
     let gcmID = "";
 
     /**
-     * Set Furst Time GCM Token
+     * Set First Time GCM Token
      */
-    AsyncStorage.getItem(Constants.StorageKeys.GCM_TOKEN).then((token) => {
-        if (!token) {
-            console.log('no gcm tokan stored locally', token);
-            GcmAndroid.addEventListener('register', function (token) {
-                gcmID = token;
-                AsyncStorage.setItem(Constants.StorageKeys.GCM_TOKEN, token);
-                console.log('send gcm token to server', token);
-            });
+    GcmAndroid.addEventListener('register', function (token) {
+        gcmID = token;
+        AsyncStorage.setItem(Constants.StorageKeys.GCM_TOKEN, token);
+        console.log('GCM Token: ' + token);
+    });
 
-            GcmAndroid.addEventListener('registerError', function (error) {
-                AsyncStorage.setItem(Constants.StorageKeys.GCM_TOKEN, '');
-                console.log('registerError', error.message);
-            });
-        }
+    GcmAndroid.addEventListener('registerError', function (error) {
+        AsyncStorage.setItem(Constants.StorageKeys.GCM_TOKEN, '');
+        console.log('registerError', error.message);
     });
 
     AsyncStorage.multiGet([Constants.StorageKeys.USER_ID, Constants.StorageKeys.FB_TOKEN])
@@ -77,22 +70,16 @@ export function do_server_login(on_login_success) {
                 }
             });
         });
-
-
 }
 
 export function do_fb_login(e, on_login_success) {
     // TODO: Check for valid response
-    // console.log(e);
-
     let user_id = e.profile.id;
     let fb_token = e.token;
     AsyncStorage.setItem(Constants.StorageKeys.USER_ID, user_id);
     AsyncStorage.setItem(Constants.StorageKeys.FB_TOKEN, fb_token);
-
     saveUserDetails(e.profile);
     do_server_login(on_login_success);
-
 }
 
 

@@ -5,7 +5,7 @@
  */
 
 'use strict';
-import React, { Component, StyleSheet, View, Text, TouchableHighlight, ToastAndroid } from 'react-native';
+import React, { Component, StyleSheet, View, Text, TouchableHighlight, ToastAndroidk, Image } from 'react-native';
 import {Router, Route, Schema, Animations, TabBar, Actions} from 'react-native-router-flux';
 
 import {AppStyle} from '../Styles/CommonStyles';
@@ -16,8 +16,10 @@ import HomeView from './Home';
 import FBLogin from 'react-native-facebook-login';
 import Labels from '../Configs/Labels';
 import NetworkStatus from '../Components/Util/NetworkStatus';
-import {do_fb_login, do_server_login} from '../Util/backend';
-import {onLoginSuccess} from '../Util/Events';
+import {do_fb_login, do_server_login} from '../Util/Backend';
+import {tryLogin, tryLogout} from '../Util/Events';
+
+let logo = require('../../assets/imgs/logo.png');
 
 function loginSuccess(navigator) {
     navigator.push({
@@ -30,26 +32,29 @@ export default class LoginView extends Component {
         super(props);
     }
 
-    componentWillMount() {
-        onLoginSuccess(() => loginSuccess(this.props.navigator))
+    componentDidMount() {
+        tryLogin(() => loginSuccess(this.props.navigator))
     }
 
     render() {
         return (
             <View style={styles.loginWrapper}>
-                <Icon
-                    name="heartbeat"
-                    size={120}
-                    color={AppStyle.Colors.FG}
-                    style={{marginBottom: 20}}/>
+                <Image
+                    source={logo}
+                    style={styles.logoImage}>
+                </Image>
+                <Text style={styles.mainTitle}>
+                    {Labels.APP_NAME}
+                </Text>
                 <FBLogin
+                    style={styles.fbLogin}
                     onLogin={(e) => {
                         do_fb_login(e,(token) => {
                             loginSuccess(this.props.navigator);
                         })
                     }}
                     onLogout={(e) => {
-                        console.log(e);
+                        tryLogout();
                     }}
                     onCancel={(e) => {
                         console.log(e)
@@ -58,7 +63,7 @@ export default class LoginView extends Component {
                         console.log(e)}
                     }/>
                 {/* TODO - For Testing Purposes Only */}
-                <Button onPress={()=> { loginSuccess(this.props.navigator) }}>Go to Home</Button>
+                <Text onPress={()=> { loginSuccess(this.props.navigator) }}>Go to Home</Text>
                 <NetworkStatus />
             </View>
         );
@@ -70,7 +75,20 @@ var styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: AppStyle.Colors.BG
+        backgroundColor: AppStyle.Colors.FG
+    },
+    fbLogin: {
+        marginBottom: 20
+    },
+    mainTitle: {
+        color: AppStyle.Colors.BG,
+        fontSize: 30,
+        marginBottom: 20
+    },
+    logoImage: {
+        width: 150,
+        height: 150,
+        marginBottom: 10
     }
 });
 

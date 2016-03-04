@@ -5,7 +5,7 @@
 'use strict';
 export let AppStyle = {
     Colors: {
-        FG: "#ff0000",
+        FG: "#e73b3b",
         BG: "#efefef",
         THIRD: "#555"
     },

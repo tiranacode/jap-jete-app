@@ -25,7 +25,7 @@ export default React.createClass({
     handleNetworkChange: function (connectionAlive) {
         if (!connectionAlive) {
             //ToastAndroid.show(Labels.NO_NETWORK, ToastAndroid.SHORT)
-            MessageDialog.show(Labels.Ui.ERROR, Labels.NO_NETWORK);
+            MessageDialog.show(Labels.Ui.ERROR, Labels.Messages.NO_NETWORK);
         }
         this.setState({
             connectionAlive

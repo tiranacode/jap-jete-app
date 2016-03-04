@@ -25,6 +25,8 @@ import {Endpoints} from '../../Configs/Url';
 import Rest from '../../Util/Rest';
 import Spinner from './Spinner';
 
+let logo = require('../../../assets/imgs/logo.png');
+
 export default class ProfileBox extends Component {
     constructor(props) {
         super(props);
@@ -79,10 +81,11 @@ export default class ProfileBox extends Component {
                     <View style={styles.header}>
                         <Image
                             source={{ uri: this.state.user.photo }}
-                            indicator={Progress.Pie}
+                            indicator={Spinner}
                             resizeMode="cover"
                             indicatorProps={ComponentsStyle.ProgressIndicator}
-                            style={styles.photo}/>
+                            style={styles.photo}>
+                        </Image>
                         {/* Toolbar */}
                         <View style={styles.toolbar}>
                             <TouchableOpacity
@@ -96,7 +99,7 @@ export default class ProfileBox extends Component {
                         </View>
                         {/* Icon - TODO - Change Icon */}
                         <Image
-                            source={{uri: "http://www.myiconfinder.com/uploads/iconsets/067f33d33e085fde8c366c8ae7162d95-heart.png"}}
+                            source={logo}
                             style={styles.toolbarImage}>
                         </Image>
                     </View>
@@ -121,7 +124,7 @@ class DetailsBox extends Component {
                         <Icon
                             name={this.props.schema[field].icon}
                             size={20}
-                            color="red"
+                            color={AppStyle.Colors.FG}
                             style={styles.detailIcon}
                             />
                         <Text style={styles.detailValue}>{this.props.entity[field]}</Text>
@@ -153,7 +156,7 @@ const styles = StyleSheet.create({
     },
     toolbar: {
         flex: 0.4,
-        backgroundColor: 'red',
+        backgroundColor: AppStyle.Colors.FG,
         width: Dimensions.get('window').width,
         height: 50,
         flexDirection: 'row',

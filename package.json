@@ -12,6 +12,7 @@
     "react-native": "*",
     "react-native-android-geolocation": "^1.0.3",
     "react-native-android-statusbar": "^0.1.2",
+    "react-native-blur": "^0.7.10",
     "react-native-button": "^1.4.2",
     "react-native-calendar": "^0.6.2",
     "react-native-date": "^1.0.3",
