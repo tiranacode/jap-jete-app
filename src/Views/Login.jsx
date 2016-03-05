@@ -40,9 +40,9 @@ export default class LoginView extends Component {
         tryLogin().then((data) => {
             if (data) {
                 this.goToNextScreen();
-                this.setState({initialView : false});
+                this.setState({initialView: false});
             } else {
-                this.setState({initialView : false});
+                this.setState({initialView: false});
             }
         })
     }
@@ -90,8 +90,6 @@ export default class LoginView extends Component {
                         onPermissionsMissing={(e) => {
                         console.log(e)}
                     }/>
-                    {/* TODO - For Testing Purposes Only */}
-                    <Text onPress={()=> { this.goToNextScreen() }}>Go to Home</Text>
                     <NetworkStatus />
                 </View>
             );
