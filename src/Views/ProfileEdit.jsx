@@ -39,16 +39,16 @@ var styles = StyleSheet.create({
         flex: 0.4
     },
     profileForm: {
-        flex: 0.6,
+        flex: 0.6
     },
     textField: {
         marginTop: 10,
-        marginBottom: 10,
+        marginBottom: 10
     },
     container: {
         flex: 1,
         margin: 20,
-        width: Dimensions.get('window').width - 40,
+        width: Dimensions.get('window').width - 40
     }
 });
 
@@ -98,7 +98,6 @@ function saveUser(navigator, user) {
             });
         }
     });
-    //Prepare user object
 }
 
 export default class ProfileEdit extends Component {
@@ -107,9 +106,6 @@ export default class ProfileEdit extends Component {
         super(props);
         initializeInputs();
         this.state = {};
-
-        {/* TODO - Remove - For testing purposes only */}
-        saveUser(this.props.navigator, this.props.user);
     }
 
     render() {

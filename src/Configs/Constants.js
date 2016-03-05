@@ -11,7 +11,7 @@ let Constants = {
         SESSION_TOKEN: 'session_token',
         USER: 'user',
         GCM_TOKEN: 'gcmToken'
-    },
+    }
 
 };
 
