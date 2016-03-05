@@ -13,7 +13,7 @@ function saveUserDetails(facebookData) {
     AsyncStorage.setItem(Constants.StorageKeys.USER, JSON.stringify(userProfile));
 }
 
-export function do_server_login(on_login_success, on_login_error) {
+export function doServerLogin(onLoginSuccess, onLoginError) {
     let gcmID = "";
 
     AsyncStorage.multiGet([Constants.StorageKeys.USER_ID, Constants.StorageKeys.FB_TOKEN])
@@ -35,6 +35,7 @@ export function do_server_login(on_login_success, on_login_error) {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
+                timeout: 2000,
                 body: body
             }).then(function (res) {
                 console.log("Success");
@@ -48,38 +49,30 @@ export function do_server_login(on_login_success, on_login_error) {
                     AsyncStorage.getItem(Constants.StorageKeys.SESSION_TOKEN)
                         .then((session_token) => {
                             console.log("Logged in with session_token " + session_token);
-                            on_login_success(session_token);
+                            onLoginSuccess(session_token);
                         });
                 } else {
                     console.log("Status Not OK");
-                    //TODO - Handle
-                    if (on_login_error) on_login_error();
+                    if (onLoginError) onLoginError();
                 }
             }).catch((err) => {
                 console.log("Catched Network Exception");
                 console.dir(err);
-                if (on_login_error) on_login_error();
+                if (onLoginError) onLoginError();
             });
         });
     return true;
 }
 
-export function do_fb_login(e, on_login_success, on_login_error) {
-    // TODO: Check for valid response
-    let user_id = e.profile.id;
-    let fb_token = e.token;
-    AsyncStorage.setItem(Constants.StorageKeys.USER_ID, user_id);
-    AsyncStorage.setItem(Constants.StorageKeys.FB_TOKEN, fb_token);
-    saveUserDetails(e.profile);
-    do_server_login(on_login_success, on_login_error);
+export function doFBLogin(e, onLoginSuccess, onLoginError) {
+    if (e && e.profile && e.token) {
+        let userId = e.profile.id;
+        let fbToken = e.token;
+        AsyncStorage.setItem(Constants.StorageKeys.USER_ID, userId);
+        AsyncStorage.setItem(Constants.StorageKeys.FB_TOKEN, fbToken);
+        saveUserDetails(e.profile);
+        doServerLogin(onLoginSuccess, onLoginError);
+    } else {
+        onLoginError();
+    }
 }
-
-
-// fetch('https://graph.facebook.com/me?access_token=' + fb_token + '&fields=id,name')
-//     .then(function(res) {
-//         console.log(res.json());
-//     })
-//     .catch(function(err) {
-//         console.log("error");
-//         console.log(err.json());
-//     });
