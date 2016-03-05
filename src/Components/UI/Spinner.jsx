@@ -19,7 +19,7 @@ export default class Spinner extends Component {
     render() {
         return (
             <View style={styles.spinnerContainer}>
-                <LoadingSpinner strokeWidth={5} strokeColor={AppStyle.Colors.FG} style={{width: 50, height: 50}}/>
+                <LoadingSpinner strokeWidth={5} strokeColor={this.props.inverted ? AppStyle.Colors.BG : AppStyle.Colors.FG} style={{width: 50, height: 50}}/>
             </View>
         )
     }

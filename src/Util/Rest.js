@@ -29,7 +29,7 @@ export default class Rest {
      */
     static create(url, body, success, error) {
         fetch(url, {
-            method: 'PUT',
+            method: 'POST',
             headers: HttpHeaders,
             body: JSON.stringify(body)
         }).then((res) => success(res)).catch((res) => error(res))
@@ -45,7 +45,7 @@ export default class Rest {
      */
     static update(url, body, success, error) {
         fetch(url, {
-            method: 'POST',
+            method: 'PUT',
             headers: HttpHeaders,
             body: JSON.stringify(body)
         }).then((res) => success(res)).catch((res) => error(res))
