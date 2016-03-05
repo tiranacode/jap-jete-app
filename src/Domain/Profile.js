@@ -1,7 +1,6 @@
 'use strict';
 export var Profile = class {
     constructor(username, email, facebookId) {
-        this.username = username;
         this.email = email;
         this.facebookId = facebookId;
         this.phoneNumber = "";
