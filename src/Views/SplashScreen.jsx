@@ -21,7 +21,7 @@ var styles = StyleSheet.create({
         height: Dimensions.get('window').height,
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
-    },
+        alignItems: 'center'
+    }
 });
 

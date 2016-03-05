@@ -6,7 +6,7 @@ import Constants from '../Configs/Constants.js';
 import GcmAndroid from 'react-native-gcm-android';
 import Notification from 'react-native-system-notification';
 
-function createNotificationBody (info) {
+function createNotificationBody(info) {
     Notification.create({
         subject: info.subject,
         message: info.message

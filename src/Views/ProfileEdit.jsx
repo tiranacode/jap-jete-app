@@ -24,11 +24,12 @@ import {Router, Route, Schema, Animations, TabBar, Actions} from 'react-native-r
 import Button from 'react-native-button';
 import Labels from '../Configs/Labels';
 import Rest from '../Util/Rest';
+import IO from '../Util/IO';
 import Form from 'react-native-form'
 import {AppStyle} from '../Styles/CommonStyles.js';
 
 import { Endpoints } from '../Configs/Url';
-
+import Constants from '../Configs/Constants.js';
 
 var styles = StyleSheet.create({
     title: {
@@ -38,16 +39,16 @@ var styles = StyleSheet.create({
         flex: 0.4
     },
     profileForm: {
-        flex: 0.6,
+        flex: 0.6
     },
     textField: {
         marginTop: 10,
-        marginBottom: 10,
+        marginBottom: 10
     },
     container: {
         flex: 1,
         margin: 20,
-        width: Dimensions.get('window').width - 40,
+        width: Dimensions.get('window').width - 40
     }
 });
 
@@ -66,11 +67,36 @@ function initializeInputs() {
         .build();
 }
 
+function mapUserParams(user, token) {
+    return {
+        session_token: token,
+        user_id: user.facebookId,
+        gcm_id: "", //TODO - Check
+        username: user.username,
+        email: user.email,
+        phone_number: user.phoneNumber,
+        address: user.location,
+        blood_type: user.group
+    };
+}
+
 function saveUser(navigator, user) {
-    console.log("User Saved");
-    navigator.push({
-        id: 'TabView',
-        user: user
+    IO.getSessionToken().then((token) => {
+        if (token) {
+            var requestParams = JSON.stringify(mapUserParams(user, token));
+            console.log("User Params" + requestParams);
+            Rest.update(Endpoints.USER, requestParams, (data) => {
+                console.log("User update Succes");
+                console.dir(data);
+            }, (err) => {
+                console.error("User update Error");
+                console.dir(err);
+            });
+            navigator.push({
+                id: 'TabView',
+                user: user
+            });
+        }
     });
 }
 
@@ -79,10 +105,8 @@ export default class ProfileEdit extends Component {
     constructor(props) {
         super(props);
         initializeInputs();
-        this.state = {
-            user: props.user
-        }
-    };
+        this.state = {};
+    }
 
     render() {
         return (
@@ -93,13 +117,25 @@ export default class ProfileEdit extends Component {
                     </Text>
                 </View>
                 <Form ref="form" style={styles.profileForm}>
+                    {/* TODO - Change GPS value from GPS and Blood Group from select */}
                     <View>
-                        <TextMaterialInput placeholder={Labels.Domain.User.USERNAME} value={this.state.user.username}/>
-                        <TextMaterialInput placeholder={Labels.Domain.User.PHONE_NUMBER} value={this.state.user.phoneNumber}/>
-                        <TextMaterialInput placeholder={Labels.Domain.User.EMAIL} value={this.state.user.email}/>
-                        <TextMaterialInput placeholder={Labels.Domain.User.LOCATION} value={this.state.user.location}/>
-                        <TextMaterialInput placeholder={Labels.Domain.User.GROUP} value={this.state.user.group}/>
-                        <SubmitBtn onPress={() => {saveUser(this.props.navigator, this.state.user)}}/>
+                        <TextMaterialInput placeholder={Labels.Domain.User.USERNAME}
+                                           defaultValue={this.props.user.username}
+                                           onChangeText={(txt) => {this.props.user.username = txt}}/>
+                        <TextMaterialInput placeholder={Labels.Domain.User.PHONE_NUMBER}
+                                           defaultValue={this.props.user.phoneNumber}
+                                           onChangeText={(txt) => {this.props.user.phoneNumber = txt}}/>
+                        <TextMaterialInput placeholder={Labels.Domain.User.EMAIL}
+                                           defaultValue={this.props.user.email}
+                                           onChangeText={(txt) => {this.props.user.email = txt}}/>
+                        <TextMaterialInput placeholder={Labels.Domain.User.LOCATION}
+                                           defaultValue={this.props.user.location}
+                                           onChangeText={(txt) => {this.props.user.location = txt}}/>
+                        <TextMaterialInput placeholder={Labels.Domain.User.GROUP}
+                                           defaultValue={this.props.user.group}
+                                           onChangeText={(txt) => {this.props.user.group = txt}}/>
+                        {/* Submit */}
+                        <SubmitBtn onPress={() => {saveUser(this.props.navigator, this.props.user)}}/>
                     </View>
                 </Form>
             </ScrollView>

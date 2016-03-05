@@ -6,7 +6,7 @@ var API_URL = "http://52.59.251.182/api/v1/";
 
 export const Endpoints = {
     LOGIN: API_URL + "login/",
-    LOGIN: API_URL + "user/",
+    USER: API_URL + "user/",
     PROFILE: API_URL + "/profile"
 };
 

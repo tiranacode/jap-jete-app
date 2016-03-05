@@ -16,60 +16,85 @@ import HomeView from './Home';
 import FBLogin from 'react-native-facebook-login';
 import Labels from '../Configs/Labels';
 import NetworkStatus from '../Components/Util/NetworkStatus';
-import {do_fb_login, do_server_login} from '../Util/Backend';
+import {doFBLogin, doServerLogin} from '../Util/Backend';
 import {tryLogin, tryLogout} from '../Util/Events';
-import MessageDialog from '../Components/UI/MessageDialog.jsx';
-
+import MessageDialog from '../Components/UI/MessageDialog';
+import IO from '../Util/IO';
+import Spinner from '../Components/UI/Spinner';
 let logo = require('../../assets/imgs/logo.png');
-
-function loginSuccess(navigator) {
-    navigator.push({
-        id: 'TabView'
-    });
-}
 
 export default class LoginView extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            initialView: true
+        }
+    }
+
+    goToNextScreen() {
+        this.props.navigator.push({id: 'TabView'})
     }
 
     componentDidMount() {
-        tryLogin(() => loginSuccess(this.props.navigator))
+        //Go to Tab View if LoggedIn
+        tryLogin().then((data) => {
+            if (data) {
+                this.goToNextScreen();
+                this.setState({initialView: false});
+            } else {
+                this.setState({initialView: false});
+            }
+        })
+    }
+
+    shouldComponentUpdate() {
+        return true;
     }
 
     render() {
-        return (
-            <View style={styles.loginWrapper}>
-                <Image
-                    source={logo}
-                    style={styles.logoImage}>
-                </Image>
-                <Text style={styles.mainTitle}>
-                    {Labels.APP_NAME}
-                </Text>
-                <FBLogin
-                    style={styles.fbLogin}
-                    onLogin={(e) => {
-                       do_fb_login(e,(token) => {
-                            loginSuccess(this.props.navigator);
+        let view = null;
+        //Default View
+        if (this.state.initialView) {
+            view = (
+                <View style={styles.loginWrapper}>
+                    <Spinner inverted={true}/>
+                </View>
+            );
+        } else {
+            view = (
+                <View style={styles.loginWrapper}>
+                    <Image
+                        source={logo}
+                        style={styles.logoImage}>
+                    </Image>
+                    <Text style={styles.mainTitle}>
+                        {Labels.APP_NAME}
+                    </Text>
+                    <FBLogin
+                        style={styles.fbLogin}
+                        onLogin={(e) => {
+                       doFBLogin(e,(token) => {
+                            //Successful Login
+                            this.goToNextScreen();
                         }, () => {
+                            //Login Failed
                             MessageDialog.show(Labels.Ui.ERROR, Labels.Messages.FACEBOOK_LOGIN_ERROR);
                         });
                     }}
-                    onLogout={(e) => {
+                        onLogout={(e) => {
                         tryLogout();
                     }}
-                    onCancel={(e) => {
+                        onCancel={(e) => {
                         console.log(e)
                     }}
-                    onPermissionsMissing={(e) => {
+                        onPermissionsMissing={(e) => {
                         console.log(e)}
                     }/>
-                {/* TODO - For Testing Purposes Only */}
-                <Text onPress={()=> { loginSuccess(this.props.navigator) }}>Go to Home</Text>
-                <NetworkStatus />
-            </View>
-        );
+                    <NetworkStatus />
+                </View>
+            );
+        }
+        return view;
     }
 }
 
