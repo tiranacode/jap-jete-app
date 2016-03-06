@@ -26,7 +26,8 @@ import Labels from '../Configs/Labels';
 import Rest from '../Util/Rest';
 import IO from '../Util/IO';
 import Form from 'react-native-form'
-import {AppStyle} from '../Styles/CommonStyles.js';
+import {AppStyle} from '../Styles/CommonStyles';
+import MessageDialog from '../Components/UI/MessageDialog';
 
 import { Endpoints } from '../Configs/Url';
 import Constants from '../Configs/Constants.js';
@@ -105,7 +106,25 @@ export default class ProfileEdit extends Component {
     constructor(props) {
         super(props);
         initializeInputs();
-        this.state = {};
+        this.state = {
+            position: null
+        };
+    }
+
+    componentDidMount() {
+        {/* TODO - Change GPS Retrival Strategy */}
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                console.log(position);
+                var gpsPosition = position.coords.latitude + "," + position.coords.longitude;
+                this.setState({position: gpsPosition});
+            },
+            (error) => {
+                console.error(error);
+                MessageDialog.show(Labels.Ui.ERROR, Labels.Messages.GPS_ERROR);
+            },
+            {enableHighAccuracy: true, timeout: 2000, maximumAge: 1000}
+        );
     }
 
     render() {
@@ -129,7 +148,7 @@ export default class ProfileEdit extends Component {
                                            defaultValue={this.props.user.email}
                                            onChangeText={(txt) => {this.props.user.email = txt}}/>
                         <TextMaterialInput placeholder={Labels.Domain.User.LOCATION}
-                                           defaultValue={this.props.user.location}
+                                           defaultValue={this.state.position}
                                            onChangeText={(txt) => {this.props.user.location = txt}}/>
                         <TextMaterialInput placeholder={Labels.Domain.User.GROUP}
                                            defaultValue={this.props.user.group}
