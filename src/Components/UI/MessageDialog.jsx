@@ -23,7 +23,7 @@ var dialogOptions = {
 export default class MessageDialog {
 
     static show = function (title, message) {
-        ToastAndroid.show(message, ToastAndroid.LONG);
+        return ToastAndroid.show(message, ToastAndroid.LONG);
         /*var dialog = new DialogAndroid();
         dialogOptions.content = message;
         dialogOptions.title = title;

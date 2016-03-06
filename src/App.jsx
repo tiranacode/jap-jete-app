@@ -83,13 +83,15 @@ export default class JapJete extends Component {
                 return (<ProfileEdit navigator={navigator} user={route.user}/>);
             case 'Home':
                 return (<HomeView navigator={navigator}/>);
+            case 'Splash':
+                return (<SplashScreen navigator={navigator}/>);
         }
     }
 
     render() {
         return (
             <Navigator
-                initialRoute={{id: 'Login'}}
+                initialRoute={{id: 'Splash'}}
                 renderScene={this.navigatorRenderScene}
                 configureScene={(route) => {return Navigator.SceneConfigs.FadeAndroid}}/>
         )
