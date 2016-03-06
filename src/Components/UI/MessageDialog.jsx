@@ -8,11 +8,12 @@ import React, {
     TouchableOpacity,
     ScrollView,
     AsyncStorage,
-    InteractionManager
+    InteractionManager,
+    ToastAndroid
 } from 'react-native';
 
 import {AppStyle, ComponentsStyle} from '../../Styles/CommonStyles';
-import DialogAndroid from 'react-native-dialogs';
+/*import DialogAndroid from 'react-native-dialogs';*/
 import Labels from '../../Configs/Labels';
 
 var dialogOptions = {
@@ -22,11 +23,12 @@ var dialogOptions = {
 export default class MessageDialog {
 
     static show = function (title, message) {
-        var dialog = new DialogAndroid();
+        ToastAndroid.show(message, ToastAndroid.LONG);
+        /*var dialog = new DialogAndroid();
         dialogOptions.content = message;
         dialogOptions.title = title;
         dialog.set(dialogOptions);
-        dialog.show();
+        dialog.show();*/
     };
 }
 
