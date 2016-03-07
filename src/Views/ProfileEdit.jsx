@@ -72,7 +72,6 @@ function mapUserParams(user, token) {
     return {
         session_token: token,
         user_id: user.facebookId,
-        gcm_id: "", //TODO - Check
         username: user.username,
         email: user.email,
         phone_number: user.phoneNumber,

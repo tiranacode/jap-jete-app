@@ -13,6 +13,18 @@ function createNotificationBody(info) {
     });
 }
 
+function getGCMMessage(notification) {
+    let info = {};
+    try {
+        info = JSON.parse(notification.data.info);
+    } catch (e) {
+        info.subject = "Push";
+        info.message = "Message Error";
+        console.error(e);
+    }
+    return info;
+}
+
 export default class Push {
 
     /**
@@ -20,20 +32,20 @@ export default class Push {
      */
     static subscribe() {
         GcmAndroid.addEventListener('register', function (token) {
-            AsyncStorage.setItem(Constants.StorageKeys.GCM_TOKEN, token);
+            AsyncStorage.setItem(Constants.StorageKeys.GCM_ID, token);
             console.log('GCM Token: ' + token);
         });
 
         GcmAndroid.addEventListener('registerError', function (error) {
-            AsyncStorage.setItem(Constants.StorageKeys.GCM_TOKEN, '');
+            AsyncStorage.setItem(Constants.StorageKeys.GCM_ID, '');
             console.log('registerError', error.message);
         });
     }
 
     static launchNotification() {
         if (GcmAndroid.launchNotification) {
-            var notification = GcmAndroid.launchNotification;
-            var info = JSON.parse(notification.info);
+            let notification = GcmAndroid.launchNotification;
+            let info = getGCMMessage(notification);
             createNotificationBody(info);
             GcmAndroid.stopService();
         }
@@ -42,7 +54,7 @@ export default class Push {
     static launchLiveNotification(clickCallback) {
         GcmAndroid.addEventListener('notification', function (notification) {
             console.log('receive gcm notification', notification);
-            var info = JSON.parse(notification.data.info);
+            let info = getGCMMessage(notification);
             createNotificationBody(info);
         });
 
