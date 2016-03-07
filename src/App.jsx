@@ -44,7 +44,9 @@ function initGCM() {
 function initApp() {
     //Handle Back Button
     BackAndroid.addEventListener('hardwareBackPress', () => {
-        if (_navigator.getCurrentRoutes().length === 1) {
+        let routes = _navigator.getCurrentRoutes();
+        let lastRouteId = routes[routes.length - 2].id;
+        if (routes.length == 1 || lastRouteId == "Login" || lastRouteId == "Splash") {
             return false;
         }
         _navigator.pop();
