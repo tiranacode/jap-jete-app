@@ -1,28 +1,21 @@
 'use strict';
 import React, {AsyncStorage, DeviceEventEmitter} from 'react-native';
-import Constants from '../Configs/Constants.js';
+import Constants from '../Configs/Constants';
+import MessageDialog from '../Components/UI/MessageDialog';
 
 /* GCM */
 import GcmAndroid from 'react-native-gcm-android';
 import Notification from 'react-native-system-notification';
 
-function createNotificationBody(info) {
-    Notification.create({
-        subject: info.subject,
-        message: info.message
-    });
-}
-
-function getGCMMessage(notification) {
-    let info = {};
-    try {
-        info = JSON.parse(notification.data.info);
-    } catch (e) {
-        info.subject = "Push";
-        info.message = "Message Error";
-        console.error(e);
+function notify(data) {
+    if (data && data.subject && data.message) {
+        Notification.create({
+            subject: data.subject,
+            message: data.message,
+            smallIcon: 'ic_launcher',
+            largeIcon: 'ic_launcher'
+        });
     }
-    return info;
 }
 
 export default class Push {
@@ -44,9 +37,7 @@ export default class Push {
 
     static launchNotification() {
         if (GcmAndroid.launchNotification) {
-            let notification = GcmAndroid.launchNotification;
-            let info = getGCMMessage(notification);
-            createNotificationBody(info);
+            notify(GcmAndroid.launchNotification);
             GcmAndroid.stopService();
         }
     }
@@ -54,8 +45,7 @@ export default class Push {
     static launchLiveNotification(clickCallback) {
         GcmAndroid.addEventListener('notification', function (notification) {
             console.log('receive gcm notification', notification);
-            let info = getGCMMessage(notification);
-            createNotificationBody(info);
+            notify(notification.data);
         });
 
         DeviceEventEmitter.addListener('sysNotificationClick', function (e) {
