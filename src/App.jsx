@@ -46,7 +46,8 @@ function initApp() {
     //Handle Back Button
     BackAndroid.addEventListener('hardwareBackPress', () => {
         let routes = _navigator.getCurrentRoutes();
-        let lastRouteId = routes[routes.length - 2].id;
+        let lastRouteId = (routes[routes.length - 2]) ?
+            routes[routes.length - 2].id : routes[routes.length - 1].id;
         if (routes.length == 1 || lastRouteId == "Login" || lastRouteId == "Splash") {
             return false;
         }
@@ -66,9 +67,7 @@ export default class JapJete extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-
-        }
+        this.state = {}
     }
 
     shouldComponentUpdate() {

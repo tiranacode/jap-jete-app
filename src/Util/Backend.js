@@ -27,7 +27,7 @@ export function doServerLogin(onLoginSuccess, onLoginError) {
                     requestParams[Constants.StorageKeys.FB_TOKEN] = params[Constants.StorageKeys.FB_TOKEN];
                     requestParams[Constants.StorageKeys.GCM_ID] = gcmID;
                     let body = JSON.stringify(requestParams);
-                    MessageDialog.debug("Sending Body: " + body);
+                    //MessageDialog.debug("Sending Body: " + body);
                     fetch(Endpoints.LOGIN, {
                         method: 'post',
                         headers: {
@@ -36,10 +36,13 @@ export function doServerLogin(onLoginSuccess, onLoginError) {
                         },
                         body: body
                     }).then(function (res) {
+                        return res.json();
+                    }).then((res) => {
                         MessageDialog.debug("Login Success " + JSON.stringify(res));
                         let status = res.status;
-                        if (status == 200) {
+                        if (status == "OK") {
                             let sessionToken = res.session_token;
+                            //MessageDialog.debug("TOKEN: " + sessionToken, res);
                             AsyncStorage.setItem(Constants.StorageKeys.SESSION_TOKEN, sessionToken);
                             AsyncStorage.getItem(Constants.StorageKeys.SESSION_TOKEN)
                                 .then((sessiontoken) => {
@@ -54,7 +57,7 @@ export function doServerLogin(onLoginSuccess, onLoginError) {
                         MessageDialog.debug("Catched Network Exception", obj);
                         if (onLoginError) onLoginError();
                     });
-                })
+                });
         });
     return true;
 }

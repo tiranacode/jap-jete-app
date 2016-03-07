@@ -16,7 +16,7 @@ import {AppStyle, ComponentsStyle} from '../../Styles/CommonStyles';
 /*import DialogAndroid from 'react-native-dialogs';*/
 import Labels from '../../Configs/Labels';
 
-let DEBUG = true;
+let DEBUG = false;
 let dialogOptions = {
     negativeText: Labels.Ui.CANCEL
 };
@@ -33,7 +33,7 @@ export default class MessageDialog {
     };
 
     static debug = function(message, obj) {
-        if (DEBUG) ToastAndroid.show(message, ToastAndroid.SHORT);
+        if (DEBUG) ToastAndroid.show(message, ToastAndroid.LONG);
         console.log(message);
         if (obj) console.dir(obj);
     }
