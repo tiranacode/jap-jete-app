@@ -9,7 +9,7 @@
  */
 
 'use strict';
-import React, {Component, StyleSheet, NetInfo, BackAndroid, Navigator, DeviceEventEmitter} from 'react-native';
+import React, {Component, StyleSheet, NetInfo, BackAndroid, Navigator, DeviceEventEmitter, AsyncStorage} from 'react-native';
 import StatusBarAndroid from 'react-native-android-statusbar';
 
 import {AppStyle} from './Styles/CommonStyles';
@@ -23,6 +23,7 @@ import SplashScreen from './Views/SplashScreen';
 import Constants from './Configs/Constants';
 import Labels from './Configs/Labels';
 import Push from './Util/Push';
+import MessageDialog from './Components/UI/MessageDialog';
 
 var _navigator;
 
@@ -65,11 +66,26 @@ export default class JapJete extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+
+        }
+    }
+
+    shouldComponentUpdate() {
+        return true;
     }
 
     componentDidMount() {
         initApp();
         initGCM();
+        //Show splash if is not opened otherwise login
+        AsyncStorage.getItem(Constants.StorageKeys.SPLASH_SCREEN_FLAG).then((item) => {
+            MessageDialog.debug("Splash Received: " + item);
+            this.setState({initialScreen: false});
+        }).catch((item) => {
+            MessageDialog.debug("Splash Error: " + item);
+            this.setState({initialScreen: true});
+        });
     }
 
     navigatorRenderScene(route, navigator) {
@@ -91,12 +107,22 @@ export default class JapJete extends Component {
     }
 
     render() {
+        if (this.state.initialScreen) {
+            MessageDialog.debug("Rendering Splash");
+            return (
+                <Navigator
+                    initialRoute={{id: "Splash"}}
+                    renderScene={this.navigatorRenderScene}
+                    configureScene={(route) => {return Navigator.SceneConfigs.FadeAndroid}}/>
+            );
+        }
+        MessageDialog.debug("Rendering Login");
         return (
             <Navigator
-                initialRoute={{id: 'Splash'}}
+                initialRoute={{id: "Login"}}
                 renderScene={this.navigatorRenderScene}
                 configureScene={(route) => {return Navigator.SceneConfigs.FadeAndroid}}/>
-        )
+        );
     }
 }
 

@@ -1,10 +1,11 @@
 'use strict';
-import React, { Component, StyleSheet, View, Text, Dimensions, ToastAndroid} from 'react-native';
+import React, { Component, StyleSheet, View, Text, Dimensions, ToastAndroid, AsyncStorage } from 'react-native';
 import {AppStyle} from '../Styles/CommonStyles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Labels from '../Configs/Labels';
 import {Actions, Router, Route} from 'react-native-router-flux';
 import Swiper from 'react-native-swiper2'
+import Constants from '../Configs/Constants';
 
 import MK, {
     MKButton,
@@ -18,18 +19,18 @@ let StartBtn = MKButton.coloredButton()
     .build();
 
 export default class SplashScreen extends Component {
+
+    componentDidMount() {
+        AsyncStorage.setItem(Constants.StorageKeys.SPLASH_SCREEN_FLAG, "true");
+    }
+
     render() {
-
         let dot = (
-            <View
-                style={{backgroundColor:'rgba(255,255,255,0.6)', width: 12, height: 12, borderRadius: 6, marginLeft: 5, marginRight: 5, marginTop: 3, marginBottom: 20,}}/>
+            <View style={styles.dot}/>
         );
-
         let activeDot = (
-            <View
-                style={{backgroundColor:'rgba(255, 255, 255, 1)', width: 12, height: 12, borderRadius: 6, marginLeft: 5, marginRight: 5, marginTop: 3, marginBottom: 20,}}/>
+            <View style={styles.activeDot}/>
         );
-
         return (
             <Swiper style={styles.wrapper} showsButtons={false}
                     paginationStyle={styles.paginationStyle}
@@ -80,6 +81,26 @@ var styles = StyleSheet.create({
     },
     paginationStyle: {
         marginBottom: 20
+    },
+    dot: {
+        backgroundColor: 'rgba(255,255,255,0.6)',
+        width: 12,
+        height: 12,
+        borderRadius: 6,
+        marginLeft: 5,
+        marginRight: 5,
+        marginTop: 3,
+        marginBottom: 20,
+    },
+    activeDot: {
+        backgroundColor: 'rgba(255, 255, 255, 1)',
+        width: 12,
+        height: 12,
+        borderRadius: 6,
+        marginLeft: 5,
+        marginRight: 5,
+        marginTop: 3,
+        marginBottom: 20,
     }
 });
 
