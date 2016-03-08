@@ -11,7 +11,8 @@ let labels = {
         Messages: {
             NO_NETWORK: "Nuk u mundesua lidhja me internetin",
             FACEBOOK_LOGIN_ERROR: "Pati nje problem me identifikimin, Ju lutem provoni me vone",
-            GPS_ERROR: "Pati nje problem me marrjen e pozicionit gjeografik, Ju lutem ndizni Location"
+            GPS_ERROR: "Pati nje problem me marrjen e pozicionit gjeografik, Ju lutem ndizni Location",
+            PROFILE_UPDATE_ERROR: "Pati nje problem me perditesimin e profilit."
         },
         Tabs: {
             HOME: "Hyrje",

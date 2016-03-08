@@ -89,15 +89,16 @@ function saveUser(navigator, user) {
             let url = Endpoints.USER + Commons.getQueryStringFromObject(queryParams);
             console.log("Request URL: " + url);
             Rest.update(url, requestParams, (data) => {
-                console.log("User update Succes");
-                console.dir(data);
+                if (data.status == 200) {
+                    navigator.push({
+                        id: 'TabView',
+                        user: user
+                    });
+                } else {
+                    MessageDialog.show(Labels.Ui.ERROR, Labels.Messages.PROFILE_UPDATE_ERROR);
+                }
             }, (err) => {
                 console.error("User update Error");
-                console.dir(err);
-            });
-            navigator.push({
-                id: 'TabView',
-                user: user
             });
         }
     });
