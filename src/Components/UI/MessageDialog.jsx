@@ -16,7 +16,7 @@ import {AppStyle, ComponentsStyle} from '../../Styles/CommonStyles';
 /*import DialogAndroid from 'react-native-dialogs';*/
 import Labels from '../../Configs/Labels';
 
-let DEBUG = true;
+let DEBUG = false;
 let dialogOptions = {
     negativeText: Labels.Ui.CANCEL
 };

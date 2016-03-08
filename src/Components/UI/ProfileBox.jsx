@@ -29,42 +29,66 @@ import PTRView from 'react-native-pull-to-refresh';
 let logo = require('../../../assets/imgs/logo.png');
 
 export default class ProfileBox extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
             user: {},
             loading: true
-        }
+        };
+        this.retrieveExternalUserDetails = this.retrieveExternalUserDetails.bind(this);
+        this.profileRefresh = this.profileRefresh.bind(this);
+    }
+
+    retrieveExternalUserDetails(resolve) {
+        IO.getSessionToken().then((sessionToken) => {
+            //Read User Data
+            if (sessionToken) {
+                let params = {};
+                params[Constants.StorageKeys.SESSION_TOKEN] = sessionToken;
+                params[Constants.StorageKeys.USER_ID] = this.state.user.facebookId;
+                Rest.read(Endpoints.USER, params,
+                    (res) => {
+                        res.json().then((res) => {
+                            let updatedUser = this.state.user;
+                            updatedUser.email = res[Constants.RestParams.EMAIL];
+                            updatedUser.phoneNumber = res[Constants.RestParams.PHONE_NUMBER];
+                            updatedUser.location = res[Constants.RestParams.ADDRESS];
+                            updatedUser.group = res[Constants.RestParams.BLOOD_TYPE];
+                            this.setState({
+                                user: updatedUser
+                            });
+                            if (resolve) resolve();
+                        });
+                    }, (res) => {
+                        console.error(res);
+                        //TODO - Handle Error
+                    });
+            }
+        });
+    }
+
+    retrieveUserDetails() {
+        ///Get Data From Local Storage
+        AsyncStorage.getItem(Constants.StorageKeys.USER).then((data) => {
+            if (data) {
+                this.setState({
+                    user: JSON.parse(data),
+                    loading: false
+                });
+                this.retrieveExternalUserDetails();
+            }
+        });
+    }
+
+    profileRefresh() {
+        return new Promise((resolve) => {
+            this.retrieveExternalUserDetails(resolve);
+        });
     }
 
     componentDidMount() {
-        InteractionManager.runAfterInteractions(() => {
-            //Get Data From Local Storage
-            AsyncStorage.getItem(Constants.StorageKeys.USER).then((data) => {
-                if (data) {
-                    this.setState({
-                        user: JSON.parse(data),
-                        loading: false
-                    });
-                }
-            });
-        });
-
-        //Make Request to get user Data
-        /*IO.getSessionToken().then((token) => {
-         if (token) {
-         Rest.read(Endpoints.USER, {
-         session_token: token,
-         user_id: this.state.user.facebookId
-         },
-         (res) => {
-         console.dir(res);
-         //TODO - Handle Su  ccess
-         }, (res) => {
-         //TODO - Handle Error
-         });
-         }
-         });*/
+        this.retrieveUserDetails();
     }
 
     navigateToProfileEdit(navigator) {
@@ -74,18 +98,10 @@ export default class ProfileBox extends Component {
         });
     }
 
-    _refresh() {
-        return new Promise((resolve) => {
-            setTimeout(()=> {
-                resolve()
-            }, 2000)
-        })
-    }
-
     render() {
         if (!this.state.loading) {
             return (
-                <PTRView onRefresh={this._refresh} progressBackgroundColor={AppStyle.Colors.FG}>
+                <PTRView onRefresh={this.profileRefresh} progressBackgroundColor={AppStyle.Colors.FG}>
                     <ScrollView style={styles.container}>
                         {/* Image Header */}
                         <View style={styles.header}>
@@ -126,9 +142,23 @@ export default class ProfileBox extends Component {
 }
 
 class DetailsBox extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            entity: props.entity
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            entity: nextProps.entity
+        });
+    }
+
     render() {
         var details = [];
-        for (field in this.props.entity) {
+        for (field in this.state.entity) {
             if (this.props.schema[field]) {
                 details.push(
                     <View style={styles.detail} key={field}>
@@ -138,7 +168,7 @@ class DetailsBox extends Component {
                             color={AppStyle.Colors.FG}
                             style={styles.detailIcon}
                             />
-                        <Text style={styles.detailValue}>{this.props.entity[field]}</Text>
+                        <Text style={styles.detailValue}>{this.state.entity[field]}</Text>
                     </View>
                 )
             }

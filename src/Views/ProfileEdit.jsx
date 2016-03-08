@@ -28,6 +28,7 @@ import IO from '../Util/IO';
 import Form from 'react-native-form'
 import {AppStyle} from '../Styles/CommonStyles';
 import MessageDialog from '../Components/UI/MessageDialog';
+import Commons from '../Util/Commons';
 
 import { Endpoints } from '../Configs/Url';
 import Constants from '../Configs/Constants.js';
@@ -68,24 +69,26 @@ function initializeInputs() {
         .build();
 }
 
-function mapUserParams(user, token) {
-    return {
-        session_token: token,
-        user_id: user.facebookId,
-        username: user.username,
-        email: user.email,
-        phone_number: user.phoneNumber,
-        address: user.location,
-        blood_type: user.group
-    };
+function mapUserParams(user) {
+    let params = {};
+    params[Constants.RestParams.USERNAME] = user.username;
+    params[Constants.RestParams.EMAIL] = user.email;
+    params[Constants.RestParams.PHONE_NUMBER] = user.phoneNumber;
+    params[Constants.RestParams.ADDRESS] = user.location;
+    params[Constants.RestParams.BLOOD_TYPE] = user.group;
+    return params;
 }
 
 function saveUser(navigator, user) {
     IO.getSessionToken().then((token) => {
         if (token) {
-            var requestParams = JSON.stringify(mapUserParams(user, token));
-            console.log("User Params" + requestParams);
-            Rest.update(Endpoints.USER, requestParams, (data) => {
+            let requestParams = mapUserParams(user);
+            let queryParams = {};
+            queryParams[Constants.StorageKeys.SESSION_TOKEN] = token;
+            queryParams[Constants.StorageKeys.USER_ID] = user.facebookId;
+            let url = Endpoints.USER + Commons.getQueryStringFromObject(queryParams);
+            console.log("Request URL: " + url);
+            Rest.update(url, requestParams, (data) => {
                 console.log("User update Succes");
                 console.dir(data);
             }, (err) => {
@@ -111,7 +114,8 @@ export default class ProfileEdit extends Component {
     }
 
     componentDidMount() {
-        {/* TODO - Change GPS Retrival Strategy */}
+        {/* TODO - Change GPS Retrival Strategy */
+        }
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 console.log(position);

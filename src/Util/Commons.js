@@ -16,7 +16,7 @@ export default class CommonUtils {
                     result += (key + "=" + obj[key] + "&");
                 }
             }
-            return result;
+            return result.substr(0, result.length - 1);
         }
     }
 }

@@ -12,6 +12,14 @@ let Constants = {
         USER: 'user',
         GCM_ID: 'gcm_id',
         SPLASH_SCREEN_FLAG: 'splash_screen_flag'
+    },
+
+    RestParams: {
+        USERNAME: "username",
+        EMAIL: "email",
+        PHONE_NUMBER: "phone_number",
+        ADDRESS: "address",
+        BLOOD_TYPE: "blood_type"
     }
 
 };
