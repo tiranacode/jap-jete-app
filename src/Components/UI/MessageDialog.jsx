@@ -36,7 +36,7 @@ export default class MessageDialog {
         if (DEBUG) ToastAndroid.show(message, ToastAndroid.LONG);
         console.log(message);
         if (obj) console.dir(obj);
-    }
+    };
 }
 
 const styles = StyleSheet.create({});
