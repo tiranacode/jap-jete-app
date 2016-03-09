@@ -13,10 +13,10 @@ import React, {
 import {Actions, Router, Route} from 'react-native-router-flux';
 import Button from 'react-native-button';
 import Labels from '../Configs/Labels';
-import Rest from '../Util/Rest.js'
+import Rest from '../Util/Rest'
 
 import { Endpoints } from '../Configs/Url';
-import ProfileBox from '../Components/UI/ProfileBox.jsx';
+import ProfileBox from '../Components/UI/ProfileBox';
 
 export default class ProfileView extends Component {
 

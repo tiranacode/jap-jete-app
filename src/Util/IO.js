@@ -1,6 +1,6 @@
 'use strict';
 import React, {AsyncStorage} from 'react-native';
-import Constants from '../Configs/Constants.js';
+import Constants from '../Configs/Constants';
 
 export default class IO {
 

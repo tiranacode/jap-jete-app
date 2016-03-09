@@ -10,7 +10,7 @@ import React, {
     InteractionManager
 } from 'react-native';
 import { MKSpinner } from 'react-native-material-kit';
-import {AppStyle, ComponentsStyle} from '../../Styles/CommonStyles.js';
+import {AppStyle, ComponentsStyle} from '../../Styles/CommonStyles';
 
 const LoadingSpinner = MKSpinner.singleColorSpinner()
     .build();

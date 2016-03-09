@@ -12,7 +12,7 @@
     - **Styles** - Reusable styles
     - **Views** - Application Views (Activities)
     - **Util** - Utilizing / Helper Functions
-    - **App.jsx** - Entry application point
+    - **App.js** - Entry application point
 
 ## Run
 If you have a react-native environment ready use the following commands to run the applicaion, otherwise follow the steps described in [Installation](#installation) section.
