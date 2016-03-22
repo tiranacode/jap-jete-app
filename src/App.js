@@ -29,6 +29,7 @@ import SplashScreen from "./Views/SplashScreen";
 import Constants from "./Configs/Constants";
 import Push from "./Util/Push";
 import MessageDialog from "./Components/UI/MessageDialog";
+import SettingsView from "./Views/Settings";
 
 var _navigator;
 
@@ -109,6 +110,8 @@ export default class JapJete extends Component {
                 return (<HomeView navigator={navigator}/>);
             case 'Splash':
                 return (<SplashScreen navigator={navigator}/>);
+            case 'Settings':
+                return (<SettingsView navigator={navigator}/>);
         }
     }
 

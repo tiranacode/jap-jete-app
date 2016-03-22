@@ -49,7 +49,6 @@ export default class HomeView extends Component {
             <View style={styles.container} onLayout={this.showDialog}>
                 <Text>Home</Text>
                 <InstantActionBtn />
-                <LogoutBtn onPress={() => { tryLogout(() => { this.goToLogin(this.props.navigator) })}}/>
             </View>
         )
     }

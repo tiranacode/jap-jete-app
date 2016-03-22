@@ -19,7 +19,8 @@ let labels = {
             HOME: "Hyrje",
             DASHBOARD: "Kalendari",
             PROFILE: "Profili",
-            HISTORY: "Historiku"
+            HISTORY: "Historiku",
+            SETTINGS: "Preferenca",
         },
         Domain: {
             User: {

@@ -1,19 +1,47 @@
 'use strict';
 
-import React, {
-    Component,
-    View,
-    Text
-} from 'react-native';
+import React, {Component, View, Text, StyleSheet, TouchableOpacity, Navigator} from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+import {AppStyle} from "../../Styles/CommonStyles";
 
 export default class Header extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {}
+    }
+
+    _goToSettings(navigator) {
+        navigator.push({id: 'Settings'})
+    }
+
     render() {
         return (
-            <View>
-                <Text>
-                    Header
-                </Text>
+            <View style={styles.topBar}>
+                <Text style={styles.title}>{this.props.title}</Text>
+                <TouchableOpacity onPress={() => {this._goToSettings(this.props.navigator)}} style={styles.settingsBtn}>
+                    <Icon name="gear" size={25} color="#fff" style={styles.settingsIcon}/>
+                </TouchableOpacity>
             </View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    title: {
+        color: 'white',
+        fontSize: 20,
+        marginTop: 10,
+        marginLeft: 10,
+    },
+    settingsBtn: {
+        position: 'absolute',
+        right: 10,
+        top: 10
+    },
+    settingsIcon: {},
+    topBar: {
+        height: 50,
+        backgroundColor: AppStyle.Colors.FG
+    }
+});

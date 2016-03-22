@@ -8,23 +8,18 @@ import React, {
     ScrollView,
     AsyncStorage,
     InteractionManager
-} from 'react-native';
-
-import _ from 'lodash';
-import {Router, Route, Schema, Animations, TabBar, Actions} from 'react-native-router-flux';
-import { Button, Card } from 'react-native-material-design';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Image from 'react-native-image-progress';
-import Progress from 'react-native-progress';
-import {AppStyle, ComponentsStyle} from '../../Styles/CommonStyles';
-import {Profile, ProfileUISchema} from '../../Domain/Profile';
-import ProfileEdit from '../../Views/ProfileEdit';
-import Constants from '../../Configs/Constants';
-import IO from '../../Util/IO';
-import {Endpoints} from '../../Configs/Url';
-import Rest from '../../Util/Rest';
-import Spinner from './Spinner';
-import PTRView from 'react-native-pull-to-refresh';
+} from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+import Image from "react-native-image-progress";
+import {AppStyle, ComponentsStyle} from "../../Styles/CommonStyles";
+import {ProfileUISchema} from "../../Domain/Profile";
+import ProfileEdit from "../../Views/ProfileEdit";
+import Constants from "../../Configs/Constants";
+import IO from "../../Util/IO";
+import {Endpoints} from "../../Configs/Url";
+import Rest from "../../Util/Rest";
+import Spinner from "./Spinner";
+import PTRView from "react-native-pull-to-refresh";
 
 let logo = require('../../../assets/imgs/logo.png');
 
@@ -167,7 +162,7 @@ class DetailsBox extends Component {
                             size={20}
                             color={AppStyle.Colors.FG}
                             style={styles.detailIcon}
-                            />
+                        />
                         <Text style={styles.detailValue}>{this.state.entity[field]}</Text>
                     </View>
                 )
