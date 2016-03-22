@@ -1,16 +1,21 @@
 'use strict';
 import React, {AsyncStorage, DeviceEventEmitter} from 'react-native';
-import Constants from '../Configs/Constants.js';
+import Constants from '../Configs/Constants';
+import MessageDialog from '../Components/UI/MessageDialog';
 
 /* GCM */
 import GcmAndroid from 'react-native-gcm-android';
 import Notification from 'react-native-system-notification';
 
-function createNotificationBody(info) {
-    Notification.create({
-        subject: info.subject,
-        message: info.message
-    });
+function notify(data) {
+    if (data && data.subject && data.message) {
+        Notification.create({
+            subject: data.subject,
+            message: data.message,
+            smallIcon: 'ic_launcher',
+            largeIcon: 'ic_launcher'
+        });
+    }
 }
 
 export default class Push {
@@ -20,21 +25,19 @@ export default class Push {
      */
     static subscribe() {
         GcmAndroid.addEventListener('register', function (token) {
-            AsyncStorage.setItem(Constants.StorageKeys.GCM_TOKEN, token);
+            AsyncStorage.setItem(Constants.StorageKeys.GCM_ID, token);
             console.log('GCM Token: ' + token);
         });
 
         GcmAndroid.addEventListener('registerError', function (error) {
-            AsyncStorage.setItem(Constants.StorageKeys.GCM_TOKEN, '');
+            AsyncStorage.setItem(Constants.StorageKeys.GCM_ID, '');
             console.log('registerError', error.message);
         });
     }
 
     static launchNotification() {
         if (GcmAndroid.launchNotification) {
-            var notification = GcmAndroid.launchNotification;
-            var info = JSON.parse(notification.info);
-            createNotificationBody(info);
+            notify(GcmAndroid.launchNotification);
             GcmAndroid.stopService();
         }
     }
@@ -42,8 +45,7 @@ export default class Push {
     static launchLiveNotification(clickCallback) {
         GcmAndroid.addEventListener('notification', function (notification) {
             console.log('receive gcm notification', notification);
-            var info = JSON.parse(notification.data.info);
-            createNotificationBody(info);
+            notify(notification.data);
         });
 
         DeviceEventEmitter.addListener('sysNotificationClick', function (e) {

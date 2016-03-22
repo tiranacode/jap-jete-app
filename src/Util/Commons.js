@@ -16,7 +16,25 @@ export default class CommonUtils {
                     result += (key + "=" + obj[key] + "&");
                 }
             }
-            return result;
+            return result.substr(0, result.length - 1);
         }
+    }
+
+    /**
+     * Get dd/mm/yyyy format of date
+     * @param date
+     * @returns {string}
+     */
+    static getFormattedDate(date) {
+        return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+    }
+
+    /**
+     * Get hh:mm format of date
+     * @param date
+     * @returns {string}
+     */
+    static getFormattedTime(date) {
+        return date.getHours() + ":" + date.getMinutes();
     }
 }

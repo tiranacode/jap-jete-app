@@ -1,5 +1,5 @@
 /**
- * Main View of the application which provides navigation
+ * Main View of the application. Shows a generic screen.
  */
 
 'use strict';
@@ -19,7 +19,6 @@ import MK, {
 import {Actions} from 'react-native-router-flux';
 
 import InstantActionBtn from '../Components/UI/InstantActionBtn';
-import DialogAndroid from 'react-native-dialogs';
 import {tryLogout} from '../Util/Events';
 import Labels from '../Configs/Labels';
 import {AppStyle} from '../Styles/CommonStyles';

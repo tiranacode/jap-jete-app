@@ -3,6 +3,7 @@ import Constants from '../Configs/Constants';
 import {Endpoints} from '../Configs/Url';
 import {Profile} from '../Domain/Profile';
 import _ from 'lodash';
+import MessageDialog from '../Components/UI/MessageDialog';
 
 function saveUserDetails(facebookData) {
     var userProfile = new Profile(
@@ -14,52 +15,49 @@ function saveUserDetails(facebookData) {
 }
 
 export function doServerLogin(onLoginSuccess, onLoginError) {
-    let gcmID = "";
-
-    AsyncStorage.multiGet([Constants.StorageKeys.USER_ID, Constants.StorageKeys.FB_TOKEN])
-        .then((data) => {
-            let obj = _.fromPairs(data);
-            return obj;
-        })
-        .then((obj) => {
-            let user_id = obj[Constants.StorageKeys.USER_ID];
-            let fb_token = obj[Constants.StorageKeys.FB_TOKEN];
-            let body = JSON.stringify({
-                user_id: user_id,
-                gcmID: gcmID,
-                fb_token: fb_token
-            });
-            fetch(Endpoints.LOGIN, {
-                method: 'post',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                timeout: 2000,
-                body: body
-            }).then(function (res) {
-                console.log("Success");
-                console.dir(res);
-                return res.json();
-            }).then(function (res) {
-                let status = res.status;
-                if (status == "OK") {
-                    let session_token = res.session_token;
-                    AsyncStorage.setItem(Constants.StorageKeys.SESSION_TOKEN, session_token);
-                    AsyncStorage.getItem(Constants.StorageKeys.SESSION_TOKEN)
-                        .then((session_token) => {
-                            console.log("Logged in with session_token " + session_token);
-                            onLoginSuccess(session_token);
-                        });
-                } else {
-                    console.log("Status Not OK");
-                    if (onLoginError) onLoginError();
-                }
-            }).catch((err) => {
-                console.log("Catched Network Exception");
-                console.dir(err);
-                if (onLoginError) onLoginError();
-            });
+    //Get GCM ID
+    AsyncStorage.getItem(Constants.StorageKeys.GCM_ID)
+        .then((gcmID) => {
+            //Get User Params
+            AsyncStorage.multiGet([Constants.StorageKeys.USER_ID, Constants.StorageKeys.FB_TOKEN])
+                .then((data) => {
+                    let params = _.fromPairs(data);
+                    var requestParams = {};
+                    requestParams[Constants.StorageKeys.USER_ID] = params[Constants.StorageKeys.USER_ID];
+                    requestParams[Constants.StorageKeys.FB_TOKEN] = params[Constants.StorageKeys.FB_TOKEN];
+                    requestParams[Constants.StorageKeys.GCM_ID] = gcmID;
+                    let body = JSON.stringify(requestParams);
+                    //MessageDialog.debug("Sending Body: " + body);
+                    fetch(Endpoints.LOGIN, {
+                        method: 'post',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: body
+                    }).then(function (res) {
+                        return res.json();
+                    }).then((res) => {
+                        MessageDialog.debug("Login Success " + JSON.stringify(res));
+                        let status = res.status;
+                        if (status == "OK") {
+                            let sessionToken = res.session_token;
+                            //MessageDialog.debug("TOKEN: " + sessionToken, res);
+                            AsyncStorage.setItem(Constants.StorageKeys.SESSION_TOKEN, sessionToken);
+                            AsyncStorage.getItem(Constants.StorageKeys.SESSION_TOKEN)
+                                .then((sessiontoken) => {
+                                    console.log("Logged in with session_token " + sessiontoken);
+                                    onLoginSuccess(sessiontoken);
+                                });
+                        } else {
+                            console.log("Status Not OK");
+                            if (onLoginError) onLoginError();
+                        }
+                    }).catch((err) => {
+                        MessageDialog.debug("Catched Network Exception", obj);
+                        if (onLoginError) onLoginError();
+                    });
+                });
         });
     return true;
 }
