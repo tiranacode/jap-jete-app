@@ -8,7 +8,8 @@ export let AppStyle = {
         FG: "#e73b3b",
         FG_DARK: "#BD3030",
         BG: "#efefef",
-        THIRD: "#555"
+        THIRD: "#555",
+        STATUS: "#666666"
     },
     Dimensions: {
         NAVIGATION_TEXT: "12px",

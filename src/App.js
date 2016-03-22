@@ -9,21 +9,26 @@
  */
 
 'use strict';
-import React, {Component, StyleSheet, NetInfo, BackAndroid, Navigator, DeviceEventEmitter, AsyncStorage} from 'react-native';
-import StatusBarAndroid from 'react-native-android-statusbar';
+import React, {
+    Component,
+    StyleSheet,
+    NetInfo,
+    BackAndroid,
+    Navigator,
+    DeviceEventEmitter,
+    AsyncStorage
+} from "react-native";
 
-import {AppStyle} from './Styles/CommonStyles';
-import TabView from './Views/TabView'
-import LoginView from './Views/Login'
-import ProfileView from './Views/Profile'
-import ProfileEdit from './Views/ProfileEdit'
-import Header from './Components/UI/Header';
-import Footer from './Components/UI/Footer';
-import SplashScreen from './Views/SplashScreen';
-import Constants from './Configs/Constants';
-import Labels from './Configs/Labels';
-import Push from './Util/Push';
-import MessageDialog from './Components/UI/MessageDialog';
+import StatusBarAndroid from "react-native-android-statusbar";
+import {AppStyle} from "./Styles/CommonStyles";
+import TabView from "./Views/TabView";
+import LoginView from "./Views/Login";
+import ProfileView from "./Views/Profile";
+import ProfileEdit from "./Views/ProfileEdit";
+import SplashScreen from "./Views/SplashScreen";
+import Constants from "./Configs/Constants";
+import Push from "./Util/Push";
+import MessageDialog from "./Components/UI/MessageDialog";
 
 var _navigator;
 
@@ -56,7 +61,7 @@ function initApp() {
     });
 
     //StatusBarAndroid.hideStatusBar();
-    StatusBarAndroid.setHexColor(AppStyle.Colors.FG_DARK);
+    StatusBarAndroid.setHexColor(AppStyle.Colors.STATUS);
     //TODO - Add Other Initializations Here
 }
 
@@ -91,8 +96,10 @@ export default class JapJete extends Component {
         _navigator = navigator;
         switch (route.id) {
             case 'Login':
+                StatusBarAndroid.setHexColor(AppStyle.Colors.STATUS);
                 return (<LoginView navigator={navigator}/>);
             case 'TabView':
+                StatusBarAndroid.setHexColor(AppStyle.Colors.FG_DARK);
                 return (<TabView navigator={navigator}/>);
             case 'Profile':
                 return (<ProfileView navigator={navigator}/>);
