@@ -1,5 +1,5 @@
 /**
- * User Profile
+ * Application Dashboard View
  */
 
 'use strict';

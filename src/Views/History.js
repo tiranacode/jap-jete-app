@@ -1,5 +1,5 @@
 /**
- * Main View of the application which provides navigation
+ * History of donations for the user
  */
 
 'use strict';
@@ -15,7 +15,8 @@ import React, {
 import GiftedListView from 'react-native-gifted-listview';
 import Labels from '../Configs/Labels';
 import {AppStyle} from '../Styles/CommonStyles';
-import CommonUtils from "../Util/Commons";
+import CommonUtils from '../Util/Commons';
+import EmptyContent from '../Components/UI/EmptyContent';
 
 //TODO - Test Data, Remove
 let history = [
@@ -30,6 +31,8 @@ let history = [
         amount: 14
     }
 ];
+
+history = [];
 
 export default class HistoryView extends Component {
 
@@ -77,10 +80,17 @@ export default class HistoryView extends Component {
         );
     }
 
+    _renderEmptyView() {
+        return (
+            <EmptyContent label={Labels.Messages.NO_HISTORY}/>
+        )
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <GiftedListView
+                    emptyView={this._renderEmptyView}
                     rowView={this._renderRowView}
                     onFetch={this._onFetch}
                     firstLoader={true}
@@ -99,7 +109,7 @@ export default class HistoryView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center'
+        alignItems: 'center'
     },
     row: {
         flex: 1,

@@ -1,5 +1,5 @@
 /**
- * User Profile
+ * User Profile Details
  */
 
 'use strict';

@@ -1,5 +1,5 @@
 /**
- * Main View of the application which provides navigation
+ * Main View of the application. Shows a generic screen.
  */
 
 'use strict';
