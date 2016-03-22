@@ -6,6 +6,7 @@
 export let AppStyle = {
     Colors: {
         FG: "#e73b3b",
+        FG_DARK: "#BD3030",
         BG: "#efefef",
         THIRD: "#555"
     },

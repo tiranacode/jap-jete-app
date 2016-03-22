@@ -56,7 +56,7 @@ function initApp() {
     });
 
     //StatusBarAndroid.hideStatusBar();
-    StatusBarAndroid.setHexColor(AppStyle.Colors.FG);
+    StatusBarAndroid.setHexColor(AppStyle.Colors.FG_DARK);
     //TODO - Add Other Initializations Here
 }
 
