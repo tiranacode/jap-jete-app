@@ -65,9 +65,14 @@ export default class HistoryView extends Component {
     _renderRowView(data) {
         return (
             <View style={styles.row}>
-                <Text style={styles.title}>{data.hospital}</Text>
-                <Text style={styles.date}>{CommonUtils.getFormattedDate(data.date)}</Text>
-                <Text style={styles.amount}>{data.amount}</Text>
+                <View style={styles.otherDetail}>
+                    <Text style={styles.title}>{data.hospital}</Text>
+                    <Text style={styles.amount}>{data.amount} L </Text>
+                </View>
+                <View style={styles.datetime}>
+                    <Text style={styles.date}>{CommonUtils.getFormattedDate(data.date)}</Text>
+                    <Text style={styles.time}>{CommonUtils.getFormattedTime(data.date)}</Text>
+                </View>
             </View>
         );
     }
@@ -97,18 +102,36 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     row: {
+        flex: 1,
         padding: 10,
         borderBottomColor: '#ddd',
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
+        flexDirection: 'row'
     },
     title: {
-        fontSize: 16,
-        color: '#222'
+        fontSize: 12,
+        color: '#222',
+
+    },
+    otherDetail: {
+        justifyContent: 'flex-start'
+
+    },
+    datetime: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
     },
     date: {
-
+        textAlign: 'right',
+        fontSize: 12
+    },
+    time: {
+        textAlign: 'center',
+        fontSize: 15,
+        color: AppStyle.Colors.FG
     },
     amount: {
-
+        fontSize: 15
     }
 });
