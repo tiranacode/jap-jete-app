@@ -20,6 +20,7 @@
     "react-native-facebook-login": "^1.0.3",
     "react-native-form": "^2.0.5",
     "react-native-gcm-android": "^0.2.0",
+    "react-native-gifted-listview": "0.0.13",
     "react-native-image-progress": "^0.4.0",
     "react-native-localization": "^0.1.11",
     "react-native-material-design": "^0.3.2",

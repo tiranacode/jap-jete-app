@@ -19,4 +19,13 @@ export default class CommonUtils {
             return result.substr(0, result.length - 1);
         }
     }
+
+    /**
+     * Return Formatted Date
+     * @param date
+     * @returns {string}
+     */
+    static getFormattedDate(date) {
+        return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+    }
 }

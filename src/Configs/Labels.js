@@ -17,7 +17,8 @@ let labels = {
         Tabs: {
             HOME: "Hyrje",
             DASHBOARD: "Kalendari",
-            PROFILE: "Profili"
+            PROFILE: "Profili",
+            HISTORY: "Historiku"
         },
         Domain: {
             User: {
