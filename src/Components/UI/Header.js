@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 20,
         marginLeft: 10,
+        marginTop: 10
     },
     settingsBtn: {
         position: 'absolute',
