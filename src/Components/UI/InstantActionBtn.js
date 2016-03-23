@@ -27,7 +27,7 @@ export default class InstantActionBtn extends Component {
     render() {
         return (
             <ColoredFab>
-                <Icon name="pencil" size={25} color="white" style={styles.icon}/>
+                <Icon name="heart" size={25} color="white" style={styles.icon}/>
             </ColoredFab>
         )
     }

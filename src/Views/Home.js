@@ -6,13 +6,18 @@
 import React, {Component, StyleSheet, View, Text} from "react-native";
 import {MKColor} from "react-native-material-kit";
 import InstantActionBtn from "../Components/UI/InstantActionBtn";
-import GiftedListView from 'react-native-gifted-listview';
-import Labels from '../Configs/Labels';
-import {AppStyle} from '../Styles/CommonStyles';
-import CommonUtils from '../Util/Commons';
-import EmptyContent from '../Components/UI/EmptyContent';
+import Labels from "../Configs/Labels";
+import {AppStyle} from "../Styles/CommonStyles";
+import EmptyContent from "../Components/UI/EmptyContent";
+import Donation from "../Components/UI/Donation";
 
-let data = [];
+let data = [{
+    hospital: "Qendra Spitalore Nene Tereza",
+    date: new Date()
+}, {
+    hospital: "Spitali Ushtarak",
+    date: new Date()
+}];
 
 export default class HomeView extends Component {
     constructor(props) {
@@ -39,6 +44,12 @@ export default class HomeView extends Component {
         }
         return (
             <View style={styles.container}>
+                <Donation data={data[0]}/>
+                <Donation data={data[1]}/>
+                <Donation data={data[1]}/>
+                <Donation data={data[1]}/>
+                <Donation data={data[1]}/>
+                <Donation data={data[1]}/>
                 <InstantActionBtn/>
             </View>
         )
