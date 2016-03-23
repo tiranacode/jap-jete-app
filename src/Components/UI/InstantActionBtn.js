@@ -1,24 +1,16 @@
 'use strict';
-import React, {
-    Component,
-    StyleSheet,
-} from 'react-native';
-
-import MK, {
-    MKButton,
-    MKColor
-} from 'react-native-material-kit';
-import Icon from '../../../node_modules/react-native-vector-icons/FontAwesome';
-import {AppStyle} from '../../Styles/CommonStyles'
-
+import React, {Component, StyleSheet} from "react-native";
+import {MKButton, MKColor} from "react-native-material-kit";
+import Icon from "../../../node_modules/react-native-vector-icons/FontAwesome";
+import {AppStyle} from "../../Styles/CommonStyles";
 
 const styles = StyleSheet.create({
-    button: {},
-    icon: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
+    button: {
+        position: 'absolute',
+        bottom: 20,
+        right: 20
+    },
+    icon: {}
 });
 
 const ColoredFab = MKButton.coloredFab()

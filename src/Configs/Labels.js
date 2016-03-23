@@ -13,10 +13,11 @@ let labels = {
             FACEBOOK_LOGIN_ERROR: "Pati nje problem me identifikimin, Ju lutem provoni me vone",
             GPS_ERROR: "Pati nje problem me marrjen e pozicionit gjeografik, Ju lutem ndizni Location",
             PROFILE_UPDATE_ERROR: "Pati nje problem me perditesimin e profilit.",
-            NO_HISTORY: "Ju nuk keni dhuruar gjak."
+            NO_HISTORY: "Ju nuk keni dhuruar gjak.",
+            NO_DATA: "Per momentin nuk ka nevoja urgjente per gjak."
         },
         Tabs: {
-            HOME: "Hyrje",
+            HOME: "Dhuro",
             DASHBOARD: "Kalendari",
             PROFILE: "Profili",
             HISTORY: "Historiku",

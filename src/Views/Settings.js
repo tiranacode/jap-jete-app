@@ -7,13 +7,8 @@ import React, {Component, StyleSheet, View, Text} from "react-native";
 import Labels from "../Configs/Labels";
 import {tryLogout} from "../Util/Events";
 import {AppStyle} from "../Styles/CommonStyles";
+import {MKButton, MKColor} from "react-native-material-kit";
 import "../Components/UI/Header";
-
-import MK, {
-    MKButton,
-    MKColor,
-    MKTextField
-} from 'react-native-material-kit';
 
 
 let LogoutBtn = MKButton.coloredButton()

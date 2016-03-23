@@ -3,32 +3,16 @@
  */
 
 'use strict';
-import React, {
-    Component,
-    StyleSheet,
-    View,
-    Text,
-} from 'react-native';
-
-import MK, {
-    MKButton,
-    MKColor,
-    MKTextField
-} from 'react-native-material-kit';
-
-import {Actions} from 'react-native-router-flux';
-
-import InstantActionBtn from '../Components/UI/InstantActionBtn';
-import {tryLogout} from '../Util/Events';
+import React, {Component, StyleSheet, View, Text} from "react-native";
+import {MKColor} from "react-native-material-kit";
+import InstantActionBtn from "../Components/UI/InstantActionBtn";
+import GiftedListView from 'react-native-gifted-listview';
 import Labels from '../Configs/Labels';
 import {AppStyle} from '../Styles/CommonStyles';
+import CommonUtils from '../Util/Commons';
+import EmptyContent from '../Components/UI/EmptyContent';
 
-let LogoutBtn = MKButton.coloredButton()
-    .withText(Labels.Ui.LOGOUT)
-    .withBackgroundColor(AppStyle.Colors.FG)
-    .build();
-
-
+let data = [];
 
 export default class HomeView extends Component {
     constructor(props) {
@@ -45,10 +29,17 @@ export default class HomeView extends Component {
     }
 
     render() {
+        if (!data.length) {
+            return (
+                <View style={styles.container}>
+                    <EmptyContent label={Labels.Messages.NO_DATA} icon={AppStyle.Icons.EMPTY_DATA}/>
+                    <InstantActionBtn/>
+                </View>
+            )
+        }
         return (
-            <View style={styles.container} onLayout={this.showDialog}>
-                <Text>Home</Text>
-                <InstantActionBtn />
+            <View style={styles.container}>
+                <InstantActionBtn/>
             </View>
         )
     }
@@ -57,7 +48,6 @@ export default class HomeView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     }
 });

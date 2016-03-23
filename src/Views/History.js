@@ -82,7 +82,9 @@ export default class HistoryView extends Component {
 
     _renderEmptyView() {
         return (
-            <EmptyContent label={Labels.Messages.NO_HISTORY}/>
+            <View style={styles.empty}>
+                <EmptyContent label={Labels.Messages.NO_HISTORY} icon={AppStyle.Icons.EMPTY_DATA}/>
+            </View>
         )
     }
 
@@ -109,6 +111,7 @@ export default class HistoryView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        justifyContent: 'center',
         alignItems: 'center'
     },
     row: {
@@ -143,5 +146,9 @@ const styles = StyleSheet.create({
     },
     amount: {
         fontSize: 15
+    },
+    empty: {
+        flex: 1,
+        marginTop: 100,
     }
 });
