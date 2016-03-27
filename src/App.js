@@ -18,7 +18,6 @@ import React, {
     DeviceEventEmitter,
     AsyncStorage
 } from "react-native";
-
 import StatusBarAndroid from "react-native-android-statusbar";
 import {AppStyle} from "./Styles/CommonStyles";
 import TabView from "./Views/TabView";
@@ -54,7 +53,12 @@ function initApp() {
         let routes = _navigator.getCurrentRoutes();
         let lastRouteId = (routes[routes.length - 2]) ?
             routes[routes.length - 2].id : routes[routes.length - 1].id;
+        //Exit if there is no more routing
         if (routes.length == 1 || lastRouteId == "Login" || lastRouteId == "Splash") {
+            return false;
+        }
+        //Exit if in login screen
+        if (routes[routes.length - 1].id == "Login") {
             return false;
         }
         _navigator.pop();

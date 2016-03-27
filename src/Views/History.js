@@ -3,20 +3,12 @@
  */
 
 'use strict';
-import React, {
-    Component,
-    StyleSheet,
-    View,
-    Text,
-    ListView,
-    TouchableHighlight
-} from 'react-native';
-
-import GiftedListView from 'react-native-gifted-listview';
-import Labels from '../Configs/Labels';
-import {AppStyle} from '../Styles/CommonStyles';
-import CommonUtils from '../Util/Commons';
-import EmptyContent from '../Components/UI/EmptyContent';
+import React, {Component, StyleSheet, View, Text, ListView, TouchableHighlight} from "react-native";
+import GiftedListView from "react-native-gifted-listview";
+import Labels from "../Configs/Labels";
+import {AppStyle} from "../Styles/CommonStyles";
+import CommonUtils from "../Util/Commons";
+import EmptyContent from "../Components/UI/EmptyContent";
 
 //TODO - Test Data, Remove
 let history = [
@@ -31,8 +23,6 @@ let history = [
         amount: 14
     }
 ];
-
-history = [];
 
 export default class HistoryView extends Component {
 
