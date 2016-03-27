@@ -3,7 +3,7 @@
  */
 
 'use strict';
-import React, {Component, StyleSheet, View, Text, ListView, TouchableHighlight} from "react-native";
+import React, {Component, StyleSheet, View, Text, ListView, TouchableHighlight, TouchableOpacity} from "react-native";
 import GiftedListView from "react-native-gifted-listview";
 import Labels from "../Configs/Labels";
 import {AppStyle} from "../Styles/CommonStyles";
@@ -57,16 +57,18 @@ export default class HistoryView extends Component {
      */
     _renderRowView(data) {
         return (
-            <View style={styles.row}>
-                <View style={styles.otherDetail}>
-                    <Text style={styles.title}>{data.hospital}</Text>
-                    <Text style={styles.amount}>{data.amount} L </Text>
+            <TouchableOpacity>
+                <View style={styles.row}>
+                    <View style={styles.otherDetail}>
+                        <Text style={styles.title}>{data.hospital}</Text>
+                        <Text style={styles.amount}>{data.amount} L </Text>
+                    </View>
+                    <View style={styles.datetime}>
+                        <Text style={styles.date}>{CommonUtils.getFormattedDate(data.date)}</Text>
+                        <Text style={styles.time}>{CommonUtils.getFormattedTime(data.date)}</Text>
+                    </View>
                 </View>
-                <View style={styles.datetime}>
-                    <Text style={styles.date}>{CommonUtils.getFormattedDate(data.date)}</Text>
-                    <Text style={styles.time}>{CommonUtils.getFormattedTime(data.date)}</Text>
-                </View>
-            </View>
+            </TouchableOpacity>
         );
     }
 
@@ -102,7 +104,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
     },
     row: {
         flex: 1,

@@ -38,6 +38,7 @@ let labels = {
             LOGOUT: 'Logout',
             ERROR: 'Gabim',
             CANCEL: 'Hiq',
+            SETTINGS: "Preferencat"
         }
     }
 };

@@ -5,22 +5,23 @@
  */
 
 'use strict';
-import React, {Component, StyleSheet, View, Text, TouchableHighlight, ToastAndroidk, Image, Dimensions} from 'react-native';
-import {Router, Route, Schema, Animations, TabBar, Actions} from 'react-native-router-flux';
-
-import {AppStyle} from '../Styles/CommonStyles';
-import Button from 'react-native-button';
-import Icon from 'react-native-vector-icons/FontAwesome';
-
-import HomeView from './Home';
-import FBLogin from 'react-native-facebook-login';
-import Labels from '../Configs/Labels';
-import NetworkStatus from '../Components/Util/NetworkStatus';
-import {doFBLogin, doServerLogin} from '../Util/Backend';
-import {tryLogin, tryLogout} from '../Util/Events';
-import MessageDialog from '../Components/UI/MessageDialog';
-import IO from '../Util/IO';
-import Spinner from '../Components/UI/Spinner';
+import React, {
+    Component,
+    StyleSheet,
+    View,
+    Text,
+    TouchableHighlight,
+    ToastAndroidk,
+    Image,
+    Dimensions
+} from "react-native";
+import FBLogin from "react-native-facebook-login";
+import Labels from "../Configs/Labels";
+import NetworkStatus from "../Components/Util/NetworkStatus";
+import {doFBLogin} from "../Util/Backend";
+import {tryLogin, tryLogout} from "../Util/Events";
+import MessageDialog from "../Components/UI/MessageDialog";
+import Spinner from "../Components/UI/Spinner";
 
 let logo = require('../../assets/imgs/logo.png');
 let bg = require('../../assets/imgs/login-bg.jpg');
@@ -88,13 +89,13 @@ export default class LoginView extends Component {
                                         MessageDialog.show(Labels.Ui.ERROR, Labels.Messages.FACEBOOK_LOGIN_ERROR);
                                     });
                                 }}
-                                            onLogout={(e) => {
+                                onLogout={(e) => {
                                     tryLogout();
                                 }}
-                                            onCancel={(e) => {
+                                onCancel={(e) => {
                                     console.log(e)
                                 }}
-                                            onPermissionsMissing={(e) => {
+                                onPermissionsMissing={(e) => {
                                     console.log(e)}
                                 }/>
                             <NetworkStatus />

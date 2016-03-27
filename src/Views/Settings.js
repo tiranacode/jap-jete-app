@@ -8,6 +8,7 @@ import Labels from "../Configs/Labels";
 import {tryLogout} from "../Util/Events";
 import {AppStyle} from "../Styles/CommonStyles";
 import {MKButton, MKColor} from "react-native-material-kit";
+import Header from "../Components/UI/Header";
 import "../Components/UI/Header";
 
 
@@ -27,9 +28,13 @@ export default class SettingsView extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text>Settings</Text>
-                <LogoutBtn onPress={() => { tryLogout(() => { this._goToLogin(this.props.navigator) })}}/>
+            <View>
+                <Header navigator={this.props.navigator} title={Labels.Ui.SETTINGS} hideActionButtons={true}
+                        color={AppStyle.Colors.FG} nestedView={true}/>
+                <View style={styles.container}>
+                    <Text>Settings</Text>
+                    <LogoutBtn onPress={() => { tryLogout(() => { this._goToLogin(this.props.navigator) })}}/>
+                </View>
             </View>
         )
     }
@@ -38,7 +43,6 @@ export default class SettingsView extends Component {
 var styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center'
     }
 });
