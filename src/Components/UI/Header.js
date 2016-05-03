@@ -1,6 +1,6 @@
 'use strict';
 
-import React, {Component, View, Text, StyleSheet, TouchableOpacity, Navigator} from "react-native";
+import React, {Component, View, Text, StyleSheet, TouchableOpacity, Navigator, Dimensions} from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import {AppStyle} from "../../Styles/CommonStyles";
 
@@ -41,8 +41,7 @@ export default class Header extends Component {
                     </TouchableOpacity>
                 }
             </View>
-        )
-            ;
+        );
     }
 }
 
@@ -59,7 +58,8 @@ const styles = StyleSheet.create({
         top: 10
     },
     titleWrapper: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        width: Dimensions.get('window').width - 100
     },
     settingsIcon: {},
     backIcon: {

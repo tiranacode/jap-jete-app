@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         flex: 2,
         width: Dimensions.get('window').width,
-        backgroundColor: AppStyle.Colors.BG,
+        backgroundColor: 'white'
     },
     left: {
         flex: 0.5,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         flex: 0.5,
         position: 'absolute',
         top: 20,
-        left: 80,
+        left: 80
     },
     date: {},
     hospital: {

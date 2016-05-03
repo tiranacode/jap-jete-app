@@ -33,7 +33,7 @@ let labels = {
             }
         },
         Ui: {
-            MODIFY: 'Modifiko',
+            MODIFY: 'Modifiko Profilin',
             YOUR_ACCOUNT: 'Profili Juaj',
             LOGOUT: 'Logout',
             ERROR: 'Gabim',

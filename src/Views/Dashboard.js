@@ -3,16 +3,7 @@
  */
 
 'use strict';
-import React, {
-    Component,
-    StyleSheet,
-    View,
-    Text
-} from 'react-native';
-
-import {Actions} from 'react-native-router-flux';
-import Button from 'react-native-button';
-import Labels from '../Configs/Labels';
+import React, {Component, StyleSheet, View, Text} from "react-native";
 
 export default class DashboardView extends Component {
     render() {

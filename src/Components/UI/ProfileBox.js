@@ -11,7 +11,7 @@ import React, {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Image from "react-native-image-progress";
-import {AppStyle, ComponentsStyle} from "../../Styles/CommonStyles";
+import {AppStyle} from "../../Styles/CommonStyles";
 import {ProfileUISchema} from "../../Domain/Profile";
 import ProfileEdit from "../../Views/ProfileEdit";
 import Constants from "../../Configs/Constants";
@@ -20,6 +20,7 @@ import {Endpoints} from "../../Configs/Url";
 import Rest from "../../Util/Rest";
 import Spinner from "./Spinner";
 import PTRView from "react-native-pull-to-refresh";
+import ParallaxView from "react-native-parallax-view";
 
 let logo = require('../../../assets/imgs/logo.png');
 
@@ -96,38 +97,34 @@ export default class ProfileBox extends Component {
     render() {
         if (!this.state.loading) {
             return (
-                <PTRView onRefresh={this.profileRefresh} progressBackgroundColor={AppStyle.Colors.FG}>
-                    <ScrollView style={styles.container}>
-                        {/* Image Header */}
-                        <View style={styles.header}>
-                            <Image
-                                source={{ uri: this.state.user.photo }}
-                                indicator={Spinner}
-                                resizeMode="cover"
-                                indicatorProps={ComponentsStyle.ProgressIndicator}
-                                style={styles.photo}>
-                            </Image>
-                            {/* Toolbar */}
-                            <View style={styles.toolbar}>
-                                <TouchableOpacity
-                                    onPress={() => { this.navigateToProfileEdit(this.props.navigator, this.state.user) }}>
-                                    <Icon
-                                        name="pencil"
-                                        size={30}
-                                        color="#fff"
-                                        style={styles.toolbarBtn}/>
-                                </TouchableOpacity>
+                <ParallaxView
+                    ref={component => this._scrollView = component}
+                    backgroundSource={{ uri: this.state.user.photo }}
+                    windowHeight={Dimensions.get('window').width}>
+                    <PTRView onRefresh={this.profileRefresh} progressBackgroundColor={AppStyle.Colors.FG}>
+                            {/* Image Header */}
+                            <View>
+                                {/* Toolbar */}
+                                <View style={styles.toolbar}>
+                                    <TouchableOpacity
+                                        onPress={() => { this.navigateToProfileEdit(this.props.navigator, this.state.user) }}>
+                                        <Icon
+                                            name="pencil"
+                                            size={30}
+                                            color="#fff"
+                                            style={styles.toolbarBtn}/>
+                                    </TouchableOpacity>
+                                </View>
+                                {/* Icon - TODO - Change Icon */}
+                                <Image
+                                    source={logo}
+                                    style={styles.toolbarImage}>
+                                </Image>
                             </View>
-                            {/* Icon - TODO - Change Icon */}
-                            <Image
-                                source={logo}
-                                style={styles.toolbarImage}>
-                            </Image>
-                        </View>
-                        {/* Content */}
-                        <DetailsBox schema={ProfileUISchema} entity={this.state.user}/>
-                    </ScrollView>
-                </PTRView>
+                            {/* Content */}
+                            <DetailsBox schema={ProfileUISchema} entity={this.state.user}/>
+                    </PTRView>
+                </ParallaxView>
             );
         }
         return (
@@ -163,7 +160,7 @@ class DetailsBox extends Component {
                             color={AppStyle.Colors.FG}
                             style={styles.detailIcon}
                         />
-                        <Text style={styles.detailValue}>{this.state.entity[field]}</Text>
+                        <Text style={styles.detailValue}>{this.state.entity[field] || "-"}</Text>
                     </View>
                 )
             }
@@ -192,7 +189,6 @@ const styles = StyleSheet.create({
     },
     toolbar: {
         flex: 0.4,
-        backgroundColor: AppStyle.Colors.FG,
         width: Dimensions.get('window').width,
         height: 50,
         flexDirection: 'row',

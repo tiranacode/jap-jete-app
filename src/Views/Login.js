@@ -83,7 +83,6 @@ export default class LoginView extends Component {
                             doFBLogin(e,() => {
                                 //Successful Login
                                 this.goToNextScreen();
-                                MessageDialog.show("", "Ju u kycet me sukses");
                                     }, () => {
                                         //Login Failed
                                         MessageDialog.show(Labels.Ui.ERROR, Labels.Messages.FACEBOOK_LOGIN_ERROR);

@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 12,
-        color: '#222',
+        color: '#222'
 
     },
     otherDetail: {
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     datetime: {
         flex: 1,
         justifyContent: 'flex-end',
-        alignItems: 'flex-end',
+        alignItems: 'flex-end'
     },
     date: {
         textAlign: 'right',
@@ -140,6 +140,6 @@ const styles = StyleSheet.create({
     },
     empty: {
         flex: 1,
-        marginTop: 100,
+        marginTop: 100
     }
 });

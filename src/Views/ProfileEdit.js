@@ -3,35 +3,18 @@
  */
 
 'use strict';
-import React, {
-    Component,
-    StyleSheet,
-    View,
-    Text,
-    Switch,
-    Dimensions,
-    TextInput,
-    ScrollView
-} from 'react-native';
-
-import MK, {
-    MKButton,
-    MKColor,
-    MKTextField
-} from 'react-native-material-kit';
-
-import {Router, Route, Schema, Animations, TabBar, Actions} from 'react-native-router-flux';
-import Button from 'react-native-button';
-import Labels from '../Configs/Labels';
-import Rest from '../Util/Rest';
-import IO from '../Util/IO';
-import Form from 'react-native-form'
-import {AppStyle} from '../Styles/CommonStyles';
-import MessageDialog from '../Components/UI/MessageDialog';
-import Commons from '../Util/Commons';
-
-import { Endpoints } from '../Configs/Url';
-import Constants from '../Configs/Constants.js';
+import React, {Component, StyleSheet, View, Text, Switch, Dimensions, TextInput, ScrollView} from "react-native";
+import {MKButton, MKColor, MKTextField} from "react-native-material-kit";
+import Labels from "../Configs/Labels";
+import Rest from "../Util/Rest";
+import IO from "../Util/IO";
+import Form from "react-native-form";
+import {AppStyle} from "../Styles/CommonStyles";
+import MessageDialog from "../Components/UI/MessageDialog";
+import Commons from "../Util/Commons";
+import {Endpoints} from "../Configs/Url";
+import Constants from "../Configs/Constants.js";
+import Header from "../Components/UI/Header";
 
 var styles = StyleSheet.create({
     title: {
@@ -133,35 +116,39 @@ export default class ProfileEdit extends Component {
 
     render() {
         return (
-            <ScrollView style={styles.container}>
-                <View style={styles.titleCard}>
-                    <Text style={styles.title}>
-                        {Labels.Ui.YOUR_ACCOUNT}
-                    </Text>
-                </View>
-                <Form ref="form" style={styles.profileForm}>
-                    {/* TODO - Change GPS value from GPS and Blood Group from select */}
-                    <View>
-                        <TextMaterialInput placeholder={Labels.Domain.User.USERNAME}
-                                           defaultValue={this.props.user.username}
-                                           onChangeText={(txt) => {this.props.user.username = txt}}/>
-                        <TextMaterialInput placeholder={Labels.Domain.User.PHONE_NUMBER}
-                                           defaultValue={this.props.user.phoneNumber}
-                                           onChangeText={(txt) => {this.props.user.phoneNumber = txt}}/>
-                        <TextMaterialInput placeholder={Labels.Domain.User.EMAIL}
-                                           defaultValue={this.props.user.email}
-                                           onChangeText={(txt) => {this.props.user.email = txt}}/>
-                        <TextMaterialInput placeholder={Labels.Domain.User.LOCATION}
-                                           defaultValue={this.state.position}
-                                           onChangeText={(txt) => {this.props.user.location = txt}}/>
-                        <TextMaterialInput placeholder={Labels.Domain.User.GROUP}
-                                           defaultValue={this.props.user.group}
-                                           onChangeText={(txt) => {this.props.user.group = txt}}/>
-                        {/* Submit */}
-                        <SubmitBtn onPress={() => {saveUser(this.props.navigator, this.props.user)}}/>
+            <View>
+                <Header navigator={this.props.navigator} title={Labels.Ui.MODIFY} hideActionButtons={true}
+                        color={AppStyle.Colors.FG} nestedView={true}/>
+                <ScrollView style={styles.container}>
+                    <View style={styles.titleCard}>
+                        <Text style={styles.title}>
+                            {Labels.Ui.YOUR_ACCOUNT}
+                        </Text>
                     </View>
-                </Form>
-            </ScrollView>
+                    <Form ref="form" style={styles.profileForm}>
+                        {/* TODO - Change GPS value from GPS and Blood Group from select */}
+                        <View>
+                            <TextMaterialInput placeholder={Labels.Domain.User.USERNAME}
+                                               defaultValue={this.props.user.username}
+                                               onChangeText={(txt) => {this.props.user.username = txt}}/>
+                            <TextMaterialInput placeholder={Labels.Domain.User.PHONE_NUMBER}
+                                               defaultValue={this.props.user.phoneNumber}
+                                               onChangeText={(txt) => {this.props.user.phoneNumber = txt}}/>
+                            <TextMaterialInput placeholder={Labels.Domain.User.EMAIL}
+                                               defaultValue={this.props.user.email}
+                                               onChangeText={(txt) => {this.props.user.email = txt}}/>
+                            <TextMaterialInput placeholder={Labels.Domain.User.LOCATION}
+                                               defaultValue={this.state.position}
+                                               onChangeText={(txt) => {this.props.user.location = txt}}/>
+                            <TextMaterialInput placeholder={Labels.Domain.User.GROUP}
+                                               defaultValue={this.props.user.group}
+                                               onChangeText={(txt) => {this.props.user.group = txt}}/>
+                            {/* Submit */}
+                            <SubmitBtn onPress={() => {saveUser(this.props.navigator, this.props.user)}}/>
+                        </View>
+                    </Form>
+                </ScrollView>
+            </View>
         )
     }
 }
