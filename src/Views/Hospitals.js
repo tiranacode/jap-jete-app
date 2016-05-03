@@ -9,7 +9,7 @@ export default class DashboardView extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Dashboard</Text>
+                <Text>Spitalet</Text>
             </View>
         )
     }

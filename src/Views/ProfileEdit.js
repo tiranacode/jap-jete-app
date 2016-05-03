@@ -3,7 +3,7 @@
  */
 
 'use strict';
-import React, {Component, StyleSheet, View, Text, Switch, Dimensions, TextInput, ScrollView} from "react-native";
+import React, {Component, StyleSheet, View, Text, Switch, Dimensions, TextInput, ScrollView, ToastAndroid} from "react-native";
 import {MKButton, MKColor, MKTextField} from "react-native-material-kit";
 import Labels from "../Configs/Labels";
 import Rest from "../Util/Rest";
@@ -15,6 +15,8 @@ import Commons from "../Util/Commons";
 import {Endpoints} from "../Configs/Url";
 import Constants from "../Configs/Constants.js";
 import Header from "../Components/UI/Header";
+import BloodTypes from "../Data/BloodTypes"
+var DialogAndroid = require('react-native-dialogs');
 
 var styles = StyleSheet.create({
     title: {
@@ -37,7 +39,8 @@ var styles = StyleSheet.create({
     }
 });
 
-var TextMaterialInput, SubmitBtn;
+var TextMaterialInput, SubmitBtn, ColoredRaisedButton;
+var dialogOptions = {};
 
 function initializeInputs() {
     TextMaterialInput = MKTextField.textfield()
@@ -49,6 +52,8 @@ function initializeInputs() {
     SubmitBtn = MKButton.coloredButton()
         .withText(Labels.Ui.MODIFY)
         .withBackgroundColor(AppStyle.Colors.FG)
+        .build();
+    ColoredRaisedButton = MKButton.flatButton()
         .build();
 }
 
@@ -70,13 +75,9 @@ function saveUser(navigator, user) {
             queryParams[Constants.StorageKeys.SESSION_TOKEN] = token;
             queryParams[Constants.StorageKeys.USER_ID] = user.facebookId;
             let url = Endpoints.USER + Commons.getQueryStringFromObject(queryParams);
-            console.log("Request URL: " + url);
             Rest.update(url, requestParams, (data) => {
                 if (data.status == 200) {
-                    navigator.push({
-                        id: 'TabView',
-                        user: user
-                    });
+                    MessageDialog.show("", Labels.Messages.PROFILE_UPDATE_SUCCESS);
                 } else {
                     MessageDialog.show(Labels.Ui.ERROR, Labels.Messages.PROFILE_UPDATE_ERROR);
                 }
@@ -93,9 +94,28 @@ export default class ProfileEdit extends Component {
         super(props);
         initializeInputs();
         this.state = {
-            position: null
+            position: this.props.user.location,
+            group : this.props.user.group
+        };
+        dialogOptions = {
+            title: Labels.Ui.CHOOSE_BLOOD,
+            positiveText: Labels.Ui.OK,
+            negativeText: Labels.Ui.CANCEL,
+            items: BloodTypes,
+            itemsCallbackSingleChoice: (id, text) => {
+                this.setState({
+                    group: text
+                });
+                this.props.user.group = text;
+            }
         };
     }
+
+    showDialog () {
+        var dialog = new DialogAndroid();
+        dialog.set(dialogOptions);
+        dialog.show();
+    };
 
     componentDidMount() {
         {/* TODO - Change GPS Retrival Strategy */
@@ -117,12 +137,12 @@ export default class ProfileEdit extends Component {
     render() {
         return (
             <View>
-                <Header navigator={this.props.navigator} title={Labels.Ui.MODIFY} hideActionButtons={true}
+                <Header navigator={this.props.navigator} title={Labels.Ui.YOUR_ACCOUNT} hideActionButtons={true}
                         color={AppStyle.Colors.FG} nestedView={true}/>
                 <ScrollView style={styles.container}>
                     <View style={styles.titleCard}>
                         <Text style={styles.title}>
-                            {Labels.Ui.YOUR_ACCOUNT}
+                            {Labels.Ui.MODIFY}
                         </Text>
                     </View>
                     <Form ref="form" style={styles.profileForm}>
@@ -138,11 +158,11 @@ export default class ProfileEdit extends Component {
                                                defaultValue={this.props.user.email}
                                                onChangeText={(txt) => {this.props.user.email = txt}}/>
                             <TextMaterialInput placeholder={Labels.Domain.User.LOCATION}
-                                               defaultValue={this.state.position}
+                                               defaultValue={this.state.position || "-"}
                                                onChangeText={(txt) => {this.props.user.location = txt}}/>
                             <TextMaterialInput placeholder={Labels.Domain.User.GROUP}
-                                               defaultValue={this.props.user.group}
-                                               onChangeText={(txt) => {this.props.user.group = txt}}/>
+                                               onFocus={this.showDialog}
+                                               defaultValue={this.state.group || "-"}/>
                             {/* Submit */}
                             <SubmitBtn onPress={() => {saveUser(this.props.navigator, this.props.user)}}/>
                         </View>

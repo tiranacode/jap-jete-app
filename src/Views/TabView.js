@@ -9,8 +9,9 @@ import {AppStyle} from "../Styles/CommonStyles";
 import Labels from "../Configs/Labels";
 import HomeView from "./Home";
 import ProfileView from "./Profile";
-import DashboardView from "./Dashboard";
+import DashboardView from "./Hospitals";
 import HistoryView from "./History";
+import HelpView from "./Help";
 import Header from "../Components/UI/Header";
 
 export default class TabView extends Component {
@@ -26,8 +27,9 @@ export default class TabView extends Component {
                 <ScrollableTabView tabBarUnderlineColor={AppStyle.Colors.FG} tabBarActiveTextColor={AppStyle.Colors.FG} style={styles.tabView}>
                     <HomeView navigator={this.props.navigator} tabLabel={Labels.Tabs.HOME}/>
                     <HistoryView navigator={this.props.navigator} tabLabel={Labels.Tabs.HISTORY}/>
+                    <DashboardView navigator={this.props.navigator} tabLabel={Labels.Tabs.HOSPITALS}/>
                     <ProfileView navigator={this.props.navigator} tabLabel={Labels.Tabs.PROFILE}/>
-                    <DashboardView navigator={this.props.navigator} tabLabel={Labels.Tabs.DASHBOARD}/>
+                    <HelpView navigator={this.props.navigator} tabLabel={Labels.Tabs.HELP}/>
                 </ScrollableTabView>
             </View>
         )

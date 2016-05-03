@@ -17,7 +17,8 @@ export let AppStyle = {
         VIEW_SUBTITLE: "16px"
     },
     Icons: {
-        EMPTY_DATA: "ios-analytics"
+        EMPTY_DATA: "ios-analytics",
+        HELP: "ios-help"
     }
 };
 
