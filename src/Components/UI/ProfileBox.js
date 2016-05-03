@@ -9,9 +9,9 @@ import React, {
     AsyncStorage,
     InteractionManager
 } from "react-native";
+
 import Icon from "react-native-vector-icons/FontAwesome";
-import Image from "react-native-image-progress";
-import {AppStyle} from "../../Styles/CommonStyles";
+import {AppStyle, ComponentsStyle} from "../../Styles/CommonStyles";
 import {ProfileUISchema} from "../../Domain/Profile";
 import ProfileEdit from "../../Views/ProfileEdit";
 import Constants from "../../Configs/Constants";
@@ -20,7 +20,20 @@ import {Endpoints} from "../../Configs/Url";
 import Rest from "../../Util/Rest";
 import Spinner from "./Spinner";
 import PTRView from "react-native-pull-to-refresh";
+import {MKButton, MKColor} from "react-native-material-kit";
 import ParallaxView from "react-native-parallax-view";
+
+const ColoredFab = MKButton.coloredFab()
+    .withBackgroundColor(AppStyle.Colors.FG)
+    .withStyle({
+        right: 20,
+        bottom: 20
+    })
+    .withTextStyle({
+        color: "white",
+        fontWeight: "bold"
+    })
+    .build();
 
 let logo = require('../../../assets/imgs/logo.png');
 
@@ -100,29 +113,20 @@ export default class ProfileBox extends Component {
                 <ParallaxView
                     ref={component => this._scrollView = component}
                     backgroundSource={{ uri: this.state.user.photo }}
-                    windowHeight={Dimensions.get('window').width}>
-                    <PTRView onRefresh={this.profileRefresh} progressBackgroundColor={AppStyle.Colors.FG}>
+                    windowHeight={Dimensions.get('window').height / 2 }
+                    header={(
+                        <View style={styles.header}>
+                            <ColoredFab onPress={() => { this.navigateToProfileEdit(this.props.navigator, this.state.user) }}>
+                                    <Icon name="pencil" size={25} color="white" style={styles.icon}/>
+                                </ColoredFab>
+                        </View>
+                    )}>
+                    <PTRView onRefresh={this.profileRefresh} progressBackgroundSWColor={AppStyle.Colors.FG}>
+                        <ScrollView style={styles.container}>
                             {/* Image Header */}
-                            <View>
-                                {/* Toolbar */}
-                                <View style={styles.toolbar}>
-                                    <TouchableOpacity
-                                        onPress={() => { this.navigateToProfileEdit(this.props.navigator, this.state.user) }}>
-                                        <Icon
-                                            name="pencil"
-                                            size={30}
-                                            color="#fff"
-                                            style={styles.toolbarBtn}/>
-                                    </TouchableOpacity>
-                                </View>
-                                {/* Icon - TODO - Change Icon */}
-                                <Image
-                                    source={logo}
-                                    style={styles.toolbarImage}>
-                                </Image>
-                            </View>
                             {/* Content */}
                             <DetailsBox schema={ProfileUISchema} entity={this.state.user}/>
+                        </ScrollView>
                     </PTRView>
                 </ParallaxView>
             );
@@ -158,8 +162,7 @@ class DetailsBox extends Component {
                             name={this.props.schema[field].icon}
                             size={20}
                             color={AppStyle.Colors.FG}
-                            style={styles.detailIcon}
-                        />
+                            style={styles.detailIcon}/>
                         <Text style={styles.detailValue}>{this.state.entity[field] || "-"}</Text>
                     </View>
                 )
@@ -178,7 +181,11 @@ const styles = StyleSheet.create({
         flex: 1
     },
     header: {
-        flex: 0.5
+        flex: 1,
+        justifyContent: 'flex-end',
+        right: 0,
+        alignItems: 'flex-end',
+        width: Dimensions.get('window').width,
     },
     photo: {
         width: Dimensions.get('window').width,
@@ -189,31 +196,15 @@ const styles = StyleSheet.create({
     },
     toolbar: {
         flex: 0.4,
+        backgroundColor: 'white',
         width: Dimensions.get('window').width,
         height: 50,
         flexDirection: 'row',
         justifyContent: 'flex-end'
     },
-    toolbarBtn: {
-        borderLeftColor: 'white',
-        borderLeftWidth: 2,
-        borderStyle: 'solid',
-        right: 10,
-        width: 50,
-        top: 5,
-        textAlign: 'center'
-    },
-    toolbarImage: {
-        width: 80,
-        height: 80,
-        left: 10,
-        top: 160,
-        position: 'absolute'
-    },
     profileDetails: {
         flex: 0.5,
         width: Dimensions.get('window').width - 40,
-        backgroundColor: 'white',
         padding: 20,
         margin: 20
     },
