@@ -23,6 +23,14 @@ export default class IO {
     static getUser () {
         return AsyncStorage.getItem(Constants.StorageKeys.USER);
     }
+    
+    static getSettings () {
+        return AsyncStorage.getItem(Constants.StorageKeys.SETTINGS);
+    }
+
+    static setSettings (settings) {
+        return AsyncStorage.setItem(Constants.StorageKeys.SETTINGS, settings);
+    }
 };
 
 

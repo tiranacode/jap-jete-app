@@ -30,6 +30,14 @@ export default class HistoryView extends Component {
         super(props);
         this.state = {}
     }
+    
+    componentDidMount() {
+        
+    }
+    
+    _retrieveDonationHistory() {
+        
+    }
 
     /**
      * Testing Fetch

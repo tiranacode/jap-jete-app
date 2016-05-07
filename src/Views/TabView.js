@@ -12,15 +12,41 @@ import ProfileView from "./Profile";
 import DashboardView from "./Hospitals";
 import HistoryView from "./History";
 import HelpView from "./Help";
-import HomeView from "./Home";
 import Header from "../Components/UI/Header";
+import IO from "../Util/IO";
+import Setting from "../Domain/Setting";
+import MessageDialog from "../Components/UI/MessageDialog";
 
 export default class TabView extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            darkHeader: true
+        };
+    }
+
+    componentDidMount() {
+        IO.getSettings().then((settings) => {
+            if (settings) {
+                var userSettings = new Setting(settings);
+                MessageDialog.show("Settings", JSON.stringify(userSettings));
+                this.setState({
+                    darkHeader: userSettings.getSetting(Setting.KEYS.DARK_HEADER)
+                })
+            }
+        })
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <Header title={Labels.APP_NAME} navigator={this.props.navigator}/>
-                <ScrollableTabView tabBarUnderlineColor={AppStyle.Colors.FG} tabBarInactiveTextColor="white" tabBarBackgroundColor="#333" tabBarActiveTextColor={AppStyle.Colors.FG} style={styles.tabView}>
+                <ScrollableTabView tabBarUnderlineColor={AppStyle.Colors.FG}
+                                   tabBarInactiveTextColor={this.state.darkHeader ? "white" : "black"}
+                                   tabBarActiveTextColor={AppStyle.Colors.FG}
+                                   tabBarBackgroundColor={this.state.darkHeader ? "#333" : "white"}
+                                   style={styles.tabView}>
                     {/*<HomeView navigator={this.props.navigator} tabLabel={Labels.Tabs.HOM}/>*/}
                     <DonationView navigator={this.props.navigator} tabLabel={Labels.Tabs.DONATIONS}/>
                     <HistoryView navigator={this.props.navigator} tabLabel={Labels.Tabs.HISTORY}/>

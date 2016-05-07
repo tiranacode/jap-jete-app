@@ -7,19 +7,19 @@ import React, {Component, StyleSheet, View, Text, ScrollView, Dimensions} from "
 import Labels from "../Configs/Labels";
 import {tryLogout} from "../Util/Events";
 import {AppStyle} from "../Styles/CommonStyles";
-import {
-    MKSwitch,
-    MKColor,
-    MKButton
-} from 'react-native-material-kit';
+import {MKSwitch, MKColor, MKButton} from "react-native-material-kit";
 import Header from "../Components/UI/Header";
 import InstantActionBtn from "../Components/UI/InstantActionBtn";
+import IO from "../Util/IO";
+import Setting from "../Domain/Setting";
+import MessageDialog from "../Components/UI/MessageDialog";
 
 let LogoutBtn = MKButton.coloredButton()
     .withText(Labels.Ui.LOGOUT)
     .withBackgroundColor(AppStyle.Colors.FG)
     .build();
 
+let userSettings = new Setting();
 
 export default class SettingsView extends Component {
 
@@ -31,6 +31,26 @@ export default class SettingsView extends Component {
         navigator.push({
             id: 'Login'
         });
+    }
+
+    _changeSetting(key, value) {
+        userSettings.setSetting(key, value);
+        IO.setSettings(userSettings.toString());
+        MessageDialog.show("Settings Changed", userSettings.toString());
+    }
+
+    componentDidMount() {
+        //Get or save settings
+        IO.getSettings().then((settings) => {
+            if (settings) {
+                userSettings = new Setting(settings);
+                MessageDialog.show("Settings success", settings);
+            } else {
+                userSettings = new Setting(null);
+                IO.setSettings(userSettings.toString());
+                MessageDialog.show("Settings error", userSettings.toString());
+            }
+        })
     }
 
     render() {
@@ -47,25 +67,25 @@ export default class SettingsView extends Component {
                     <View style={styles.settings}>
                         <View style={styles.setting}>
                             <Text style={styles.settingKey}>{Labels.Settings.NOTIFICATIONS}</Text>
-                            <MKSwitch style={styles.settingValue} checked={true}
+                            <MKSwitch style={styles.settingValue} checked={userSettings.getSetting(Setting.KEYS.NOTIFICATIONS)}
                                       trackSize={30}
                                       trackLength={52}
                                       onColor="#eee"
                                       thumbOnColor={AppStyle.Colors.FG}
                                       rippleColor="#aaa"
                                       onPress={() => console.log('orange switch pressed')}
-                                      onCheckedChange={(e) => console.log('orange switch checked', e)}/>
+                                      onCheckedChange={(val) => this._changeSetting(Setting.KEYS.NOTIFICATIONS, val.checked)}/>
                         </View>
                         <View style={styles.setting}>
                             <Text style={styles.settingKey}>{Labels.Settings.BLACK_BAR}</Text>
-                            <MKSwitch style={styles.settingValue} checked={true}
+                            <MKSwitch style={styles.settingValue} checked={userSettings.getSetting(Setting.KEYS.DARK_HEADER)}
                                       trackSize={30}
                                       trackLength={52}
                                       onColor="#eee"
                                       thumbOnColor={AppStyle.Colors.FG}
                                       rippleColor="#aaa"
                                       onPress={() => console.log('orange switch pressed')}
-                                      onCheckedChange={(e) => console.log('orange switch checked', e)}/>
+                                      onCheckedChange={(val) => this._changeSetting(Setting.KEYS.DARK_HEADER, val.checked)}/>
                         </View>
                     </View>
                     <View style={styles.versionSeparator}>
@@ -74,7 +94,8 @@ export default class SettingsView extends Component {
                         </Text>
                     </View>
                 </View>
-                <InstantActionBtn style={styles.logoutBtn} icon={AppStyle.Icons.EXIT} onPress={() => { tryLogout(() => { this._goToLogin(this.props.navigator) })}}/>
+                <InstantActionBtn style={styles.logoutBtn} icon={AppStyle.Icons.EXIT}
+                                  onPress={() => { tryLogout(() => { this._goToLogin(this.props.navigator) })}}/>
             </View>
         )
     }
@@ -93,12 +114,8 @@ var styles = StyleSheet.create({
         flexDirection: "column",
         marginBottom: 20
     },
-    settingKey: {
-
-    },
-    settingValue: {
-
-    },
+    settingKey: {},
+    settingValue: {},
     title: {
         fontSize: 20
     },
