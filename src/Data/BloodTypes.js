@@ -6,5 +6,5 @@ export default [
     "B+",
     "B-",
     "AB+",
-    "AB-",
+    "AB-"
 ]

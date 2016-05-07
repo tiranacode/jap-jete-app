@@ -8,7 +8,7 @@ import {AppStyle} from "../Styles/CommonStyles";
 import EmptyContent from "../Components/UI/EmptyContent";
 import Labels from "../Configs/Labels";
 import InstantActionBtn from "../Components/UI/InstantActionBtn";
-import Share from 'react-native-share';
+import Share from "react-native-share";
 import {Endpoints} from "../Configs/Url";
 
 export default class HelpView extends Component {
@@ -22,7 +22,7 @@ export default class HelpView extends Component {
             share_text: Labels.Messages.SHARE,
             share_URL: Endpoints.SHARE,
             title: Labels.Messages.SHARE_TITLE
-        },(e) => {
+        }, (e) => {
             console.log(e);
         });
     }

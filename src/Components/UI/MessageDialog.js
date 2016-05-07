@@ -13,7 +13,7 @@ import React, {
 } from 'react-native';
 
 import {AppStyle, ComponentsStyle} from '../../Styles/CommonStyles';
-/*import DialogAndroid from 'react-native-dialogs';*/
+import DialogAndroid from 'react-native-dialogs';
 import Labels from '../../Configs/Labels';
 
 let DEBUG = false;
@@ -24,12 +24,12 @@ let dialogOptions = {
 export default class MessageDialog {
 
     static show = function (title, message) {
-        return ToastAndroid.show(message, 0.1);
-        /*var dialog = new DialogAndroid();
+        //return ToastAndroid.show(message, 0.1);
+        var dialog = new DialogAndroid();
         dialogOptions.content = message;
         dialogOptions.title = title;
         dialog.set(dialogOptions);
-        dialog.show();*/
+        dialog.show();
     };
 
     static debug = function(message, obj) {

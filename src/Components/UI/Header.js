@@ -34,9 +34,8 @@ export default class Header extends Component {
                 </TouchableOpacity>
                 {
                     this.props.hideActionButtons ?
-                        null
-                        : <TouchableOpacity onPress={() => {this._goToSettings(this.props.navigator)}}
-                                            style={styles.settingsBtn}>
+                        null : <TouchableOpacity onPress={() => {this._goToSettings(this.props.navigator)}}
+                                                 style={styles.settingsBtn}>
                         <Icon name="gear-a" size={25} color="#fff" style={styles.settingsIcon}/>
                     </TouchableOpacity>
                 }

@@ -9,7 +9,7 @@ import InstantActionBtn from "../Components/UI/InstantActionBtn";
 import Labels from "../Configs/Labels";
 import {AppStyle} from "../Styles/CommonStyles";
 import EmptyContent from "../Components/UI/EmptyContent";
-import Donation from "../Components/UI/Donation";
+import DonationCampaignListItem from "../Components/UI/DonationCampaignListItem";
 import PTRView from "react-native-pull-to-refresh";
 import IO from "../Util/IO";
 import Rest from "../Util/Rest";
@@ -81,7 +81,7 @@ export default class HomeView extends Component {
                         {
                             this.state.data.map((donation) => {
                                 return (
-                                    <Donation data={donation} key={donation.message}/>
+                                    <DonationCampaignListItem data={donation} key={donation.message}/>
                                 )
                             })
                         }

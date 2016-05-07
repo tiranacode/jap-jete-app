@@ -1,13 +1,8 @@
 'use strict';
 
-import React, {
-    Component,
-    ToastAndroid,
-    View,
-    NetInfo,
-} from 'react-native';
-import Labels from '../../Configs/Labels';
-import MessageDialog from '../UI/MessageDialog';
+import React, {Component, ToastAndroid, View, NetInfo} from "react-native";
+import Labels from "../../Configs/Labels";
+import MessageDialog from "../UI/MessageDialog";
 
 export default React.createClass({
     getInitialState() {

@@ -7,8 +7,8 @@ import React, {Component, StyleSheet, View, Text, ListView, TouchableHighlight, 
 import GiftedListView from "react-native-gifted-listview";
 import Labels from "../Configs/Labels";
 import {AppStyle} from "../Styles/CommonStyles";
-import CommonUtils from "../Util/Commons";
 import EmptyContent from "../Components/UI/EmptyContent";
+import DonationListItem from "../Components/UI/DonationListItem";
 
 //TODO - Test Data, Remove
 let history = [
@@ -30,13 +30,13 @@ export default class HistoryView extends Component {
         super(props);
         this.state = {}
     }
-    
+
     componentDidMount() {
-        
+
     }
-    
+
     _retrieveDonationHistory() {
-        
+
     }
 
     /**
@@ -47,16 +47,14 @@ export default class HistoryView extends Component {
      * @private
      */
     _onFetch(page = 1, callback) {
-        setTimeout(() => {
-            var rows = history;
-            if (page === 3) {
-                callback(rows, {
-                    allLoaded: true
-                });
-            } else {
-                callback(rows);
-            }
-        }, 1000); // simulating network fetching
+        var rows = history;
+        if (page === 3) {
+            callback(rows, {
+                allLoaded: true
+            });
+        } else {
+            callback(rows);
+        }
     }
 
     /**
@@ -65,21 +63,15 @@ export default class HistoryView extends Component {
      */
     _renderRowView(data) {
         return (
-            <TouchableOpacity>
-                <View style={styles.row}>
-                    <View style={styles.otherDetail}>
-                        <Text style={styles.title}>{data.hospital}</Text>
-                        <Text style={styles.amount}>{data.amount} L </Text>
-                    </View>
-                    <View style={styles.datetime}>
-                        <Text style={styles.date}>{CommonUtils.getFormattedDate(data.date)}</Text>
-                        <Text style={styles.time}>{CommonUtils.getFormattedTime(data.date)}</Text>
-                    </View>
-                </View>
-            </TouchableOpacity>
+            <DonationListItem data={data}/>
         );
     }
 
+    /**
+     * Render Empty screen
+     * @returns {XML}
+     * @private
+     */
     _renderEmptyView() {
         return (
             <View style={styles.empty}>
@@ -111,40 +103,7 @@ export default class HistoryView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-    },
-    row: {
-        flex: 1,
-        padding: 10,
-        borderBottomColor: '#ddd',
-        borderBottomWidth: 1,
-        flexDirection: 'row'
-    },
-    title: {
-        fontSize: 12,
-        color: '#222'
-
-    },
-    otherDetail: {
-        justifyContent: 'flex-start'
-
-    },
-    datetime: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'flex-end'
-    },
-    date: {
-        textAlign: 'right',
-        fontSize: 12
-    },
-    time: {
-        textAlign: 'center',
-        fontSize: 15,
-        color: AppStyle.Colors.FG
-    },
-    amount: {
-        fontSize: 15
+        justifyContent: 'center'
     },
     empty: {
         flex: 1,
