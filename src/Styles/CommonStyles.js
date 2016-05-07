@@ -27,7 +27,7 @@ export let AppStyle = {
             DONATION_CAMPAIGN: "bell-o",
             DONATION_HISTORY: "history",
             HOSPITALS: "hospital-o",
-            HELP: "help"
+            HELP: "question"
         }
     }
 };

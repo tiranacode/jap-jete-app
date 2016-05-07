@@ -152,7 +152,7 @@ dependencies {
     compile project(':react-native-system-notification')
     compile project(':react-native-share')
     compile 'com.android.support:multidex:1.0.0'
-
+    compile project(':react-native-gmaps')
 }
 
 apply plugin: 'com.google.gms.google-services'

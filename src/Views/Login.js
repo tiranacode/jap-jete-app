@@ -126,7 +126,6 @@ var styles = StyleSheet.create({
     mainTitle: {
         justifyContent: 'center',
         alignItems: 'center',
-        color: 'white',
         paddingBottom: 20,
         paddingTop: 20,
         width: 180
@@ -134,7 +133,7 @@ var styles = StyleSheet.create({
     topText: {
         marginTop: 100,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     logoImage: {
         width: 180,
@@ -144,7 +143,7 @@ var styles = StyleSheet.create({
         fontSize: 35,
         fontWeight: 'bold',
         marginLeft: 5,
-        color: AppStyle.Colors.BG,
+        color: AppStyle.Colors.BG
     },
     appVersion: {
         color: 'white',

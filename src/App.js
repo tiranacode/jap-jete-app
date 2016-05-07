@@ -29,6 +29,7 @@ import Constants from "./Configs/Constants";
 import Push from "./Util/Push";
 import MessageDialog from "./Components/UI/MessageDialog";
 import SettingsView from "./Views/Settings";
+import DonationDetailsView from "./Views/DonationDetails";
 
 var _navigator;
 
@@ -103,6 +104,8 @@ export default class JapJete extends Component {
                 return (<LoginView navigator={navigator}/>);
             case 'TabView':
                 return (<TabView navigator={navigator}/>);
+            case 'DonationDetailsView':
+                return (<DonationDetailsView navigator={navigator}/>);
             case 'Profile':
                 return (<ProfileView navigator={navigator}/>);
             case 'ProfileEdit':

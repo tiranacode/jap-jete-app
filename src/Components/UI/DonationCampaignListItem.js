@@ -17,6 +17,7 @@ export default class Donation extends Component {
             hospital: ""
         };
         this._prepareData = this._prepareData.bind(this);
+        this._navigateToDetails = this._navigateToDetails.bind(this);
     }
 
     componentDidMount() {
@@ -25,6 +26,13 @@ export default class Donation extends Component {
 
     componentWillReceiveProps() {
         this._prepareData();
+    }
+
+    _navigateToDetails() {
+        this.props.navigator.push({
+            id: 'DonationDetailsView',
+            data: this.state
+        });
     }
 
     _prepareData() {
@@ -38,7 +46,7 @@ export default class Donation extends Component {
 
     render() {
         return (
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity onPress={() => { this._navigateToDetails(this.props.navigator) }} style={styles.container}>
                 <View style={styles.left}>
                     <Icon
                         name="ios-calendar-outline"

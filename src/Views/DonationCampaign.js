@@ -84,7 +84,7 @@ export default class HomeView extends Component {
                     this.state.data.map((donation) => {
                         count++;
                         return (
-                            <DonationCampaignListItem data={donation} key={count}/>
+                            <DonationCampaignListItem navigator={this.props.navigator} data={donation} key={count}/>
                         )
                     })
                 }
