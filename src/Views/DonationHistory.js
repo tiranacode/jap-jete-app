@@ -70,7 +70,7 @@ export default class HistoryView extends Component {
                             };
                             if (res.history) {
                                 this.setState({
-                                    data: []
+                                    data: res.history.history
                                 });
                             }
                         });

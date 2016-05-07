@@ -51,6 +51,7 @@ export default class Donation extends Component {
                     <Text style={styles.date}>{this.state.startDate}</Text>
                     <Text style={styles.hospital}>{this.state.name}</Text>
                 </View>
+                <View style={styles.separator}></View>
             </TouchableOpacity>
         );
     }
@@ -60,7 +61,9 @@ const styles = StyleSheet.create({
     container: {
         width: Dimensions.get('window').width,
         height: 90,
-        paddingTop: 20
+        marginBottom: 20
+    },
+    separator: {
     },
     left: {
         flex: 0.5,
