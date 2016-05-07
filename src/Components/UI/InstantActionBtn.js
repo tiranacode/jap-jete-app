@@ -22,12 +22,16 @@ const ColoredFab = MKButton.coloredFab()
     })
     .build();
 
-//TODO - Pass action with props
 export default class InstantActionBtn extends Component {
+
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
-            <ColoredFab>
-                <Icon name="heart" size={25} color="white" style={styles.icon}/>
+            <ColoredFab onPress={this.props.onPress}>
+                <Icon name={this.props.icon} size={25} color="white" style={styles.icon}/>
             </ColoredFab>
         )
     }

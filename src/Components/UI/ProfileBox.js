@@ -20,20 +20,8 @@ import {Endpoints} from "../../Configs/Url";
 import Rest from "../../Util/Rest";
 import Spinner from "./Spinner";
 import PTRView from "react-native-pull-to-refresh";
-import {MKButton, MKColor} from "react-native-material-kit";
 import ParallaxView from "react-native-parallax-view";
-
-const ColoredFab = MKButton.coloredFab()
-    .withBackgroundColor(AppStyle.Colors.FG)
-    .withStyle({
-        right: 20,
-        bottom: 20
-    })
-    .withTextStyle({
-        color: "white",
-        fontWeight: "bold"
-    })
-    .build();
+import InstantActionBtn from "../../Components/UI/InstantActionBtn";
 
 let logo = require('../../../assets/imgs/logo.png');
 
@@ -116,9 +104,7 @@ export default class ProfileBox extends Component {
                     windowHeight={Dimensions.get('window').height / 2 }
                     header={(
                         <View style={styles.header}>
-                            <ColoredFab onPress={() => { this.navigateToProfileEdit(this.props.navigator, this.state.user) }}>
-                                    <Icon name="pencil" size={25} color="white" style={styles.icon}/>
-                                </ColoredFab>
+                            <InstantActionBtn icon={AppStyle.Icons.EDIT} onPress={() => { this.navigateToProfileEdit(this.props.navigator, this.state.user) }}/>
                         </View>
                     )}>
                     <PTRView onRefresh={this.profileRefresh} progressBackgroundSWColor={AppStyle.Colors.FG}>

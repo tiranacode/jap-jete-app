@@ -7,6 +7,7 @@
 let labels = {
     sq: {
         APP_NAME: "Jap Jete",
+        APP_VERSION: "0.0.1",
         LOGIN: "Identifikohu",
         Messages: {
             NO_NETWORK: "Nuk u mundesua lidhja me internetin",
@@ -16,7 +17,10 @@ let labels = {
             PROFILE_UPDATE_SUCCESS: "Profili u modifikua me sukses",
             NO_HISTORY: "Ju nuk keni dhuruar gjak.",
             NO_DATA: "Per momentin nuk ka nevoja urgjente per gjak.",
-            HELP: "Nuk ka asnje permbajtje ndihme."
+            HELP: "Nuk ka asnje rekord ndihme.",
+            SETTINGS: 'Modifiko preferencat e profilit',
+            SHARE: "Ndaj JAP Jete me miqte, Shpeto Jete",
+            SHARE_TITLE: "Ndaj me miqte",
         },
         Tabs: {
             HOME: "Dhuro",
@@ -44,6 +48,10 @@ let labels = {
             SETTINGS: "Preferencat",
             CHOOSE_BLOOD: "Zgjidh grupin e gjakut",
             OK: "OK"
+        },
+        Settings: {
+            BLACK_BAR: "Aktivizo shiritin e erret",
+            NOTIFICATIONS: "Njoftohu per fushatat e dhurimit te gjakut"
         }
     }
 };

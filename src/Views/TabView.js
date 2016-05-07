@@ -24,7 +24,7 @@ export default class TabView extends Component {
         return (
             <View style={styles.container}>
                 <Header title={Labels.APP_NAME} navigator={this.props.navigator}/>
-                <ScrollableTabView tabBarUnderlineColor={AppStyle.Colors.FG} tabBarActiveTextColor={AppStyle.Colors.FG} style={styles.tabView}>
+                <ScrollableTabView tabBarUnderlineColor={AppStyle.Colors.FG} tabBarInactiveTextColor="white" tabBarBackgroundColor="#333" tabBarActiveTextColor={AppStyle.Colors.FG} style={styles.tabView}>
                     <HomeView navigator={this.props.navigator} tabLabel={Labels.Tabs.HOME}/>
                     <HistoryView navigator={this.props.navigator} tabLabel={Labels.Tabs.HISTORY}/>
                     <DashboardView navigator={this.props.navigator} tabLabel={Labels.Tabs.HOSPITALS}/>

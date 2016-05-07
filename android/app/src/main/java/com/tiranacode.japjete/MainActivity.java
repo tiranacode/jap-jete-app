@@ -11,6 +11,7 @@ import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 import com.oney.gcm.GcmPackage;
 import io.neson.react.notification.NotificationPackage;
+import cl.json.RNSharePackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -50,7 +51,8 @@ public class MainActivity extends ReactActivity {
                 new ReactNativeDialogsPackage(),
                 new ReactMaterialKitPackage(),
                 new GcmPackage(),
-                new NotificationPackage(this)
+                new NotificationPackage(this),
+                new RNSharePackage()
         );
     }
 }

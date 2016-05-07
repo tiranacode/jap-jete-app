@@ -18,7 +18,11 @@ export let AppStyle = {
     },
     Icons: {
         EMPTY_DATA: "ios-analytics",
-        HELP: "ios-help"
+        HELP: "ios-help",
+        SHARE: "share",
+        HEART: "heart",
+        EDIT: "edit",
+        EXIT: "power-off"
     }
 };
 

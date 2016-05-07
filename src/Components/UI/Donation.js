@@ -35,9 +35,10 @@ const styles = StyleSheet.create({
     container: {
         borderBottomColor: "#ddd",
         borderBottomWidth: 1,
-        flex: 2,
         width: Dimensions.get('window').width,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        height: 80,
+        paddingTop: 20
     },
     left: {
         flex: 0.5,
