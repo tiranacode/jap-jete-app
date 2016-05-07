@@ -37,4 +37,13 @@ export default class CommonUtils {
     static getFormattedTime(date) {
         return date.getHours() + ":" + date.getMinutes();
     }
+
+    /**
+     * Get dd/mm/yyyy hh:mm format of date
+     * @param date
+     * @returns {string}
+     */
+    static getFormattedDateTime(date) {
+        return CommonUtils.getFormattedDate(date) + " " + CommonUtils.getFormattedTime(date);
+    }
 }

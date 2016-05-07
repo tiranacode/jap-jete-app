@@ -23,7 +23,8 @@ let labels = {
             SHARE_TITLE: "Ndaj me miqte",
         },
         Tabs: {
-            HOME: "Dhuro",
+            HOME: "Kreu",
+            DONATIONS: "Fushatat",
             HOSPITALS: "Spitalet",
             PROFILE: "Profili",
             HISTORY: "Historiku",

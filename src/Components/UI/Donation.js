@@ -3,15 +3,19 @@
 import React, {Component, View, Text, StyleSheet, TouchableOpacity, Navigator, Dimensions} from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import {AppStyle} from "../../Styles/CommonStyles";
+import CommonUtils from "../../Util/Commons";
+import MessageDialog from "../UI/MessageDialog";
 
 export default class Donation extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+        };
     }
 
     render() {
+        MessageDialog.show("Test", this.props.data.start_date);
         return (
             <TouchableOpacity style={styles.container}>
                 <View style={styles.left}>
@@ -20,11 +24,13 @@ export default class Donation extends Component {
                         size={60}
                         color="#555"
                         style={styles.toolbarBtn}/>
-                    <Text style={styles.calendarDate}>18</Text>
+                    <Text style={styles.calendarDate}>{this.props.data.start_date}</Text>
                 </View>
                 <View style={styles.right}>
-                    <Text style={styles.date}>8 Shkurt 2016, 14:30</Text>
-                    <Text style={styles.hospital}>Spitali Nene tereza</Text>
+                    <Text style={styles.date}>{CommonUtils.getFormattedDateTime(new Date(this.props.data.start_date))} </Text>
+                    <Text style={styles.date}>{CommonUtils.getFormattedDateTime(new Date(this.props.data.end_date))} </Text>
+                    <Text style={styles.hospital}>{this.props.data.name}</Text>
+                    <Text>{this.props.data.rand}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -53,6 +59,7 @@ const styles = StyleSheet.create({
         left: 80
     },
     date: {},
+    endDate: {},
     hospital: {
         fontWeight: 'bold'
     },
