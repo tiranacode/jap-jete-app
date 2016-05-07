@@ -27,7 +27,6 @@ export default class EmptyContent extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -40,5 +39,5 @@ const styles = StyleSheet.create({
         marginTop: 10,
         color: '#999',
         textAlign: 'center'
-    }
+    },
 });

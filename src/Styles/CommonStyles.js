@@ -9,7 +9,7 @@ export let AppStyle = {
         FG_DARK: "#BD3030",
         BG: "#efefef",
         THIRD: "#555",
-        STATUS: "#666666"
+        STATUS: "#666666",
     },
     Dimensions: {
         NAVIGATION_TEXT: "12px",
@@ -22,7 +22,13 @@ export let AppStyle = {
         SHARE: "share",
         HEART: "heart",
         EDIT: "edit",
-        EXIT: "power-off"
+        EXIT: "power-off",
+        footer: {
+            DONATION_CAMPAIGN: "bell-o",
+            DONATION_HISTORY: "history",
+            HOSPITALS: "hospital-o",
+            HELP: "help"
+        }
     }
 };
 

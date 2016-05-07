@@ -8,7 +8,8 @@ var API_URL = "http://52.59.251.182/api/v1/";
 export const Endpoints = {
     LOGIN: API_URL + "login/",
     USER: API_URL + "user/",
-    DONATION: API_URL + "campains/",
+    DONATION_CAMPAIGN: API_URL + "campains/",
+    DONATION_HISTORY: API_URL + "donations/",
     PROFILE: API_URL + "/profile",
     SHARE: "https://play.google.com/store/apps/details?id=com.tiranacode.japjete"
 };

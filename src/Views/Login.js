@@ -22,6 +22,7 @@ import {doFBLogin} from "../Util/Backend";
 import {tryLogin, tryLogout} from "../Util/Events";
 import MessageDialog from "../Components/UI/MessageDialog";
 import Spinner from "../Components/UI/Spinner";
+import {AppStyle} from "../Styles/CommonStyles";
 
 let logo = require('../../assets/imgs/logo.png');
 let bg = require('../../assets/imgs/login-bg.jpg');
@@ -66,20 +67,25 @@ export default class LoginView extends Component {
         } else {
             view = (
                 <View style={styles.loginWrapper}>
-                    <Image source={bg} style={styles.backgroundImage}>
-                        <View style={styles.mainTitle}>
-                            <Image
-                                source={logo}
-                                style={styles.logoImage}>
-                            </Image>
-                            <Text style={styles.appName}>
-                                {Labels.APP_NAME}
-                            </Text>
+                    <View style={styles.mainTitle}>
+                        <Image
+                            source={logo}
+                            style={styles.logoImage}>
+                        </Image>
+                        <Text style={styles.appName}>
+                            {Labels.APP_NAME}
+                        </Text>
+                        <Text style={styles.appVersion}>
+                            version_{Labels.APP_VERSION}
+                        </Text>
+                        <View style={styles.topText}>
+                            <Text style={{color: 'white', fontSize: 10}}>Developed with {'<3'} by <Text style={{color: 'white', fontSize: 10, fontWeight: 'bold'}}>tiranacode</Text></Text>
                         </View>
-                        <View style={styles.bottomBar}>
-                            <FBLogin
-                                style={styles.fbLogin}
-                                onLogin={(e) => {
+                    </View>
+                    <View style={styles.bottomBar}>
+                        <FBLogin
+                            style={styles.fbLogin}
+                            onLogin={(e) => {
                             doFBLogin(e,() => {
                                 //Successful Login
                                 this.goToNextScreen();
@@ -88,19 +94,17 @@ export default class LoginView extends Component {
                                         MessageDialog.show(Labels.Ui.ERROR, Labels.Messages.FACEBOOK_LOGIN_ERROR);
                                     });
                                 }}
-                                onLogout={(e) => {
+                            onLogout={(e) => {
                                     tryLogout();
                                 }}
-                                onCancel={(e) => {
+                            onCancel={(e) => {
                                     console.log(e)
                                 }}
-                                onPermissionsMissing={(e) => {
+                            onPermissionsMissing={(e) => {
                                     console.log(e)}
                                 }/>
-                            <NetworkStatus />
-                        </View>
-
-                    </Image>
+                        <NetworkStatus />
+                    </View>
                 </View>
             );
         }
@@ -112,34 +116,42 @@ var styles = StyleSheet.create({
     loginWrapper: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: AppStyle.Colors.FG
     },
     fbLogin: {
         backgroundColor: 'white',
         height: 150
     },
     mainTitle: {
-        flex: 1,
-        marginBottom: 10,
-        position: 'absolute',
-        marginTop: 0,
-        bottom: 30,
-        left: 0,
-        right: 0,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(255,255,255,0.5)',
+        color: 'white',
         paddingBottom: 20,
-        paddingTop: 20
+        paddingTop: 20,
+        width: 180
+    },
+    topText: {
+        marginTop: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     logoImage: {
-        width: 80,
-        height: 80,
+        width: 180,
+        height: 180,
     },
     appName: {
-        fontSize: 18,
+        fontSize: 35,
         fontWeight: 'bold',
-        marginLeft: 5
+        marginLeft: 5,
+        color: AppStyle.Colors.BG,
+    },
+    appVersion: {
+        color: 'white',
+        fontSize: 10,
+        position: 'absolute',
+        right: 20,
+        marginTop: -5
     },
     backgroundImage: {
         flex: 1,
@@ -148,9 +160,10 @@ var styles = StyleSheet.create({
         alignItems: 'center',
     },
     bottomBar: {
-        width: Dimensions.get('window').width,
+        width: Dimensions.get('window').width - 100,
         position: 'absolute',
-        bottom: 0,
+        bottom: 50,
+        marginLeft: 50
     }
 });
 

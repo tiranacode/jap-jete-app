@@ -32,8 +32,8 @@ export default class Donation extends Component {
                         <Text style={styles.amount}>{this.props.data.amount} L </Text>
                     </View>
                     <View style={styles.datetime}>
-                        <Text style={styles.date}>{CommonUtils.getFormattedDate(this.props.data.date)}</Text>
-                        <Text style={styles.time}>{CommonUtils.getFormattedTime(this.props.data.date)}</Text>
+                        <Text style={styles.date}>{CommonUtils.getFormattedDate(new Date(this.props.data.date))}</Text>
+                        <Text style={styles.time}>{CommonUtils.getFormattedTime(new Date(this.props.data.date))}</Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -43,6 +43,7 @@ export default class Donation extends Component {
 
 const styles = StyleSheet.create({
     row: {
+        backgroundColor: 'white',
         flex: 1,
         padding: 10,
         borderBottomColor: '#ddd',

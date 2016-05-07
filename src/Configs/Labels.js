@@ -9,6 +9,12 @@ let labels = {
         APP_NAME: "Jap Jete",
         APP_VERSION: "0.0.1",
         LOGIN: "Identifikohu",
+        Footers: {
+            DONATION_CAMPAIGN: "Njoftohuni per fushatat e dhurimit te gjakut, aplikoni dhe ju !",
+            DONATION_HISTORY: "Kontrolloni historikun e dhurimit te gjakut",
+            HOSPITALS: "Kerkoni spitalet ku ndodh dhurimi i gjakut, vendodhjet dhe detaje",
+            HELP: "Kerkoni ndihme rreth funksionimit te aplikacionit"
+        },
         Messages: {
             NO_NETWORK: "Nuk u mundesua lidhja me internetin",
             FACEBOOK_LOGIN_ERROR: "Pati nje problem me identifikimin, Ju lutem provoni me vone",

@@ -58,11 +58,8 @@ export default class Donation extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        borderBottomColor: "#ddd",
-        borderBottomWidth: 1,
         width: Dimensions.get('window').width,
-        backgroundColor: 'white',
-        height: 80,
+        height: 90,
         paddingTop: 20
     },
     left: {

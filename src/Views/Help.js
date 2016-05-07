@@ -1,5 +1,5 @@
 /**
- * Application Dashboard View
+ * Application Help View
  */
 
 'use strict';
@@ -10,6 +10,7 @@ import Labels from "../Configs/Labels";
 import InstantActionBtn from "../Components/UI/InstantActionBtn";
 import Share from "react-native-share";
 import {Endpoints} from "../Configs/Url";
+import ViewMetaBar from "../Components/UI/ViewMetaBar";
 
 export default class HelpView extends Component {
 
@@ -27,10 +28,20 @@ export default class HelpView extends Component {
         });
     }
 
+    _renderEmptyView() {
+        return (
+            <View style={styles.empty}>
+                <EmptyContent label={Labels.Messages.HELP} icon={AppStyle.Icons.HELP}/>
+            </View>
+        )
+    }
+
     render() {
         return (
             <View style={styles.container}>
-                <EmptyContent label={Labels.Messages.HELP} icon={AppStyle.Icons.HELP}/>
+                <ViewMetaBar description={Labels.Footers.HELP}
+                             icon={AppStyle.Icons.footer.HELP}/>
+                {this._renderEmptyView()}
                 <InstantActionBtn onPress={this.onShare} icon={AppStyle.Icons.SHARE}/>
             </View>
         )
@@ -40,7 +51,10 @@ export default class HelpView extends Component {
 var styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center'
+    },
+    empty: {
+        flex: 1,
+        marginTop: 100
     }
 });

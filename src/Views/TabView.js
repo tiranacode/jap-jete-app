@@ -7,10 +7,10 @@ import React, {Component, StyleSheet, ScrollView, View, Text, TouchableOpacity} 
 import ScrollableTabView from "react-native-scrollable-tab-view";
 import {AppStyle} from "../Styles/CommonStyles";
 import Labels from "../Configs/Labels";
-import DonationView from "./Donations";
+import DonationCampaignView from "./DonationCampaign";
 import ProfileView from "./Profile";
 import DashboardView from "./Hospitals";
-import HistoryView from "./History";
+import DonationHistoryView from "./DonationHistory";
 import HelpView from "./Help";
 import Header from "../Components/UI/Header";
 import IO from "../Util/IO";
@@ -30,7 +30,6 @@ export default class TabView extends Component {
         IO.getSettings().then((settings) => {
             if (settings) {
                 var userSettings = new Setting(settings);
-                MessageDialog.show("Settings", JSON.stringify(userSettings));
                 this.setState({
                     darkHeader: userSettings.getSetting(Setting.KEYS.DARK_HEADER)
                 })
@@ -48,8 +47,8 @@ export default class TabView extends Component {
                                    tabBarBackgroundColor={this.state.darkHeader ? "#333" : "white"}
                                    style={styles.tabView}>
                     {/*<HomeView navigator={this.props.navigator} tabLabel={Labels.Tabs.HOM}/>*/}
-                    <DonationView navigator={this.props.navigator} tabLabel={Labels.Tabs.DONATIONS}/>
-                    <HistoryView navigator={this.props.navigator} tabLabel={Labels.Tabs.HISTORY}/>
+                    <DonationCampaignView navigator={this.props.navigator} tabLabel={Labels.Tabs.DONATIONS}/>
+                    <DonationHistoryView navigator={this.props.navigator} tabLabel={Labels.Tabs.HISTORY}/>
                     <DashboardView navigator={this.props.navigator} tabLabel={Labels.Tabs.HOSPITALS}/>
                     <ProfileView navigator={this.props.navigator} tabLabel={Labels.Tabs.PROFILE}/>
                     <HelpView navigator={this.props.navigator} tabLabel={Labels.Tabs.HELP}/>

@@ -40,7 +40,7 @@ Push.launchNotification();
 function initGCM() {
     Push.subscribe();
     Push.launchLiveNotification((e) => {
-        console.log("Todo - PUSH");
+        console.log("Todo - Hande PUSH");
     });
 }
 
@@ -66,8 +66,7 @@ function initApp() {
     });
 
     //StatusBarAndroid.hideStatusBar();
-    StatusBarAndroid.setHexColor(AppStyle.Colors.STATUS);
-    //TODO - Add Other Initializations Here
+    StatusBarAndroid.setHexColor(AppStyle.Colors.FG_DARK);
 }
 
 /**
@@ -101,10 +100,8 @@ export default class JapJete extends Component {
         _navigator = navigator;
         switch (route.id) {
             case 'Login':
-                StatusBarAndroid.setHexColor(AppStyle.Colors.STATUS);
                 return (<LoginView navigator={navigator}/>);
             case 'TabView':
-                StatusBarAndroid.setHexColor(AppStyle.Colors.FG_DARK);
                 return (<TabView navigator={navigator}/>);
             case 'Profile':
                 return (<ProfileView navigator={navigator}/>);

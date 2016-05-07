@@ -16,6 +16,7 @@ import Rest from "../Util/Rest";
 import {Endpoints} from "../Configs/Url";
 import Constants from "../Configs/Constants";
 import MessageDialog from "../Components/UI/MessageDialog";
+import ViewMetaBar from "../Components/UI/ViewMetaBar";
 
 export default class HomeView extends Component {
 
@@ -25,6 +26,7 @@ export default class HomeView extends Component {
             data: []
         };
         this._retrieveCampaign = this._retrieveCampaign.bind(this);
+        this._renderDataContent = this._renderDataContent.bind(this);
     }
 
     componentDidMount() {
@@ -32,7 +34,7 @@ export default class HomeView extends Component {
     }
 
     /**
-     * Retrieve campaign data
+     * Retrieve campaign data from API
      */
     _retrieveCampaign() {
         IO.getSessionToken().then((sessionToken) => {
@@ -42,9 +44,12 @@ export default class HomeView extends Component {
                     let params = {};
                     params[Constants.StorageKeys.SESSION_TOKEN] = sessionToken;
                     params[Constants.StorageKeys.USER_ID] = userId;
-                    Rest.read(Endpoints.DONATION, params, (res) => {
+                    Rest.read(Endpoints.DONATION_CAMPAIGN, params, (res) => {
                         res.json().then((res) => {
                             console.log(res);
+                            for (var i = 0; i < 20; i++) {
+                                res.campains.push(res.campains[0]);
+                            }
                             //TODO - Remove when issue #22 is solved
                             res.campains.forEach((c) => {
                                 c.start_date = (new Date()).getTime();
@@ -63,29 +68,46 @@ export default class HomeView extends Component {
         });
     }
 
-    render() {
-        // Show empty content Message
+    _renderEmptyView() {
+        return (
+            <View style={styles.empty}>
+                <EmptyContent label={Labels.Messages.NO_HISTORY} icon={AppStyle.Icons.EMPTY_DATA}/>
+            </View>
+        )
+    }
+
+    _renderRowView() {
+        var count = 0;
+        return (
+            <ScrollView>
+                {
+                    this.state.data.map((donation) => {
+                        count++;
+                        return (
+                            <DonationCampaignListItem data={donation} key={count}/>
+                        )
+                    })
+                }
+            </ScrollView>
+
+        )
+    }
+
+    _renderDataContent() {
         if (!this.state.data.length) {
-            return (
-                <View style={styles.container}>
-                    <EmptyContent label={Labels.Messages.NO_DATA} icon={AppStyle.Icons.EMPTY_DATA}/>
-                    <InstantActionBtn icon={AppStyle.Icons.HEART}/>
-                </View>
-            )
+            return this._renderEmptyView();
+        } else {
+            return this._renderRowView();
         }
-        // Show content
+    }
+
+    render() {
         return (
             <View style={styles.container}>
-                <PTRView onRefresh={this._retrieveCampaign} progressBackgroundSWColor={AppStyle.Colors.FG}>
-                    <ScrollView>
-                        {
-                            this.state.data.map((donation) => {
-                                return (
-                                    <DonationCampaignListItem data={donation} key={donation.message}/>
-                                )
-                            })
-                        }
-                    </ScrollView>
+                <ViewMetaBar description={Labels.Footers.DONATION_CAMPAIGN}
+                             icon={AppStyle.Icons.footer.DONATION_CAMPAIGN}/>
+                <PTRView onRefresh={this._retrieveCampaign} progressBackgroundColor={AppStyle.Colors.BG}>
+                    {this._renderDataContent()}
                 </PTRView>
                 <InstantActionBtn icon={AppStyle.Icons.HEART}/>
             </View>
@@ -98,5 +120,9 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         height: Dimensions.get('window').height,
+    },
+    empty: {
+        flex: 1,
+        marginTop: 100
     }
 });
