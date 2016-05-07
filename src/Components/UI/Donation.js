@@ -11,11 +11,32 @@ export default class Donation extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            startDate: "",
+            endDate: "",
+            day: 1,
+            hospital: ""
         };
+        this._prepareData = this._prepareData.bind(this);
+    }
+
+    componentDidMount() {
+        this._prepareData();
+    }
+
+    componentWillReceiveProps() {
+        this._prepareData();
+    }
+
+    _prepareData() {
+        this.setState({
+            startDate: CommonUtils.getFormattedDateTime(new Date(this.props.data.start_date)),
+            endDate: CommonUtils.getFormattedDateTime(new Date(this.props.data.end_date)),
+            day: (new Date(this.props.data.start_date)).getDate(),
+            name: this.props.data.name
+        });
     }
 
     render() {
-        MessageDialog.show("Test", this.props.data.start_date);
         return (
             <TouchableOpacity style={styles.container}>
                 <View style={styles.left}>
@@ -24,13 +45,11 @@ export default class Donation extends Component {
                         size={60}
                         color="#555"
                         style={styles.toolbarBtn}/>
-                    <Text style={styles.calendarDate}>{this.props.data.start_date}</Text>
+                    <Text style={[styles.calendarDate, {left: this.state.day > 9 ? 12 : 20}]}>{this.state.day}</Text>
                 </View>
                 <View style={styles.right}>
-                    <Text style={styles.date}>{CommonUtils.getFormattedDateTime(new Date(this.props.data.start_date))} </Text>
-                    <Text style={styles.date}>{CommonUtils.getFormattedDateTime(new Date(this.props.data.end_date))} </Text>
-                    <Text style={styles.hospital}>{this.props.data.name}</Text>
-                    <Text>{this.props.data.rand}</Text>
+                    <Text style={styles.date}>{this.state.startDate}</Text>
+                    <Text style={styles.hospital}>{this.state.name}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -66,7 +85,6 @@ const styles = StyleSheet.create({
     calendarDate: {
         position: 'absolute',
         top: 22,
-        left: 12,
         fontSize: 18,
         color: AppStyle.Colors.FG,
         fontWeight: 'bold'

@@ -15,71 +15,56 @@ import IO from "../Util/IO";
 import Rest from "../Util/Rest";
 import {Endpoints} from "../Configs/Url";
 import Constants from "../Configs/Constants";
-
-var self;
+import MessageDialog from "../Components/UI/MessageDialog";
 
 export default class HomeView extends Component {
-    
+
     constructor(props) {
         super(props);
-        this.props = {
-            isLoggedIn: true
-        };
         this.state = {
             data: []
         };
-        self = this;
+        this._retrieveCampaign = this._retrieveCampaign.bind(this);
     }
 
     componentDidMount() {
-        this.retrieveDonations();
+        this._retrieveCampaign();
     }
 
-    retrieveDonations() {
+    /**
+     * Retrieve campaign data
+     */
+    _retrieveCampaign() {
         IO.getSessionToken().then((sessionToken) => {
-            //Read User Data
             IO.getUser().then((user) => {
                 if (sessionToken && user) {
                     let userId = JSON.parse(user).facebookId;
                     let params = {};
                     params[Constants.StorageKeys.SESSION_TOKEN] = sessionToken;
                     params[Constants.StorageKeys.USER_ID] = userId;
-                    Rest.read(Endpoints.DONATION, params,
-                        (res) => {
-                            res.json().then((res) => {
-                                res = {
-                                    "campains": [
-                                        {
-                                            "hospital": "QSUT",
-                                            "message": "This is a Campain message",
-                                            "name": "NameOfCampain",
-                                            "end_date": "2016-06-22 15:47:05.379738",
-                                            "start_date": "2016-05-03 15:47:05.379717",
-                                            rand: Math.random()
-                                        }
-                                    ]
-                                }; //TODO - Remove when retrieve from server
-                                self.setState({
-                                    data: res.campains
-                                });
+                    Rest.read(Endpoints.DONATION, params, (res) => {
+                        res.json().then((res) => {
+                            console.log(res);
+                            //TODO - Remove when issue #22 is solved
+                            res.campains.forEach((c) => {
+                                c.start_date = (new Date()).getTime();
+                                c.end_date = (new Date()).getTime();
                             });
-                        }, (res) => {
-                            console.error(res);
-                            //TODO - Handle Error
+                            this.setState({
+                                data: res.campains
+                            });
                         });
+                    }, (res) => {
+                        console.error(res);
+                        MessageDialog.show(Labels.Ui.ERROR, Labels.Messages.NETWORK_ERROR);
+                    });
                 }
             });
         });
     }
 
-
-    goToLogin(navigator) {
-        navigator.push({
-            id: 'Login'
-        });
-    }
-
     render() {
+        // Show empty content Message
         if (!this.state.data.length) {
             return (
                 <View style={styles.container}>
@@ -88,9 +73,10 @@ export default class HomeView extends Component {
                 </View>
             )
         }
+        // Show content
         return (
             <View style={styles.container}>
-                <PTRView onRefresh={this.retrieveDonations} progressBackgroundSWColor={AppStyle.Colors.FG}>
+                <PTRView onRefresh={this._retrieveCampaign} progressBackgroundSWColor={AppStyle.Colors.FG}>
                     <ScrollView>
                         {
                             this.state.data.map((donation) => {

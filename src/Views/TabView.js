@@ -7,7 +7,7 @@ import React, {Component, StyleSheet, ScrollView, View, Text, TouchableOpacity} 
 import ScrollableTabView from "react-native-scrollable-tab-view";
 import {AppStyle} from "../Styles/CommonStyles";
 import Labels from "../Configs/Labels";
-import DonationView from "./Donation";
+import DonationView from "./Donations";
 import ProfileView from "./Profile";
 import DashboardView from "./Hospitals";
 import HistoryView from "./History";
