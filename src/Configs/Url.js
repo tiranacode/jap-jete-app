@@ -9,7 +9,7 @@ export const Endpoints = {
     LOGIN: API_URL + "login/",
     USER: API_URL + "user/",
     DONATION_CAMPAIGN: API_URL + "campaigns/",
-    DONATION_HISTORY: API_URL + "donations/",
+    DONATION_HISTORY: API_URL + "donations",
     HOSPITALS: API_URL + "hospitals/",
     PROFILE: API_URL + "/profile",
     SHARE: "https://play.google.com/store/apps/details?id=com.tiranacode.japjete"

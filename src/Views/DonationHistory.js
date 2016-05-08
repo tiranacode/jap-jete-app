@@ -54,20 +54,10 @@ export default class HistoryView extends Component {
                     let userId = JSON.parse(user).facebookId;
                     let params = {};
                     params[Constants.StorageKeys.SESSION_TOKEN] = sessionToken;
-                    let url = Endpoints.DONATION_HISTORY + userId;
+                    params[Constants.StorageKeys.USER_ID] = userId;
+                    let url = Endpoints.DONATION_HISTORY;
                     Rest.read(url, params, (res) => {
-                        //TODO - Remove
                         res.json().then((res) => {
-                            /*res = {
-                                "history": {
-                                    "user": 1235,
-                                    "history": [{
-                                        "date": (new Date()).getTime(),
-                                        "amount": 20,
-                                        "hospital": "QSUT"
-                                    }, {"date": (new Date()).getTime(), "amount": 50, "hospital": "QSUT"}]
-                                }
-                            };*/
                             if (res.history) {
                                 this.setState({
                                     data: res.history.history
@@ -88,13 +78,15 @@ export default class HistoryView extends Component {
      * @param {object} rowData Row data
      */
     _renderRowView() {
+        var refCount = 0;
         return (
             <View style={styles.container}>
                 <ScrollView>
                     {
                         this.state.data.map((donHistory) => {
+                            refCount++;
                             return (
-                                <DonationListItem data={donHistory} key={donHistory.amount.toString()}/>
+                                <DonationListItem data={donHistory} key={refCount}/>
                             )
                         })
                     }
