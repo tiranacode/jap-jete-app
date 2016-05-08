@@ -30,7 +30,7 @@ export default class InstantActionBtn extends Component {
 
     render() {
         return (
-            <ColoredFab onPress={this.props.onPress}>
+            <ColoredFab style={this.props.style} onPress={this.props.onPress}>
                 <Icon name={this.props.icon} size={25} color="white" style={styles.icon}/>
             </ColoredFab>
         )

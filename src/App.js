@@ -105,7 +105,7 @@ export default class JapJete extends Component {
             case 'TabView':
                 return (<TabView navigator={navigator}/>);
             case 'DonationDetailsView':
-                return (<DonationDetailsView navigator={navigator}/>);
+                return (<DonationDetailsView navigator={navigator} data={route.data}/>);
             case 'Profile':
                 return (<ProfileView navigator={navigator}/>);
             case 'ProfileEdit':

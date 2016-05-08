@@ -1,7 +1,7 @@
 'use strict';
 
 import React, {Component, View, Text, StyleSheet, TouchableOpacity, Navigator, Dimensions} from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
+import Icon from "../../../node_modules/react-native-vector-icons/Ionicons";
 import {AppStyle} from "../../Styles/CommonStyles";
 import CommonUtils from "../../Util/Commons";
 import MessageDialog from "../UI/MessageDialog";
@@ -31,7 +31,7 @@ export default class Donation extends Component {
     _navigateToDetails() {
         this.props.navigator.push({
             id: 'DonationDetailsView',
-            data: this.state
+            data: this.props.data
         });
     }
 
@@ -68,8 +68,8 @@ export default class Donation extends Component {
 const styles = StyleSheet.create({
     container: {
         width: Dimensions.get('window').width,
-        height: 90,
-        marginBottom: 20
+        height: 80,
+        marginBottom: 0
     },
     separator: {
     },
