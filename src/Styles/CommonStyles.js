@@ -23,6 +23,7 @@ export let AppStyle = {
         HEART: "heart",
         EDIT: "edit",
         EXIT: "power-off",
+        REFRESH: "refresh",
         footer: {
             DONATION_CAMPAIGN: "bell-o",
             DONATION_HISTORY: "history",

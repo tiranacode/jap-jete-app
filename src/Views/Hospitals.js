@@ -14,6 +14,9 @@ import {Endpoints} from "../Configs/Url";
 import MessageDialog from "../Components/UI/MessageDialog";
 import Constants from "../Configs/Constants";
 import RNGMap from "react-native-gmaps";
+import InstantActionBtn from "../Components/UI/InstantActionBtn";
+
+var mapCenter;
 
 export default class DashboardView extends Component {
 
@@ -21,33 +24,80 @@ export default class DashboardView extends Component {
         super(props);
         this.state = {
             data: [],
-            markers: []
+            markers: [],
+            cLat: 0,
+            cLng: 0,
+            zoom: 8
         };
         this._renderDataContent = this._renderDataContent.bind(this);
         this._retrieveHospitals = this._retrieveHospitals.bind(this);
         this._treatHospitalData = this._treatHospitalData.bind(this);
+        this._centerMap = this._centerMap.bind(this);
     }
 
     componentDidMount() {
         this._retrieveHospitals();
     }
 
+    _centerMap() {
+        this.setState({
+            cLat: this.state.cLat + 0.01,
+            cLng: this.state.cLng + 0.01
+        });
+    }
+
+    _showHospitalDetails(hospital) {
+    }
+
+    /**
+     * Calculate map center from array of latitude longitudes
+     * @param centerLatArray
+     * @param centerLngArray
+     * @returns {{centerLat: number, centerLng: number}}
+     * @private
+     */
+    _calculateMapCenter(centerLatArray, centerLngArray, length) {
+        var reducingFn = function (a, b) {
+            return a + b;
+        };
+        var centerLatSum = centerLatArray.reduce(reducingFn);
+        var centerLngSum = centerLngArray.reduce(reducingFn);
+        return {
+            centerLat: centerLatSum / length,
+            centerLng: centerLngSum / length
+        }
+    }
+
     _treatHospitalData(res) {
         var markers = [];
+        //TODO - Remove in production
+        for (var i = 0; i < 10; i++) {
+            res.push(res[0]);
+        }
+        var centerLatArray = [];
+        var centerLngArray = [];
         res.forEach((data) => {
-           markers.push({
-               coordinates: {
-                   lat: data.latitude,
-                   lng: data.longitude,
-               },
-               icon: require('image!marker')
-           })
+            var lat = data.latitude + (Math.random() % 2);
+            var lng = data.longitude + (Math.random() % 2);
+            centerLatArray.push(lat);
+            centerLngArray.push(lng);
+            markers.push({
+                coordinates: {
+                    lat: lat,
+                    lng: lng
+                },
+                name: res.name,
+                snippet: res.address,
+                icon: require('image!marker')
+            })
         });
+        mapCenter = this._calculateMapCenter(centerLatArray, centerLngArray, res.length);
         this.setState({
             data: res,
-            markers: markers
+            markers: markers,
+            cLat: mapCenter.centerLat,
+            cLng: mapCenter.centerLng,
         });
-        MessageDialog.show("", JSON.stringify(this.state));
     }
 
     _retrieveHospitals(cb) {
@@ -88,14 +138,14 @@ export default class DashboardView extends Component {
                     ref='gmap'
                     style={styles.map}
                     markers={this.state.markers}
-                    zoomLevel={15}
+                    zoomLevel={this.state.zoom}
                     onMapChange={(e) => {
                                 console.log(e)
                                 }}
                     onMapError={(e) => {
                                     MessageDialog.show(Labels.Ui.ERROR, Labels.Messages.MAP_ERROR)
                                 }}
-                    center={{ lng: 0.0, lat: 0.0 }} //TODO - Calculate Center
+                    center={{ lng: this.state.cLng, lat: this.state.cLat}} //TODO - Calculate Center
                     clickMarker={0}/>
             </View>
         )
@@ -115,6 +165,7 @@ export default class DashboardView extends Component {
                 <ViewMetaBar description={Labels.Footers.HOSPITALS}
                              icon={AppStyle.Icons.footer.HOSPITALS}/>
                 {this._renderDataContent()}
+                <InstantActionBtn onPress={this._centerMap} icon={AppStyle.Icons.REFRESH}/>
             </View>
         )
     }
