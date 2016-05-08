@@ -49,7 +49,7 @@ public class MainActivity extends ReactActivity {
                 new ReactNativeLocalizationPackage(),
                 new StatusBarPackage(this),
                 new VectorIconsPackage(),
-                new ReactNativeDialogsPackage(),
+                new ReactNativeDialogsPackage(this),
                 new ReactMaterialKitPackage(),
                 new GcmPackage(),
                 new NotificationPackage(this),
