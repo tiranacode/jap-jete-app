@@ -58,7 +58,7 @@ export default class HistoryView extends Component {
                     Rest.read(url, params, (res) => {
                         //TODO - Remove
                         res.json().then((res) => {
-                            res = {
+                            /*res = {
                                 "history": {
                                     "user": 1235,
                                     "history": [{
@@ -67,7 +67,7 @@ export default class HistoryView extends Component {
                                         "hospital": "QSUT"
                                     }, {"date": (new Date()).getTime(), "amount": 50, "hospital": "QSUT"}]
                                 }
-                            };
+                            };*/
                             if (res.history) {
                                 this.setState({
                                     data: res.history.history

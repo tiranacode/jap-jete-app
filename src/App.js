@@ -97,6 +97,10 @@ export default class JapJete extends Component {
         });
     }
 
+    componentDidUpdate() {
+        initGCM();
+    }
+
     navigatorRenderScene(route, navigator) {
         _navigator = navigator;
         switch (route.id) {

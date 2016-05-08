@@ -80,11 +80,13 @@ export default class DashboardView extends Component {
     }
 
     _renderDataContent() {
-        if (!this.state.data.length) {
+        //TODO - Change in production
+        return this._renderEmptyView();
+        /*if (!this.state.data.length) {
             return this._renderEmptyView();
         } else {
             return this._renderRowView();
-        }
+        }*/
     }
 
     render() {
