@@ -52,7 +52,7 @@ export default class DonationDetailsView extends Component {
                 <RNGMap
                     ref='gmap'
                     style={styles.map}
-                    markers={[{coordinates: {lng: this.props.data.hospital.latitude, lat: this.props.data.hospital.longitude}}]}
+                    markers={[{icon: require('image!marker'), coordinates: {lng: this.props.data.hospital.latitude, lat: this.props.data.hospital.longitude}}]}
                     zoomLevel={15}
                     onMapChange={(e) => {
                         console.log(e)
