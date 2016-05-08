@@ -47,12 +47,12 @@ export default class DonationDetailsView extends Component {
 
     _renderDataContent() {
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 {/* Map */}
                 <RNGMap
                     ref='gmap'
                     style={styles.map}
-                    markers={[{coordinates: {lng: this.props.data.hostpital.latitude, lat: this.props.data.hostpital.longitude}}]}
+                    markers={[{coordinates: {lng: this.props.data.hospital.latitude, lat: this.props.data.hospital.longitude}}]}
                     zoomLevel={15}
                     onMapChange={(e) => {
                         console.log(e)
@@ -60,38 +60,40 @@ export default class DonationDetailsView extends Component {
                     onMapError={(e) => {
                         MessageDialog.show(Labels.Ui.ERROR, Labels.Messages.MAP_ERROR)
                     }}
-                    center={{ lng: this.props.data.hostpital.latitude, lat: this.props.data.hostpital.longitude }}
+                    center={{ lng: this.props.data.hospital.latitude, lat: this.props.data.hospital.longitude }}
                     clickMarker={0}/>
                 {/* Donation Details */}
                 <ScrollView style={styles.detailsScrollView}>
-                    <View style={[styles.hospitalBar]}>
-                        <Text style={styles.hospitalBarText}>{this.props.data.hospital}</Text>
+                    <View style={styles.detailsScrolled}>
+                        <View style={[styles.hospitalBar]}>
+                            <Text style={styles.hospitalBarText}>{this.props.data.hospital.name}</Text>
+                        </View>
+                        <View style={styles.dates}>
+                            <Icon
+                                name="calendar-times-o"
+                                size={25}
+                                color={AppStyle.Colors.FG}
+                                style={styles.locationIcon}>
+                            </Icon>
+                            <Text
+                                style={styles.startDate}>{CommonUtils.getFormattedDateTime(new Date(this.props.data.start_date))}
+                            </Text>
+                            <Text
+                                style={styles.endDate}>{CommonUtils.getFormattedDateTime(new Date(this.props.data.end_date))}</Text>
+                        </View>
+                        <View style={styles.textDetails}>
+                            <Icon
+                                name="file-text-o"
+                                size={25}
+                                color={AppStyle.Colors.FG}
+                                style={styles.locationIcon}>
+                            </Icon>
+                        </View>
+                        <Text style={styles.name}>{this.props.data.name}</Text>
+                        <Text style={styles.message}>{this.props.data.message}</Text>
                     </View>
-                    <View style={styles.dates}>
-                        <Icon
-                            name="calendar-times-o"
-                            size={25}
-                            color={AppStyle.Colors.FG}
-                            style={styles.locationIcon}>
-                        </Icon>
-                        <Text
-                            style={styles.startDate}>{CommonUtils.getFormattedDateTime(new Date(this.props.data.start_date))}
-                        </Text>
-                        <Text
-                            style={styles.endDate}>{CommonUtils.getFormattedDateTime(new Date(this.props.data.end_date))}</Text>
-                    </View>
-                    <View style={styles.textDetails}>
-                        <Icon
-                            name="file-text-o"
-                            size={25}
-                            color={AppStyle.Colors.FG}
-                            style={styles.locationIcon}>
-                        </Icon>
-                    </View>
-                    <Text style={styles.name}>{this.props.data.name}</Text>
-                    <Text style={styles.message}>{this.props.data.message}</Text>
                 </ScrollView>
-            </View>
+            </ScrollView>
         )
     }
 
@@ -121,7 +123,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     map: {
-        height: 300,
+        height: Dimensions.get('window').height / 3,
         width: Dimensions.get('window').width
     },
     empty: {
@@ -137,7 +139,7 @@ const styles = StyleSheet.create({
     name: {
         fontSize: 20,
         marginTop: 10,
-        color: AppStyle.Colors.FG
+        color: '#555'
     },
     hospital: {},
     message: {
@@ -178,10 +180,13 @@ const styles = StyleSheet.create({
         marginBottom: -20,
         marginTop: 0,
         paddingTop: 20,
-        height: (Dimensions.get('window').height / 2) - 60
+        height: Dimensions.get('window').height / 2,
     },
     textDetails: {
         marginTop: 0,
         marginBottom: 5
+    },
+    detailsScrolled: {
+        height: 320,
     }
 });

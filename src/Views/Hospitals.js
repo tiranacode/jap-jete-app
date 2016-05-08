@@ -8,6 +8,11 @@ import Labels from "../Configs/Labels";
 import {AppStyle} from "../Styles/CommonStyles";
 import EmptyContent from "../Components/UI/EmptyContent";
 import ViewMetaBar from "../Components/UI/ViewMetaBar";
+import IO from "../Util/IO";
+import Rest from "../Util/Rest";
+import {Endpoints} from "../Configs/Url";
+import MessageDialog from "../Components/UI/MessageDialog";
+import Constants from "../Configs/Constants";
 
 export default class DashboardView extends Component {
 
@@ -17,20 +22,59 @@ export default class DashboardView extends Component {
             data: []
         };
         this._renderDataContent = this._renderDataContent.bind(this);
+        this._retrieveHospitals = this._retrieveHospitals.bind(this);
+    }
+
+    componentDidMount() {
+        this._retrieveHospitals();
+    }
+
+    _retrieveHospitals() {
+        IO.getSessionToken().then((sessionToken) => {
+            IO.getUser().then((user) => {
+                if (sessionToken && user) {
+                    let userId = JSON.parse(user).facebookId;
+                    let params = {};
+                    params[Constants.StorageKeys.SESSION_TOKEN] = sessionToken;
+                    params[Constants.StorageKeys.USER_ID] = userId;
+                    Rest.read(Endpoints.HOSPITALS, params, (res) => {
+                        if (res) {
+                            res.json().then((res) => {
+                                console.log(res);
+                                this.setState({
+                                    data: res.hospitals
+                                });
+                            })
+                        }
+                    }, (err) => {
+                        console.error(res);
+                        MessageDialog.show(Labels.Ui.ERROR, Labels.Messages.NETWORK_ERROR);
+                    });
+                }
+            })
+        });
     }
 
     _renderEmptyView() {
         return (
             <View style={styles.empty}>
-                <EmptyContent label={Labels.Messages.NO_HISTORY} icon={AppStyle.Icons.EMPTY_DATA}/>
+                <EmptyContent label={Labels.Messages.NO_HOSPITALS} icon={AppStyle.Icons.EMPTY_DATA}/>
             </View>
         )
     }
 
     _renderRowView() {
+        var count = 0;
         return (
             <View style={styles.container}>
-
+                {
+                    this.state.data.map((data) => {
+                        count++;
+                        return (
+                            <Text key={"hos-" + count}>{data.name}</Text>
+                        )
+                    })
+                }
             </View>
         )
     }

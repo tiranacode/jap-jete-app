@@ -9,6 +9,7 @@ let labels = {
         APP_NAME: "Jap Jete",
         APP_VERSION: "0.0.1",
         LOGIN: "Identifikohu",
+        APP_AUTHOR: "> tiranacode _",
         Footers: {
             DONATION_CAMPAIGN: "Njoftohuni per fushatat e dhurimit te gjakut, aplikoni dhe ju !",
             DONATION_HISTORY: "Kontrolloni historikun e dhurimit te gjakut",
@@ -23,11 +24,13 @@ let labels = {
             NETWORK_ERROR: "Pati nje problem me marrjen e te dhenave, Ju lutem provoni me vone !",
             PROFILE_UPDATE_SUCCESS: "Profili u modifikua me sukses",
             NO_HISTORY: "Ju nuk keni dhuruar gjak.",
-            NO_DATA: "Per momentin nuk ka nevoja urgjente per gjak.",
+            NO_DONATION_CAMPAIGNS: "Per momentin nuk ka nevoja urgjente per gjak.",
+            NO_HOSPITALS: "Asnje spital nuk ndodhet ne liste.",
             HELP: "Nuk ka asnje rekord ndihme.",
             SETTINGS: 'Modifiko preferencat e profilit',
             SHARE: "Ndaj JAP Jete me miqte, Shpeto Jete",
             SHARE_TITLE: "Ndaj me miqte",
+            MAP_ERROR: "Ndodhi nje problem me shfaqen e pozicionit ne harte."
         },
         Tabs: {
             HOME: "Kreu",
