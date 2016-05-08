@@ -79,7 +79,7 @@ export default class LoginView extends Component {
                             version_{Labels.APP_VERSION}
                         </Text>
                         <View style={styles.topText}>
-                            <Text style={{color: 'white', fontSize: 12}}>Developed with {'<3'} by <Text style={{color: 'white', fontSize: 12, fontWeight: 'bold'}}>tiranacode</Text></Text>
+                            <Text style={{color: 'white', fontSize: 12}}>Developed with {'<3'} by <Text style={{color: 'white', fontSize: 12, fontWeight: 'bold'}}>{Labels.APP_AUTHOR}</Text></Text>
                         </View>
                     </View>
                     <View style={styles.bottomBar}>
@@ -127,8 +127,8 @@ var styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingBottom: 20,
-        paddingTop: 20,
-        width: 180
+        paddingTop: 0,
+        width: 200
     },
     topText: {
         marginTop: 100,

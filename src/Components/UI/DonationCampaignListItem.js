@@ -37,8 +37,8 @@ export default class Donation extends Component {
 
     _prepareData() {
         this.setState({
-            startDate: CommonUtils.getFormattedDateTime(new Date(this.props.data.start_date)),
-            endDate: CommonUtils.getFormattedDateTime(new Date(this.props.data.end_date)),
+            startDate: CommonUtils.getFormattedDateTime(this.props.data.start_date),
+            endDate: CommonUtils.getFormattedDateTime(this.props.data.end_date),
             day: (new Date(this.props.data.start_date)).getDate(),
             name: this.props.data.name
         });

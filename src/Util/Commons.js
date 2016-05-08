@@ -22,28 +22,30 @@ export default class CommonUtils {
 
     /**
      * Get dd/mm/yyyy format of date
-     * @param date
+     * @param ts
      * @returns {string}
      */
-    static getFormattedDate(date) {
+    static getFormattedDate(ts) {
+        var date = new Date(ts * 1000);
         return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
     }
 
     /**
      * Get hh:mm format of date
-     * @param date
+     * @param ts
      * @returns {string}
      */
-    static getFormattedTime(date) {
+    static getFormattedTime(ts) {
+        var date = new Date(ts * 1000);
         return date.getHours() + ":" + date.getMinutes();
     }
 
     /**
      * Get dd/mm/yyyy hh:mm format of date
-     * @param date
+     * @param ts
      * @returns {string}
      */
-    static getFormattedDateTime(date) {
-        return CommonUtils.getFormattedDate(date) + " " + CommonUtils.getFormattedTime(date);
+    static getFormattedDateTime(ts) {
+        return CommonUtils.getFormattedDate(ts) + " " + CommonUtils.getFormattedTime(ts);
     }
 }

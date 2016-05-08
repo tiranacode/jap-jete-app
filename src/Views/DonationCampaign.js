@@ -46,18 +46,11 @@ export default class HomeView extends Component {
                     params[Constants.StorageKeys.USER_ID] = userId;
                     Rest.read(Endpoints.DONATION_CAMPAIGN, params, (res) => {
                         res.json().then((res) => {
-                            console.log(res);
-                            for (var i = 0; i < 20; i++) {
-                                res.campains.push(res.campains[0]);
+                            if (res.campaigns) {
+                                this.setState({
+                                    data: res.campaigns
+                                });
                             }
-                            //TODO - Remove when issue #22 is solved
-                            res.campains.forEach((c) => {
-                                c.start_date = (new Date()).getTime();
-                                c.end_date = (new Date()).getTime();
-                            });
-                            this.setState({
-                                data: res.campains
-                            });
                         });
                     }, (res) => {
                         console.error(res);
@@ -71,7 +64,7 @@ export default class HomeView extends Component {
     _renderEmptyView() {
         return (
             <View style={styles.empty}>
-                <EmptyContent label={Labels.Messages.NO_HISTORY} icon={AppStyle.Icons.EMPTY_DATA}/>
+                <EmptyContent label={Labels.Messages.NO_DONATION_CAMPAIGNS} icon={AppStyle.Icons.EMPTY_DATA}/>
             </View>
         )
     }

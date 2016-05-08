@@ -36,7 +36,6 @@ export default class SettingsView extends Component {
     _changeSetting(key, value) {
         userSettings.setSetting(key, value);
         IO.setSettings(userSettings.toString());
-        MessageDialog.show("Settings Changed", userSettings.toString());
     }
 
     componentDidMount() {
@@ -44,11 +43,9 @@ export default class SettingsView extends Component {
         IO.getSettings().then((settings) => {
             if (settings) {
                 userSettings = new Setting(settings);
-                MessageDialog.show("Settings success", settings);
             } else {
                 userSettings = new Setting(null);
                 IO.setSettings(userSettings.toString());
-                MessageDialog.show("Settings error", userSettings.toString());
             }
         })
     }
@@ -123,7 +120,7 @@ var styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 20,
         paddingTop: 10,
-        paddingBottom: 10,
+        paddingBottom: 10
     },
     versionSeparator: {
         marginTop: 20,
@@ -131,6 +128,6 @@ var styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         borderTopColor: "#efefef",
-        borderTopWidth: 1,
+        borderTopWidth: 1
     }
 });

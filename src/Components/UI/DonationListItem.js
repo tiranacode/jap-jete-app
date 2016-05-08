@@ -30,8 +30,8 @@ export default class Donation extends Component {
                 <View style={styles.row}>
                     <View style={styles.otherDetail}>
                         <Text style={styles.title}>{this.props.data.hospital}</Text>
-                        <Text style={styles.date}>{CommonUtils.getFormattedDate(new Date(this.props.data.date))}</Text>
-                        <Text style={styles.time}>{CommonUtils.getFormattedTime(new Date(this.props.data.date))}</Text>
+                        <Text style={styles.date}>{CommonUtils.getFormattedDate(this.props.data.date)}</Text>
+                        <Text style={styles.time}>{CommonUtils.getFormattedTime(this.props.data.date)}</Text>
                     </View>
                     <View style={styles.datetime}>
                         <Icon
