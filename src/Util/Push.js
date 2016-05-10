@@ -12,8 +12,8 @@ function notify(data) {
         Notification.create({
             subject: data.subject,
             message: data.message,
-            smallIcon: 'ic_launcher',
-            largeIcon: 'ic_launcher'
+            smallIcon: 'drop',
+            largeIcon: 'drop_large'
         });
     }
 }
