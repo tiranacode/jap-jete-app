@@ -30,7 +30,15 @@ export default class HomeView extends Component {
     }
 
     componentDidMount() {
-        this._retrieveCampaign();
+        //Retrieve from cache
+        IO.getDonationCampaigns().then((data) => {
+            if (data) {
+                this.setState({
+                    data: data
+                })
+            }
+            this._retrieveCampaign();    
+        }); 
     }
 
     /**
@@ -50,6 +58,7 @@ export default class HomeView extends Component {
                                 this.setState({
                                     data: res.campaigns
                                 });
+                                IO.setDonationCampaigns(JSON.stringify(res.campaigns));
                             }
                         });
                     }, (res) => {

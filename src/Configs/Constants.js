@@ -12,7 +12,8 @@ let Constants = {
         USER: 'user',
         GCM_ID: 'gcm_id',
         SPLASH_SCREEN_FLAG: 'splash_screen_flag',
-        SETTINGS: 'settings'
+        SETTINGS: 'settings',
+        DONATION_CAMPAIGNS: 'donationCampaigns'
     },
 
     RestParams: {
