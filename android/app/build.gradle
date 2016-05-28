@@ -81,9 +81,9 @@ android {
     defaultConfig {
         applicationId "com.tiranacode.japjete"
         minSdkVersion 16
-        targetSdkVersion 21
-        versionCode 3
-        versionName "0.0.3"
+        targetSdkVersion 22
+        versionCode 4
+        versionName "0.0.4"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -97,8 +97,7 @@ android {
     splits {
         abi {
             enable enableSeparateBuildPerCPUArchitecture
-            universalApk false  // Also generate an universal APK
-            reset()
+            universalApk false  // If true, also generate a universal APK
             include "armeabi-v7a", "x86"
         }
     }
@@ -140,7 +139,7 @@ repositories {
 dependencies {
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
-    compile "com.facebook.react:react-native:0.20.+"
+    compile "com.facebook.react:react-native:+"
     compile project(':react-native-facebook-login')
     compile project(':ReactNativeLocalization')
     compile project(':react-native-android-statusbar')
@@ -156,3 +155,10 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+// Run this once to be able to run the application with BUCK
+// puts all compile dependencies into folder libs for BUCK to use
+task copyDownloadableDepsToLibs(type: Copy) {
+    from configurations.compile
+    into 'libs'
+}

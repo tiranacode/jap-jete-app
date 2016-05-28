@@ -9,7 +9,8 @@
     "apphub": "^0.5.0",
     "lodash": "^4.5.1",
     "mrn": "^0.1.7",
-    "react-native": "^0.20.0",
+    "react": "^15.0.2",
+    "react-native": "^0.26.0",
     "react-native-android-statusbar": "^0.1.2",
     "react-native-blur": "^0.7.10",
     "react-native-button": "^1.4.2",
@@ -35,7 +36,10 @@
     "react-native-scrollable-tab-view": "^0.3.7",
     "react-native-share": "^1.0.9",
     "react-native-swiper2": "^2.0.3",
-    "react-native-system-notification": "^0.1.10",
+    "react-native-system-notification": "^0.1.11",
     "react-native-vector-icons": "^1.2.0"
+  },
+  "devDependencies": {
+    "rnpm-plugin-upgrade": "^0.26.0"
   }
 }
