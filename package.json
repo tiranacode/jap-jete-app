@@ -17,7 +17,7 @@
     "react-native-chart-android": "^1.0.3",
     "react-native-code-push": "^1.7.3-beta",
     "react-native-date": "^1.0.3",
-    "react-native-dialogs": "0.0.13",
+    "react-native-dialogs": "0.0.15",
     "react-native-facebook-login": "^1.0.3",
     "react-native-form": "^2.0.5",
     "react-native-gcm-android": "^0.2.0",
