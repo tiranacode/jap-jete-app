@@ -8,9 +8,11 @@ import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
 import me.neo.react.StatusBarPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.github.xinthink.rnmk.ReactMaterialKitPackage;
-/*import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;*/
+import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 import com.oney.gcm.GcmPackage;
 import io.neson.react.notification.NotificationPackage;
+import cl.json.RNSharePackage;
+import com.rota.rngmaps.RNGMapsPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -47,10 +49,12 @@ public class MainActivity extends ReactActivity {
                 new ReactNativeLocalizationPackage(),
                 new StatusBarPackage(this),
                 new VectorIconsPackage(),
-                /*new ReactNativeDialogsPackage(this),*/
+                new ReactNativeDialogsPackage(),
                 new ReactMaterialKitPackage(),
                 new GcmPackage(),
-                new NotificationPackage(this)
+                new NotificationPackage(this),
+                new RNSharePackage(),
+                new RNGMapsPackage()
         );
     }
 }

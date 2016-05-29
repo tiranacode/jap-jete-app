@@ -9,21 +9,27 @@
  */
 
 'use strict';
-import React, {Component, StyleSheet, NetInfo, BackAndroid, Navigator, DeviceEventEmitter, AsyncStorage} from 'react-native';
-import StatusBarAndroid from 'react-native-android-statusbar';
-
-import {AppStyle} from './Styles/CommonStyles';
-import TabView from './Views/TabView'
-import LoginView from './Views/Login'
-import ProfileView from './Views/Profile'
-import ProfileEdit from './Views/ProfileEdit'
-import Header from './Components/UI/Header';
-import Footer from './Components/UI/Footer';
-import SplashScreen from './Views/SplashScreen';
-import Constants from './Configs/Constants';
-import Labels from './Configs/Labels';
-import Push from './Util/Push';
-import MessageDialog from './Components/UI/MessageDialog';
+import React, {
+    Component,
+    StyleSheet,
+    NetInfo,
+    BackAndroid,
+    Navigator,
+    DeviceEventEmitter,
+    AsyncStorage
+} from "react-native";
+import StatusBarAndroid from "react-native-android-statusbar";
+import {AppStyle} from "./Styles/CommonStyles";
+import TabView from "./Views/TabView";
+import LoginView from "./Views/Login";
+import ProfileView from "./Views/Profile";
+import ProfileEdit from "./Views/ProfileEdit";
+import SplashScreen from "./Views/SplashScreen";
+import Constants from "./Configs/Constants";
+import Push from "./Util/Push";
+import MessageDialog from "./Components/UI/MessageDialog";
+import SettingsView from "./Views/Settings";
+import DonationDetailsView from "./Views/DonationDetails";
 
 var _navigator;
 
@@ -35,7 +41,7 @@ Push.launchNotification();
 function initGCM() {
     Push.subscribe();
     Push.launchLiveNotification((e) => {
-        console.log("Todo - PUSH");
+        console.log("Todo - Hande PUSH");
     });
 }
 
@@ -48,7 +54,12 @@ function initApp() {
         let routes = _navigator.getCurrentRoutes();
         let lastRouteId = (routes[routes.length - 2]) ?
             routes[routes.length - 2].id : routes[routes.length - 1].id;
+        //Exit if there is no more routing
         if (routes.length == 1 || lastRouteId == "Login" || lastRouteId == "Splash") {
+            return false;
+        }
+        //Exit if in login screen
+        if (routes[routes.length - 1].id == "Login") {
             return false;
         }
         _navigator.pop();
@@ -56,8 +67,7 @@ function initApp() {
     });
 
     //StatusBarAndroid.hideStatusBar();
-    StatusBarAndroid.setHexColor(AppStyle.Colors.FG);
-    //TODO - Add Other Initializations Here
+    StatusBarAndroid.setHexColor(AppStyle.Colors.FG_DARK);
 }
 
 /**
@@ -87,6 +97,10 @@ export default class JapJete extends Component {
         });
     }
 
+    componentDidUpdate() {
+        initGCM();
+    }
+
     navigatorRenderScene(route, navigator) {
         _navigator = navigator;
         switch (route.id) {
@@ -94,6 +108,8 @@ export default class JapJete extends Component {
                 return (<LoginView navigator={navigator}/>);
             case 'TabView':
                 return (<TabView navigator={navigator}/>);
+            case 'DonationDetailsView':
+                return (<DonationDetailsView navigator={navigator} data={route.data}/>);
             case 'Profile':
                 return (<ProfileView navigator={navigator}/>);
             case 'ProfileEdit':
@@ -102,6 +118,8 @@ export default class JapJete extends Component {
                 return (<HomeView navigator={navigator}/>);
             case 'Splash':
                 return (<SplashScreen navigator={navigator}/>);
+            case 'Settings':
+                return (<SettingsView navigator={navigator}/>);
         }
     }
 

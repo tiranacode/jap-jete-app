@@ -8,23 +8,20 @@ import React, {
     ScrollView,
     AsyncStorage,
     InteractionManager
-} from 'react-native';
+} from "react-native";
 
-import _ from 'lodash';
-import {Router, Route, Schema, Animations, TabBar, Actions} from 'react-native-router-flux';
-import { Button, Card } from 'react-native-material-design';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Image from 'react-native-image-progress';
-import Progress from 'react-native-progress';
-import {AppStyle, ComponentsStyle} from '../../Styles/CommonStyles';
-import {Profile, ProfileUISchema} from '../../Domain/Profile';
-import ProfileEdit from '../../Views/ProfileEdit';
-import Constants from '../../Configs/Constants';
-import IO from '../../Util/IO';
-import {Endpoints} from '../../Configs/Url';
-import Rest from '../../Util/Rest';
-import Spinner from './Spinner';
-import PTRView from 'react-native-pull-to-refresh';
+import Icon from "react-native-vector-icons/FontAwesome";
+import {AppStyle, ComponentsStyle} from "../../Styles/CommonStyles";
+import {ProfileUISchema} from "../../Domain/Profile";
+import ProfileEdit from "../../Views/ProfileEdit";
+import Constants from "../../Configs/Constants";
+import IO from "../../Util/IO";
+import {Endpoints} from "../../Configs/Url";
+import Rest from "../../Util/Rest";
+import Spinner from "./Spinner";
+import PTRView from "react-native-pull-to-refresh";
+import ParallaxView from "react-native-parallax-view";
+import InstantActionBtn from "../../Components/UI/InstantActionBtn";
 
 let logo = require('../../../assets/imgs/logo.png');
 
@@ -101,38 +98,23 @@ export default class ProfileBox extends Component {
     render() {
         if (!this.state.loading) {
             return (
-                <PTRView onRefresh={this.profileRefresh} progressBackgroundColor={AppStyle.Colors.FG}>
-                    <ScrollView style={styles.container}>
-                        {/* Image Header */}
+                <ParallaxView
+                    ref={component => this._scrollView = component}
+                    backgroundSource={{ uri: this.state.user.photo }}
+                    windowHeight={Dimensions.get('window').height / 2 }
+                    header={(
                         <View style={styles.header}>
-                            <Image
-                                source={{ uri: this.state.user.photo }}
-                                indicator={Spinner}
-                                resizeMode="cover"
-                                indicatorProps={ComponentsStyle.ProgressIndicator}
-                                style={styles.photo}>
-                            </Image>
-                            {/* Toolbar */}
-                            <View style={styles.toolbar}>
-                                <TouchableOpacity
-                                    onPress={() => { this.navigateToProfileEdit(this.props.navigator, this.state.user) }}>
-                                    <Icon
-                                        name="pencil"
-                                        size={30}
-                                        color="#fff"
-                                        style={styles.toolbarBtn}/>
-                                </TouchableOpacity>
-                            </View>
-                            {/* Icon - TODO - Change Icon */}
-                            <Image
-                                source={logo}
-                                style={styles.toolbarImage}>
-                            </Image>
+                            <InstantActionBtn icon={AppStyle.Icons.EDIT} onPress={() => { this.navigateToProfileEdit(this.props.navigator, this.state.user) }}/>
                         </View>
-                        {/* Content */}
-                        <DetailsBox schema={ProfileUISchema} entity={this.state.user}/>
-                    </ScrollView>
-                </PTRView>
+                    )}>
+                    <PTRView onRefresh={this.profileRefresh} progressBackgroundSWColor={AppStyle.Colors.FG}>
+                        <ScrollView style={styles.container}>
+                            {/* Image Header */}
+                            {/* Content */}
+                            <DetailsBox schema={ProfileUISchema} entity={this.state.user}/>
+                        </ScrollView>
+                    </PTRView>
+                </ParallaxView>
             );
         }
         return (
@@ -166,9 +148,8 @@ class DetailsBox extends Component {
                             name={this.props.schema[field].icon}
                             size={20}
                             color={AppStyle.Colors.FG}
-                            style={styles.detailIcon}
-                            />
-                        <Text style={styles.detailValue}>{this.state.entity[field]}</Text>
+                            style={styles.detailIcon}/>
+                        <Text style={styles.detailValue}>{this.state.entity[field] || "-"}</Text>
                     </View>
                 )
             }
@@ -186,7 +167,11 @@ const styles = StyleSheet.create({
         flex: 1
     },
     header: {
-        flex: 0.5
+        flex: 1,
+        justifyContent: 'flex-end',
+        right: 0,
+        alignItems: 'flex-end',
+        width: Dimensions.get('window').width,
     },
     photo: {
         width: Dimensions.get('window').width,
@@ -197,32 +182,15 @@ const styles = StyleSheet.create({
     },
     toolbar: {
         flex: 0.4,
-        backgroundColor: AppStyle.Colors.FG,
+        backgroundColor: 'white',
         width: Dimensions.get('window').width,
         height: 50,
         flexDirection: 'row',
         justifyContent: 'flex-end'
     },
-    toolbarBtn: {
-        borderLeftColor: 'white',
-        borderLeftWidth: 2,
-        borderStyle: 'solid',
-        right: 10,
-        width: 50,
-        top: 5,
-        textAlign: 'center'
-    },
-    toolbarImage: {
-        width: 80,
-        height: 80,
-        left: 10,
-        top: 160,
-        position: 'absolute'
-    },
     profileDetails: {
         flex: 0.5,
         width: Dimensions.get('window').width - 40,
-        backgroundColor: 'white',
         padding: 20,
         margin: 20
     },

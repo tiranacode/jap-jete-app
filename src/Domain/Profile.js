@@ -9,7 +9,7 @@ export var Profile = class {
         this.group = "";
         this.photo = 'https://graph.facebook.com/' + this.facebookId + '/picture?width=9999';
     }
-}
+};
 
 export let ProfileUISchema = {
     username: {

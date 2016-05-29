@@ -1,13 +1,7 @@
 'use strict';
 
-import React, {
-    Component,
-    View,
-    Text,
-    StyleSheet
-} from 'react-native';
-import Icon from '../../../node_modules/react-native-vector-icons/FontAwesome';
-import {AppStyle} from '../../Styles/CommonStyles'
+import React, {Component, View, Text, StyleSheet} from "react-native";
+import Icon from "../../../node_modules/react-native-vector-icons/Ionicons";
 
 export default class EmptyContent extends Component {
 
@@ -20,7 +14,7 @@ export default class EmptyContent extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.central}>
-                    <Icon name="thumbs-down" size={100} color="#aaa" style={styles.icon}/>
+                    <Icon name={this.props.icon} size={100} color="#aaa" style={styles.icon}/>
                     <Text style={styles.text}>
                         {this.props.label}
                     </Text>
@@ -33,19 +27,17 @@ export default class EmptyContent extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
     central: {
-        marginTop: 50,
-        alignItems: 'center'
+        alignItems: 'center',
+        width: 200
     },
-    icon: {
-
-    },
+    icon: {},
     text: {
-        marginTop: 20,
-        color: '#999'
-    }
+        marginTop: 10,
+        color: '#999',
+        textAlign: 'center'
+    },
 });

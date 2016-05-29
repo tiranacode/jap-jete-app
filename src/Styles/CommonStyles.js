@@ -6,13 +6,30 @@
 export let AppStyle = {
     Colors: {
         FG: "#e73b3b",
+        FG_DARK: "#BD3030",
         BG: "#efefef",
-        THIRD: "#555"
+        THIRD: "#555",
+        STATUS: "#666666",
     },
     Dimensions: {
         NAVIGATION_TEXT: "12px",
         VIEW_TITLE: "20px",
         VIEW_SUBTITLE: "16px"
+    },
+    Icons: {
+        EMPTY_DATA: "ios-analytics",
+        HELP: "ios-help",
+        SHARE: "share",
+        HEART: "heart",
+        EDIT: "edit",
+        EXIT: "power-off",
+        REFRESH: "refresh",
+        footer: {
+            DONATION_CAMPAIGN: "bell-o",
+            DONATION_HISTORY: "history",
+            HOSPITALS: "hospital-o",
+            HELP: "question"
+        }
     }
 };
 

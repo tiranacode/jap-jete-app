@@ -1,17 +1,10 @@
 'use strict';
-import React, { Component, StyleSheet, View, Text, Dimensions, ToastAndroid, AsyncStorage } from 'react-native';
-import {AppStyle} from '../Styles/CommonStyles';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Labels from '../Configs/Labels';
-import {Actions, Router, Route} from 'react-native-router-flux';
-import Swiper from 'react-native-swiper2'
-import Constants from '../Configs/Constants';
-
-import MK, {
-    MKButton,
-    MKColor,
-    MKTextField
-} from 'react-native-material-kit';
+import React, {Component, StyleSheet, View, Text, Dimensions, ToastAndroid, AsyncStorage} from "react-native";
+import {AppStyle} from "../Styles/CommonStyles";
+import Labels from "../Configs/Labels";
+import Swiper from "react-native-swiper2";
+import Constants from "../Configs/Constants";
+import {MKButton, MKColor} from "react-native-material-kit";
 
 let StartBtn = MKButton.coloredButton()
     .withText(Labels.Ui.LOGOUT)

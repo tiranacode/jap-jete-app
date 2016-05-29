@@ -72,7 +72,7 @@ def enableSeparateBuildPerCPUArchitecture = false
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = true
+def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 23
@@ -82,24 +82,38 @@ android {
         applicationId "com.tiranacode.japjete"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "0.0.4"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        multiDexEnabled true
     }
+
+    dexOptions {
+        javaMaxHeapSize "4g" //specify the heap size for the dex process
+    }
+
     splits {
         abi {
             enable enableSeparateBuildPerCPUArchitecture
-            universalApk false  // Also generate an universal APK
-            reset()
+            universalApk false  // If true, also generate a universal APK
             include "armeabi-v7a", "x86"
+        }
+    }
+    signingConfigs {
+        release {
+            storeFile file(MYAPP_RELEASE_STORE_FILE)
+            storePassword MYAPP_RELEASE_STORE_PASSWORD
+            keyAlias MYAPP_RELEASE_KEY_ALIAS
+            keyPassword MYAPP_RELEASE_KEY_PASSWORD
         }
     }
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
-            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     // applicationVariants are e.g. debug, release
@@ -119,22 +133,32 @@ android {
 
 repositories {
     mavenCentral()
-    /*maven { url "https://jitpack.io" }*/
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
-    compile "com.facebook.react:react-native:0.20.+"
+    compile "com.facebook.react:react-native:+"
     compile project(':react-native-facebook-login')
     compile project(':ReactNativeLocalization')
     compile project(':react-native-android-statusbar')
     compile project(':react-native-vector-icons')
     compile project(':RNMaterialKit')
-    /*compile project(':react-native-dialogs')*/
-    compile 'com.google.android.gms:play-services-gcm:8.3.0'
+    compile project(':react-native-dialogs')
+    compile 'com.google.android.gms:play-services:8.3.0'
     compile project(':RNGcmAndroid')
     compile project(':react-native-system-notification')
+    compile project(':react-native-share')
+    compile 'com.android.support:multidex:1.0.0'
+    compile project(':react-native-gmaps')
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+// Run this once to be able to run the application with BUCK
+// puts all compile dependencies into folder libs for BUCK to use
+task copyDownloadableDepsToLibs(type: Copy) {
+    from configurations.compile
+    into 'libs'
+}
